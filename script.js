@@ -191,6 +191,15 @@ function animateCounter(el) {
 
 // ===== ALL INIT ON DOM READY =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize AOS
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out-cubic',
+      once: false
+    });
+  }
+
   // Translations
   updateTranslations();
   document.getElementById('langSwitch').querySelectorAll('button').forEach(btn => {
