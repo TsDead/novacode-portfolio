@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVACODE | Разработка — Telegram-боты, лендинги, игры на Unity</title>
+    <meta name="description" content="NOVACODE — портфолио разработчика. Telegram-боты, лендинги под ключ, AI-генераторы и собственная игра на Unity (психологический хоррор). Разработка за дни.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ЯНДЕКС.МЕТРИКА — ЗАМЕНИТЕ XXXXXXXX НА СВОЙ ID -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(XXXXXXXX, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/XXXXXXXX" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container nav__inner">
+            <a href="#hero" class="logo">
+                <span class="logo__brackets">&lt;</span>
+                <span class="logo__text" data-i18n="brand">NOVACODE</span>
+                <span class="logo__brackets">/&gt;</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="#services" data-i18n="nav.services">Услуги</a></li>
+                <li><a href="#projects" data-i18n="nav.projects">Проекты</a></li>
+                <li><a href="#gamedev" data-i18n="nav.gamedev">Gamedev</a></li>
+                <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
+            </ul>
+            <div class="nav__actions">
+                <div class="lang-switch" id="langSwitch">
+                    <button class="lang-switch__btn lang-switch__btn--active" data-lang="ru">RU</button>
+                    <button class="lang-switch__btn" data-lang="en">EN</button>
+                </div>
+                <a href="https://t.me/n0vacode" target="_blank" rel="noopener" class="nav__cta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.1.154.234.17.331.015.099.034.324.019.5z"/></svg>
+                    <span data-i18n="nav.cta">Связаться</span>
+                </a>
+                <button class="burger" id="burger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#services" data-i18n="nav.services">Услуги</a>
+            <a href="#projects" data-i18n="nav.projects">Проекты</a>
+            <a href="#gamedev" data-i18n="nav.gamedev">Gamedev</a>
+            <a href="#faq" data-i18n="nav.faq">FAQ</a>
+            <a href="#contact" data-i18n="nav.contact">Контакты</a>
+            <a href="https://t.me/n0vacode" class="mobile-menu__cta" data-i18n="nav.cta">Связаться</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="container hero__container">
+            <div class="hero__badge" data-aos="fade-down">
+                <span class="hero__badge-dot"></span>
+                <span data-i18n="hero.badge">Открыт для проектов · 2025</span>
+            </div>
+            <h1 class="hero__title" data-aos="fade-up">
+                <span data-i18n="hero.title1">Превращаю идеи</span>
+                <span class="hero__gradient" data-i18n="hero.title2">в AI-продукты</span>
+                <br>
+                <span data-i18n="hero.title3">за дни, не месяцы</span>
+            </h1>
+            <p class="hero__subtitle" data-aos="fade-up" data-aos-delay="100" data-i18n="hero.subtitle">
+                Telegram-боты с AI, лендинги под ключ, генераторы контента для маркетплейсов. Полный цикл: от идеи до запуска.
+            </p>
+            <div class="hero__buttons" data-aos="fade-up" data-aos-delay="200">
+                <a href="#projects" class="btn btn--primary" data-ym="hero_cta_projects">
+                    <span data-i18n="hero.cta1">Смотреть кейсы</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="https://t.me/n0vacode" target="_blank" rel="noopener" class="btn btn--cta" data-ym="hero_cta_telegram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.1.154.234.17.331.015.099.034.324.019.5z"/></svg>
+                    <span data-i18n="hero.cta2">Написать в Telegram</span>
+                </a>
+            </div>
+            <div class="hero__stats" data-aos="fade-up" data-aos-delay="300">
+                <div class="hero__stat">
+                    <div class="hero__stat-num" data-count="5">0</div>
+                    <div class="hero__stat-label" data-i18n="hero.stat1Label">проектов сдано</div>
+                </div>
+                <div class="hero__stat">
+                    <div class="hero__stat-num">24/7</div>
+                    <div class="hero__stat-label" data-i18n="hero.stat2Label">боты на связи</div>
+                </div>
+                <div class="hero__stat">
+                    <div class="hero__stat-num">5 дней</div>
+                    <div class="hero__stat-label" data-i18n="hero.stat3Label">средний срок</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__scroll" aria-hidden="true">
+            <span data-i18n="hero.scroll">Scroll</span>
+            <div class="hero__scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section__head">
+                <span class="eyebrow" data-i18n="services.eyebrow">// Что я делаю</span>
+                <h2 class="section__title" data-i18n="services.title">Собираю продукты,<br>которые <span class="text-accent">приносят деньги</span></h2>
+                <p class="section__lead" data-i18n="services.lead">Не «сайт ради сайта», а инструмент, который решает конкретную задачу бизнеса — от заявки до автоматизации.</p>
+            </div>
+            <div class="services-grid">
+                <article class="service-card" data-aos="fade-up">
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>
+                    </div>
+                    <h3 class="service-card__title" data-i18n="services.s1Title">Боты и мини-приложения</h3>
+                    <p class="service-card__text" data-i18n="services.s1Text">Магазины и запись внутри Telegram, приём заявок и оплат, интеграции с CRM и Google Sheets. Работает 24/7 без вас.</p>
+                    <div class="service-card__tags"><span>Telegram</span><span>aiogram</span><span>FastAPI</span></div>
+                </article>
+                <article class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3 class="service-card__title" data-i18n="services.s2Title">Сайты и лендинги</h3>
+                    <p class="service-card__text" data-i18n="services.s2Text">Быстрые страницы с калькуляторами, анимацией и формами, которые реально конвертят посетителя в заявку. Адаптив и мультиязычность из коробки.</p>
+                    <div class="service-card__tags"><span>React</span><span>HTML/CSS</span><span>WordPress</span></div>
+                </article>
+                <article class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3 class="service-card__title" data-i18n="services.s3Title">Автоматизация и AI</h3>
+                    <p class="service-card__text" data-i18n="services.s3Text">Убираю ручную рутину: парсинг, генерация карточек и описаний для маркетплейсов, обработка данных. То, что человек делает за час — за секунды.</p>
+                    <div class="service-card__tags"><span>Python</span><span>AI</span><span>Парсинг</span></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects (краткая версия из исходного файла) -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section__head">
+                <span class="eyebrow" data-i18n="projects.eyebrow">// Портфолио</span>
+                <h2 class="section__title" data-i18n="projects.title">Избранные <span class="text-accent">кейсы</span></h2>
+                <p class="section__lead" data-i18n="projects.lead">Готовые решения для бизнеса</p>
+            </div>
+            <div class="projects-grid">
+
+                <!-- Project: YFB Store — Telegram Mini App -->
+                <article class="project-card project-card--featured" data-aos="fade-up">
+                    <div class="project-card__visual project-card__visual--wide">
+                        <div class="project-card__cover">
+                            <svg class="cover__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+                            <div class="cover__label">FastAPI · aiogram · React</div>
+                        </div>
+                        <div class="project-card__status project-card__status--live">
+                            <span class="status-dot status-dot--live"></span>
+                            <span data-i18n="projects.p5Status">Live · В продакшене</span>
+                        </div>
+                        <a href="https://t.me/YFBstore_bot" target="_blank" rel="noopener" class="project-card__live-link" data-ym="project_yfb_bot">
+                            <span data-i18n="projects.p5Link">Открыть магазин</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                    </div>
+                    <div class="project-card__body">
+                        <div class="project-card__meta">
+                            <span data-i18n="projects.p5Meta1">Telegram Mini App</span><span>·</span>
+                            <span data-i18n="projects.p5Meta2">E-commerce</span><span>·</span>
+                            <span>Full-Stack</span>
+                        </div>
+                        <h3 class="project-card__title" data-i18n="projects.p5Title">YFB Store — магазин одежды в Telegram</h3>
+                        <p class="project-card__text" data-i18n="projects.p5Text">Полноценный интернет-магазин внутри Telegram: каталог с фото, карточки товаров, корзина, оформление заказа и доставка. Товары автоматически подтягиваются из канала продавца.</p>
+                        <div class="project-card__highlights">
+                            <div class="highlight"><div class="highlight__num">110</div><div class="highlight__label" data-i18n="projects.p5H1Label">авто-тестов</div></div>
+                            <div class="highlight"><div class="highlight__num">Каталог</div><div class="highlight__label" data-i18n="projects.p5H2Label">парсинг канала</div></div>
+                            <div class="highlight"><div class="highlight__num">СДЭК</div><div class="highlight__label" data-i18n="projects.p5H3Label">доставка</div></div>
+                            <div class="highlight"><div class="highlight__num">24/7</div><div class="highlight__label" data-i18n="projects.p5H4Label">в проде</div></div>
+                        </div>
+                        <ul class="project-card__features">
+                            <li data-i18n="projects.p5F1">Каталог с поиском и категориями (работает с кириллицей)</li>
+                            <li data-i18n="projects.p5F2">Авто-парсинг товаров из канала продавца</li>
+                            <li data-i18n="projects.p5F3">Корзина, оформление, интеграция СДЭК / Яндекс Доставки</li>
+                            <li data-i18n="projects.p5F4">Деплой в Docker на Amvera, 110 автотестов</li>
+                        </ul>
+                        <div class="project-card__footer">
+                            <div>
+                                <div class="project-card__price project-card__price--gold" data-i18n="projects.p5Price">По запросу</div>
+                                <span class="project-card__price-label" data-i18n="projects.p5PriceLabel">коммерческий проект</span>
+                            </div>
+                            <a href="https://t.me/n0vacode" target="_blank" rel="noopener" class="project-card__btn project-card__btn--cta" data-ym="project_yfb_order">
+                                <span data-i18n="projects.orderBtn">Заказать такой же</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gamedev -->
+    <section class="section" id="gamedev">
+        <div class="container">
+            <div class="section__head">
+                <span class="eyebrow" data-i18n="gamedev.eyebrow">// Личный проект</span>
+                <h2 class="section__title" data-i18n="gamedev.title">Разработка игры на <span class="text-accent">Unity</span></h2>
+                <p class="section__lead" data-i18n="gamedev.lead">Помимо коммерческой разработки — делаю собственную игру. Полный цикл: геймдизайн, код на C#, системный дизайн и оптимизация.</p>
+            </div>
+            <div class="projects-grid">
+                <article class="project-card project-card--featured" data-aos="fade-up">
+                    <div class="project-card__visual project-card__visual--wide">
+                        <div class="project-card__cover project-card__cover--horror">
+                            <svg class="cover__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4"/><circle cx="15.5" cy="10.5" r="1"/><circle cx="18" cy="13" r="1"/><path d="M17.5 5A5.5 5.5 0 0 1 23 10.5c0 2-.8 4.5-2.5 4.5-1.3 0-2-1-3-1H8.5c-1 0-1.7 1-3 1C2.8 15 2 12.5 2 10.5A5.5 5.5 0 0 1 7.5 5z"/></svg>
+                            <div class="cover__label">Unity 6 · C#</div>
+                        </div>
+                        <div class="project-card__status project-card__status--live">
+                            <span class="status-dot status-dot--live"></span>
+                            <span data-i18n="gamedev.status">В разработке</span>
+                        </div>
+                    </div>
+                    <div class="project-card__body">
+                        <span class="gamedev-badge" data-i18n="gamedev.badge">🎮 Психологический хоррор</span>
+                        <div class="project-card__meta">
+                            <span data-i18n="gamedev.meta1">Unity 6000.5</span><span>·</span>
+                            <span>C#</span><span>·</span>
+                            <span data-i18n="gamedev.meta3">Built-in RP</span>
+                        </div>
+                        <h3 class="project-card__title" data-i18n="gamedev.gTitle">Obsession of Fear — атмосферный хоррор</h3>
+                        <p class="project-card__text" data-i18n="gamedev.gText">Психологический хоррор без дешёвых скримеров: напряжение строится на атмосфере, звуке и состоянии психики героя. Внутри — экономика крафта, реактивное окружение и несколько концовок.</p>
+                        <div class="project-card__highlights">
+                            <div class="highlight"><div class="highlight__num">∞</div><div class="highlight__label" data-i18n="gamedev.h1Label">открытый цикл</div></div>
+                            <div class="highlight"><div class="highlight__num">0</div><div class="highlight__label" data-i18n="gamedev.h2Label">дешёвых скримеров</div></div>
+                            <div class="highlight"><div class="highlight__num">12+</div><div class="highlight__label" data-i18n="gamedev.h3Label">систем и механик</div></div>
+                            <div class="highlight"><div class="highlight__num">C#</div><div class="highlight__label" data-i18n="gamedev.h4Label">своя логика</div></div>
+                        </div>
+                        <ul class="project-card__features">
+                            <li data-i18n="gamedev.f1">Экономика крафта: варка → продажа через внутриигровой ПК-мессенджер</li>
+                            <li data-i18n="gamedev.f2">Цикл день↔ночь: ночные отключения энергии и ручной фонарик</li>
+                            <li data-i18n="gamedev.f3">Реактивный дом — событийная система, реагирующая на состояние игрока</li>
+                            <li data-i18n="gamedev.f4">Несколько концовок в зависимости от рассудка и раскрытой правды</li>
+                        </ul>
+                        <div class="project-card__tech">
+                            <span>Unity 6000.5</span><span>C#</span><span>Game Design</span><span>Audio</span><span>Optimization</span><span>Save System</span>
+                        </div>
+                        <div class="project-card__footer">
+                            <p class="gamedev-role" data-i18n="gamedev.role"><strong>Роль:</strong> геймдизайн, программирование (C#), системный дизайн, сборка и оптимизация.</p>
+                            <a href="#contact" class="project-card__btn project-card__btn--cta">
+                                <span data-i18n="gamedev.cta">Обсудить</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- How I Work -->
+    <section class="section how-i-work" id="howIWork">
+        <div class="container">
+            <div class="section__head">
+                <span class="eyebrow" data-i18n="workflow.eyebrow">// Процесс</span>
+                <h2 class="section__title" data-i18n="workflow.title">Как я <span class="text-accent">работаю</span></h2>
+                <p class="section__lead" data-i18n="workflow.lead">Структурированный подход от идеи к запуску</p>
+            </div>
+            <div class="workflow-steps">
+                <div class="workflow-step" data-aos="fade-up">
+                    <div class="workflow-step__number">01</div>
+                    <div class="workflow-step__marker"></div>
+                    <h3 class="workflow-step__title" data-i18n="workflow.step1Title">Обсуждение & аналитика</h3>
+                    <p class="workflow-step__text" data-i18n="workflow.step1Text">Уточняю требования, рисую архитектуру, согласую сроки и бюджет. Вы знаете точно, что и когда получите.</p>
+                    <ul class="workflow-step__list">
+                        <li data-i18n="workflow.step1L1">Техническое задание</li>
+                        <li data-i18n="workflow.step1L2">Смета и сроки</li>
+                        <li data-i18n="workflow.step1L3">API и интеграции</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="workflow-step__number">02</div>
+                    <div class="workflow-step__marker"></div>
+                    <h3 class="workflow-step__title" data-i18n="workflow.step2Title">Разработка & тесты</h3>
+                    <p class="workflow-step__text" data-i18n="workflow.step2Text">Пишу чистый код, автоматизирую тесты, интегрирую с вашими системами. Еженедельные демо и правки по факту.</p>
+                    <ul class="workflow-step__list">
+                        <li data-i18n="workflow.step2L1">Git + code review</li>
+                        <li data-i18n="workflow.step2L2">Авто-тесты и CI/CD</li>
+                        <li data-i18n="workflow.step2L3">Демо-версии</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="workflow-step__number">03</div>
+                    <div class="workflow-step__marker"></div>
+                    <h3 class="workflow-step__title" data-i18n="workflow.step3Title">Запуск & поддержка</h3>
+                    <p class="workflow-step__text" data-i18n="workflow.step3Text">Помогаю с деплоем, настройкой мониторинга, документацией. 14 дней бесплатной поддержки — все баги и вопросы.</p>
+                    <ul class="workflow-step__list">
+                        <li data-i18n="workflow.step3L1">Деплой на продакшен</li>
+                        <li data-i18n="workflow.step3L2">Документация</li>
+                        <li data-i18n="workflow.step3L3">14 дней поддержки</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section__head">
+                <span class="eyebrow" data-i18n="faq.eyebrow">// FAQ</span>
+                <h2 class="section__title" data-i18n="faq.title">Частые <span class="text-accent">вопросы</span></h2>
+                <p class="section__lead" data-i18n="faq.lead">Ответы на то, что спрашивают чаще всего</p>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item" data-aos="fade-up">
+                    <summary class="faq-item__question">
+                        <span data-i18n="faq.q1">Сколько стоит Telegram-бот?</span>
+                        <span class="faq-item__icon"></span>
+                    </summary>
+                    <div class="faq-item__answer" data-i18n="faq.a1">Готовые — от 3 500 ₽. Уникальный — от 15 000 ₽.</div>
+                </details>
+
+                <details class="faq-item" data-aos="fade-up" data-aos-delay="50">
+                    <summary class="faq-item__question">
+                        <span data-i18n="faq.q2">Сроки разработки лендинга?</span>
+                        <span class="faq-item__icon"></span>
+                    </summary>
+                    <div class="faq-item__answer" data-i18n="faq.a2">Простой — 3-5 дней. Премиум — 5-10 дней.</div>
+                </details>
+
+                <details class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <summary class="faq-item__question">
+                        <span data-i18n="faq.q3">Можно доработать готового бота?</span>
+                        <span class="faq-item__icon"></span>
+                    </summary>
+                    <div class="faq-item__answer" data-i18n="faq.a3">Да. Любая сложность.</div>
+                </details>
+
+                <details class="faq-item" data-aos="fade-up" data-aos-delay="150">
+                    <summary class="faq-item__question">
+                        <span data-i18n="faq.q4">Как происходит оплата?</span>
+                        <span class="faq-item__icon"></span>
+                    </summary>
+                    <div class="faq-item__answer" data-i18n="faq.a4">50% до начала, 50% после сдачи.</div>
+                </details>
+
+                <details class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <summary class="faq-item__question">
+                        <span data-i18n="faq.q5">Поддержка после сдачи?</span>
+                        <span class="faq-item__icon"></span>
+                    </summary>
+                    <div class="faq-item__answer" data-i18n="faq.a5">14 дней бесплатно.</div>
+                </details>
+
+                <details class="faq-item" data-aos="fade-up" data-aos-delay="250">
+                    <summary class="faq-item__question">
+                        <span data-i18n="faq.q6">Покажете примеры?</span>
+                        <span class="faq-item__icon"></span>
+                    </summary>
+                    <div class="faq-item__answer" data-i18n="faq.a6">Конечно. В разделе «Проекты».</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section__head">
+                <span class="eyebrow" data-i18n="contact.eyebrow">// Контакты</span>
+                <h2 class="section__title" data-i18n="contact.title">Обсудим <span class="text-accent">ваш проект?</span></h2>
+                <p class="section__lead" data-i18n="contact.lead">Отвечаю в течение дня.</p>
+            </div>
+            <div class="cta-section">
+                <div class="cta-links">
+                    <a href="https://t.me/n0vacode" target="_blank" rel="noopener" class="cta-contact" data-ym="contact_telegram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.1.154.234.17.331.015.099.034.324.019.5z"/></svg>
+                        <div><div class="cta-contact__label" data-i18n="contact.tgLabel">Написать в Telegram</div><div class="cta-contact__value">@n0vacode</div></div>
+                    </a>
+                    <a href="tel:+79105650340" class="cta-contact" data-ym="contact_phone">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <div><div class="cta-contact__label" data-i18n="contact.phoneLabel">Позвонить</div><div class="cta-contact__value">+7 (910) 565-03-40</div></div>
+                    </a>
+                    <a href="mailto:stepchikcrypto@gmail.com" class="cta-contact" data-ym="contact_email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <div><div class="cta-contact__label" data-i18n="contact.emailLabel">Email</div><div class="cta-contact__value">stepchikcrypto@gmail.com</div></div>
+                    </a>
+                    <a href="https://t.me/red_vent" target="_blank" rel="noopener" class="cta-contact" data-ym="contact_channel">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.1.154.234.17.331.015.099.034.324.019.5z"/></svg>
+                        <div><div class="cta-contact__label" data-i18n="contact.channelLabel">Личный канал</div><div class="cta-contact__value">@red_vent</div></div>
+                    </a>
+                </div>
+                <form class="cta-form" id="contactForm" action="https://formspree.io/f/xnjknbdw" method="POST">
+                    <h3 class="cta-form__title" data-i18n="contact.formTitle">Или оставьте заявку</h3>
+                    <div class="form-group"><label data-i18n="contact.formName">Имя</label><input type="text" name="name" required placeholder="Иван"></div>
+                    <div class="form-group"><label data-i18n="contact.formContact">Телефон или Telegram</label><input type="text" name="contact" required placeholder="+7 или @username"></div>
+                    <div class="form-group"><label data-i18n="contact.formMessage">О проекте</label><textarea name="message" required placeholder="Telegram-бот / лендинг / AI-генератор..."></textarea></div>
+                    <button type="submit" class="btn btn--cta btn--block" id="submitBtn" data-ym="form_submit">
+                        <span data-i18n="contact.formSubmit">Отправить заявку</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </button>
+                    <p class="form-note" data-i18n="contact.formNote">Отвечу в течение дня · Без спама</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__col">
+                <a href="#hero" class="logo logo--footer">
+                    <span class="logo__brackets">&lt;</span>
+                    <span class="logo__text" data-i18n="brand">NOVACODE</span>
+                    <span class="logo__brackets">/&gt;</span>
+                </a>
+                <p class="footer__about" data-i18n="footer.about">AI-разработка для бизнеса. Telegram-боты, лендинги, автоматизация.</p>
+            </div>
+            <div class="footer__col">
+                <h4 data-i18n="footer.servicesTitle">Услуги</h4>
+                <a href="#services" data-i18n="footer.s1">AI-боты</a>
+                <a href="#services" data-i18n="footer.s2">Лендинги</a>
+                <a href="#services" data-i18n="footer.s3">AI-генераторы</a>
+                <a href="#gamedev" data-i18n="footer.s4">Игры на Unity</a>
+            </div>
+            <div class="footer__col">
+                <h4 data-i18n="footer.contactTitle">Связь</h4>
+                <a href="https://t.me/n0vacode" target="_blank" rel="noopener">@n0vacode</a>
+                <a href="https://t.me/red_vent" target="_blank" rel="noopener" data-i18n="footer.channel">Личный канал · @red_vent</a>
+                <a href="tel:+79105650340">+7 (910) 565-03-40</a>
+                <a href="mailto:stepchikcrypto@gmail.com">stepchikcrypto@gmail.com</a>
+            </div>
+        </div>
+        <div class="container footer__bottom">
+            <span data-i18n="footer.copy">© 2025 NOVACODE.</span>
+            <span data-i18n="footer.made">Сделано с ❤ в NOVACODE</span>
+        </div>
+    </footer>
+
+    <!-- Telegram Widget -->
+    <a href="https://t.me/n0vacode" target="_blank" rel="noopener" class="tg-widget" id="tgWidget" data-ym="tg_widget_click">
+        <span class="tg-widget__pulse"></span>
+        <span class="tg-widget__pulse tg-widget__pulse--delay"></span>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.1.154.234.17.331.015.099.034.324.019.5z"/></svg>
+        <span class="tg-widget__tooltip" data-i18n="widget.tooltip">Написать в Telegram</span>
+    </a>
+
+    <!-- Scroll Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Наверх">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
