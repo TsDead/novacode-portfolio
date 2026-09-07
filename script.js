@@ -171,23 +171,10 @@ function updateTranslations() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  updateTranslations();
-  document.getElementById('langSwitch').querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentLang = btn.getAttribute('data-lang');
-      localStorage.setItem('lang', currentLang);
-      document.getElementById('langSwitch').querySelectorAll('button').forEach(b => b.classList.remove('lang-switch__btn--active'));
-      btn.classList.add('lang-switch__btn--active');
-      updateTranslations();
-    });
-  });
-});
-
-// Counter animation for hero stats
 function animateCounter(el) {
   const target = parseInt(el.getAttribute('data-count'));
-  if (!target) return;
+  if (!target || el.dataset.animated) return;
+  el.dataset.animated = 'true';
   
   let current = 0;
   const increment = Math.ceil(target / 30);
@@ -202,8 +189,21 @@ function animateCounter(el) {
   }, 50);
 }
 
-// Animate counters when in view
+// ===== ALL INIT ON DOM READY =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Translations
+  updateTranslations();
+  document.getElementById('langSwitch').querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentLang = btn.getAttribute('data-lang');
+      localStorage.setItem('lang', currentLang);
+      document.getElementById('langSwitch').querySelectorAll('button').forEach(b => b.classList.remove('lang-switch__btn--active'));
+      btn.classList.add('lang-switch__btn--active');
+      updateTranslations();
+    });
+  });
+
+  // Counter animation with IntersectionObserver
   const observerOptions = { threshold: 0.3 };
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -213,91 +213,102 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, observerOptions);
-
   document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
-});
 
-// Scroll progress
-const scrollProgress = document.getElementById('scrollProgress');
-window.addEventListener('scroll', () => {
-  const height = document.documentElement.scrollHeight - window.innerHeight;
-  scrollProgress.style.width = (window.scrollY / height) * 100 + '%';
-});
-
-// Navigation
-const nav = document.getElementById('nav');
-const burger = document.getElementById('burger');
-const mobileMenu = document.getElementById('mobileMenu');
-
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 20) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
+  // Scroll progress
+  const scrollProgress = document.getElementById('scrollProgress');
+  if (scrollProgress) {
+    window.addEventListener('scroll', () => {
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress.style.width = (window.scrollY / height) * 100 + '%';
+    });
   }
-});
 
-burger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('active');
-  burger.classList.toggle('active');
-});
+  // Navigation
+  const nav = document.getElementById('nav');
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
 
-mobileMenu.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('active');
-    burger.classList.remove('active');
-  });
-});
-
-// Smooth scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-
-// Scroll to top
-const scrollTop = document.getElementById('scrollTop');
-window.addEventListener('scroll', () => {
-  scrollTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
-});
-scrollTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Form submission
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    setTimeout(() => {
-      contactForm.submit();
-    }, 100);
-  });
-}
-
-// Telegram widget show on scroll
-const tgWidget = document.getElementById('tgWidget');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 400) {
-    tgWidget.style.opacity = '1';
-    tgWidget.style.pointerEvents = 'auto';
-  } else {
-    tgWidget.style.opacity = '0.3';
-    tgWidget.style.pointerEvents = 'none';
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
   }
-});
 
-// Analytics events
-document.querySelectorAll('[data-ym]').forEach(el => {
-  el.addEventListener('click', (e) => {
-    const event = el.getAttribute('data-ym');
-    if (typeof ym !== 'undefined') {
-      ym(XXXXXXXX, 'reachGoal', event);
-    }
+  if (burger) {
+    burger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      burger.classList.toggle('active');
+    });
+  }
+
+  if (mobileMenu) {
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        burger.classList.remove('active');
+      });
+    });
+  }
+
+  // Smooth scrolling
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Scroll to top
+  const scrollTop = document.getElementById('scrollTop');
+  if (scrollTop) {
+    window.addEventListener('scroll', () => {
+      scrollTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    });
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Form submission
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      setTimeout(() => {
+        contactForm.submit();
+      }, 100);
+    });
+  }
+
+  // Telegram widget
+  const tgWidget = document.getElementById('tgWidget');
+  if (tgWidget) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        tgWidget.style.opacity = '1';
+        tgWidget.style.pointerEvents = 'auto';
+      } else {
+        tgWidget.style.opacity = '0.3';
+        tgWidget.style.pointerEvents = 'none';
+      }
+    });
+  }
+
+  // Analytics events
+  document.querySelectorAll('[data-ym]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const event = el.getAttribute('data-ym');
+      if (typeof ym !== 'undefined') {
+        ym(XXXXXXXX, 'reachGoal', event);
+      }
+    });
   });
 });
