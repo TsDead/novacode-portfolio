@@ -152,6 +152,9 @@ ul { list-style: none; }
 @keyframes shimmer { to { background-position: 200% center; } }
 .hero__subtitle { font-size: clamp(16px, 2vw, 20px); color: var(--text-secondary); max-width: 600px; margin: 0 auto 48px; line-height: 1.7; }
 .hero__buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 80px; }
+.hero__cube { width: 300px; height: 300px; margin: 60px auto 40px; cursor: grab; perspective: 1200px; }
+.hero__cube canvas { display: block; width: 100% !important; height: 100% !important; }
+.hero__cube:active { cursor: grabbing; }
 .hero__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 600px; margin: 0 auto; padding-top: 48px; border-top: 1px solid var(--border); }
 .hero__stat-num { font-size: clamp(24px, 3vw, 36px); font-weight: 800; background: linear-gradient(135deg, var(--text-primary), var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.02em; margin-bottom: 4px; }
 .hero__stat-label { font-size: 13px; color: var(--text-secondary); }

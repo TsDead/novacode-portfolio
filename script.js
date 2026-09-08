@@ -320,4 +320,183 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // 3D Cube (Three.js)
+  const cubeContainer = document.getElementById('cubeContainer');
+  if (cubeContainer && typeof THREE !== 'undefined') {
+    initializeCube(cubeContainer);
+  }
 });
+
+// 3D Cube Function
+function initializeCube(container) {
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  // Scene setup
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x000000, 0);
+  container.appendChild(renderer.domElement);
+
+  camera.position.z = 2.5;
+
+  // Create cube with faces
+  const geometry = new THREE.BoxGeometry(2, 2, 2);
+  
+  // Create canvas textures for each face
+  const textures = createCubeTextures();
+  const materials = textures.map(texture => 
+    new THREE.MeshPhongMaterial({ 
+      map: texture,
+      emissive: 0x333333,
+      shininess: 100
+    })
+  );
+
+  const cube = new THREE.Mesh(geometry, materials);
+  scene.add(cube);
+
+  // Lighting
+  const light1 = new THREE.DirectionalLight(0xffffff, 0.8);
+  light1.position.set(5, 5, 5);
+  scene.add(light1);
+
+  const light2 = new THREE.DirectionalLight(0xC9A25B, 0.4);
+  light2.position.set(-5, -5, 5);
+  scene.add(light2);
+
+  const ambientLight = new THREE.AmbientLight(0x888888, 0.6);
+  scene.add(ambientLight);
+
+  // Mouse tracking
+  let mouseX = 0, mouseY = 0;
+  let targetRotationX = 0, targetRotationY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    targetRotationY = mouseX * 0.5;
+    targetRotationX = mouseY * 0.5;
+  });
+
+  // Click to scroll to projects
+  container.addEventListener('click', () => {
+    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Add tooltip
+  const tooltip = document.createElement('div');
+  tooltip.style.cssText = `
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  `;
+  tooltip.textContent = '↻ Крути мышью • Клик = проекты';
+  container.parentElement.style.position = 'relative';
+  container.parentElement.appendChild(tooltip);
+
+  container.addEventListener('mouseenter', () => {
+    tooltip.style.opacity = '1';
+  });
+  container.addEventListener('mouseleave', () => {
+    tooltip.style.opacity = '0';
+  });
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // Smooth rotation
+    cube.rotation.x += (targetRotationX - cube.rotation.x) * 0.05;
+    cube.rotation.y += (targetRotationY - cube.rotation.y) * 0.05;
+
+    // Auto-rotate when mouse not moving
+    if (Math.abs(mouseX) < 0.01 && Math.abs(mouseY) < 0.01) {
+      cube.rotation.y += 0.003;
+    }
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    const newWidth = container.clientWidth;
+    const newHeight = container.clientHeight;
+    camera.aspect = newWidth / newHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(newWidth, newHeight);
+  });
+}
+
+// Create textures for cube faces
+function createCubeTextures() {
+  const size = 512;
+  const textures = [];
+  
+  const labels = ['БОТЫ', 'САЙТЫ', 'AI', 'CODE', 'UNITY', 'DEPLOY'];
+  const colors = ['#C9A25B', '#B5613A', '#C9A25B', '#5EB3D6', '#7B68EE', '#C9A25B'];
+
+  labels.forEach((label, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    // Background
+    const bgColor = colors[i];
+    ctx.fillStyle = bgColor + '22';
+    ctx.fillRect(0, 0, size, size);
+
+    // Border
+    ctx.strokeStyle = bgColor;
+    ctx.lineWidth = 4;
+    ctx.strokeRect(8, 8, size - 16, size - 16);
+
+    // Text
+    ctx.fillStyle = bgColor;
+    ctx.font = 'bold 72px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, size / 2, size / 2 - 60);
+
+    // Sub-text
+    ctx.font = '24px Inter, sans-serif';
+    ctx.fillStyle = bgColor + 'cc';
+    const subTexts = [
+      'Telegram\nMini Apps',
+      'Лендинги\nи сайты',
+      'Генерация\nконтента',
+      'Полный\nцикл',
+      'C# на\nUnity',
+      'На\nпродакшене'
+    ];
+    ctx.fillText(subTexts[i], size / 2, size / 2 + 80);
+
+    // Glow effect
+    ctx.shadowColor = bgColor;
+    ctx.shadowBlur = 20;
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.magFilter = THREE.LinearFilter;
+    texture.minFilter = THREE.LinearFilter;
+    textures.push(texture);
+  });
+
+  return textures;
+}
