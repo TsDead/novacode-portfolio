@@ -373,15 +373,15 @@ function initializeCube(container) {
   const ambientLight = new THREE.AmbientLight(0x888888, 0.6);
   scene.add(ambientLight);
 
-  // Mouse tracking
+  // Mouse tracking - INCREASED SENSITIVITY
   let mouseX = 0, mouseY = 0;
   let targetRotationX = 0, targetRotationY = 0;
 
   document.addEventListener('mousemove', (e) => {
     mouseX = (e.clientX / window.innerWidth) * 2 - 1;
     mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-    targetRotationY = mouseX * 0.5;
-    targetRotationX = mouseY * 0.5;
+    targetRotationY = mouseX * 1.2;  // Увеличил с 0.5 до 1.2
+    targetRotationX = mouseY * 1.2;  // Увеличил с 0.5 до 1.2
   });
 
   // Click to scroll to projects
@@ -406,7 +406,7 @@ function initializeCube(container) {
     transition: opacity 0.3s;
     white-space: nowrap;
   `;
-  tooltip.textContent = '↻ Крути мышью • Клик = проекты';
+  tooltip.textContent = '↻ Крути • Клик → проекты';
   container.parentElement.style.position = 'relative';
   container.parentElement.appendChild(tooltip);
 
@@ -417,17 +417,17 @@ function initializeCube(container) {
     tooltip.style.opacity = '0';
   });
 
-  // Animation loop
+  // Animation loop with FASTER rotation
   function animate() {
     requestAnimationFrame(animate);
 
-    // Smooth rotation
-    cube.rotation.x += (targetRotationX - cube.rotation.x) * 0.05;
-    cube.rotation.y += (targetRotationY - cube.rotation.y) * 0.05;
+    // Smooth rotation - FASTER LERP
+    cube.rotation.x += (targetRotationX - cube.rotation.x) * 0.12;  // Увеличил с 0.05 до 0.12
+    cube.rotation.y += (targetRotationY - cube.rotation.y) * 0.12;  // Увеличил с 0.05 до 0.12
 
-    // Auto-rotate when mouse not moving
+    // Auto-rotate when mouse not moving - FASTER auto-rotate
     if (Math.abs(mouseX) < 0.01 && Math.abs(mouseY) < 0.01) {
-      cube.rotation.y += 0.003;
+      cube.rotation.y += 0.008;  // Увеличил с 0.003 до 0.008
     }
 
     renderer.render(scene, camera);
@@ -449,48 +449,88 @@ function createCubeTextures() {
   const size = 512;
   const textures = [];
   
-  const labels = ['БОТЫ', 'САЙТЫ', 'AI', 'CODE', 'UNITY', 'DEPLOY'];
-  const colors = ['#C9A25B', '#B5613A', '#C9A25B', '#5EB3D6', '#7B68EE', '#C9A25B'];
+  const faces = [
+    {
+      label: 'БОТЫ',
+      sub: 'Telegram\nMini Apps',
+      gradient: ['#C9A25B', '#D4B56F'],
+      glow: '#C9A25B'
+    },
+    {
+      label: 'САЙТЫ',
+      sub: 'Лендинги\nи сайты',
+      gradient: ['#B5613A', '#D4845F'],
+      glow: '#B5613A'
+    },
+    {
+      label: 'AI',
+      sub: 'Генерация\nконтента',
+      gradient: ['#7B68EE', '#9F7FFF'],
+      glow: '#7B68EE'
+    },
+    {
+      label: 'CODE',
+      sub: 'Полный\nцикл',
+      gradient: ['#5EB3D6', '#7ECDE8'],
+      glow: '#5EB3D6'
+    },
+    {
+      label: 'UNITY',
+      sub: 'C# на\nUnity',
+      gradient: ['#FF6B9D', '#FF8FBA'],
+      glow: '#FF6B9D'
+    },
+    {
+      label: 'DEPLOY',
+      sub: 'На\nпродакшене',
+      gradient: ['#C9A25B', '#9DCCCC'],
+      glow: '#C9A25B'
+    }
+  ];
 
-  labels.forEach((label, i) => {
+  faces.forEach((face, i) => {
     const canvas = document.createElement('canvas');
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext('2d');
 
-    // Background
-    const bgColor = colors[i];
-    ctx.fillStyle = bgColor + '22';
+    // Gradient background
+    const grad = ctx.createLinearGradient(0, 0, size, size);
+    grad.addColorStop(0, face.gradient[0] + '33');
+    grad.addColorStop(1, face.gradient[1] + '33');
+    ctx.fillStyle = grad;
     ctx.fillRect(0, 0, size, size);
 
-    // Border
-    ctx.strokeStyle = bgColor;
-    ctx.lineWidth = 4;
+    // Gradient border
+    const borderGrad = ctx.createLinearGradient(0, 0, size, 0);
+    borderGrad.addColorStop(0, face.gradient[0] + '00');
+    borderGrad.addColorStop(0.5, face.gradient[1]);
+    borderGrad.addColorStop(1, face.gradient[0] + '00');
+    ctx.strokeStyle = borderGrad;
+    ctx.lineWidth = 6;
     ctx.strokeRect(8, 8, size - 16, size - 16);
 
+    // Outer glow effect
+    ctx.strokeStyle = face.glow + '44';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(4, 4, size - 8, size - 8);
+
     // Text
-    ctx.fillStyle = bgColor;
-    ctx.font = 'bold 72px Inter, sans-serif';
+    ctx.fillStyle = face.gradient[1];
+    ctx.font = 'bold 80px Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(label, size / 2, size / 2 - 60);
+    ctx.shadowColor = face.glow + '88';
+    ctx.shadowBlur = 30;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.fillText(face.label, size / 2, size / 2 - 80);
 
-    // Sub-text
-    ctx.font = '24px Inter, sans-serif';
-    ctx.fillStyle = bgColor + 'cc';
-    const subTexts = [
-      'Telegram\nMini Apps',
-      'Лендинги\nи сайты',
-      'Генерация\nконтента',
-      'Полный\nцикл',
-      'C# на\nUnity',
-      'На\nпродакшене'
-    ];
-    ctx.fillText(subTexts[i], size / 2, size / 2 + 80);
-
-    // Glow effect
-    ctx.shadowColor = bgColor;
-    ctx.shadowBlur = 20;
+    // Sub-text with gradient
+    ctx.font = '28px Inter, sans-serif';
+    ctx.fillStyle = face.gradient[0] + 'dd';
+    ctx.shadowBlur = 15;
+    ctx.fillText(face.sub, size / 2, size / 2 + 100);
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.magFilter = THREE.LinearFilter;
