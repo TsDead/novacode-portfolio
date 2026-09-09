@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Orbital System - Solar System with Planets
+// Orbital System - Premium Space Theme
 function initializeOrbitalSystem(container) {
   const canvas = document.createElement('canvas');
   canvas.width = container.clientWidth;
@@ -339,21 +339,34 @@ function initializeOrbitalSystem(container) {
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
 
-  // Planets data
+  // Planets data with premium colors
   const planets = [
-    { name: 'БОТЫ', fact: 'Telegram Mini Apps\n24/7 в работе', radius: 80, angle: 0, color: '#7B68EE', size: 30 },
-    { name: 'САЙТЫ', fact: 'Лендинги\nс конверсией', radius: 120, angle: 60, color: '#5EB3D6', size: 25 },
-    { name: 'AI', fact: 'Генерация\nконтента', radius: 160, angle: 120, color: '#FF6B9D', size: 28 },
-    { name: 'CODE', fact: 'Полный цикл\nразработки', radius: 100, angle: 180, color: '#00D084', size: 26 },
-    { name: 'UNITY', fact: 'C# игры\nна Unity', radius: 140, angle: 240, color: '#FFB84D', size: 27 },
-    { name: 'DEPLOY', fact: 'Production\nready код', radius: 180, angle: 300, color: '#C9A25B', size: 24 }
+    { name: 'БОТЫ', fact: 'Telegram Mini Apps\n✓ 24/7 Online', radius: 90, angle: 0, color: '#7B68EE', glowColor: '#B294FF', size: 28 },
+    { name: 'САЙТЫ', fact: 'High-Converting\n✓ Landing Pages', radius: 130, angle: 60, color: '#00D9FF', glowColor: '#00FFFF', size: 26 },
+    { name: 'AI', fact: 'Smart Content\n✓ Generation', radius: 170, angle: 120, color: '#FF006E', glowColor: '#FF4D9E', size: 27 },
+    { name: 'CODE', fact: 'Full Cycle Dev\n✓ Production Ready', radius: 110, angle: 180, color: '#00F900', glowColor: '#66FF66', size: 25 },
+    { name: 'UNITY', fact: 'C# Game Engine\n✓ Optimized', radius: 150, angle: 240, color: '#FFB500', glowColor: '#FFD700', size: 26 },
+    { name: 'DEPLOY', fact: 'Cloud Ready\n✓ Scalable', radius: 190, angle: 300, color: '#C9A25B', glowColor: '#FFD700', size: 24 }
   ];
 
   let rotation = 0;
   let userDrag = 0;
   let hoveredPlanet = null;
+  let hoverAnimation = 0;
   let mouseX = canvas.width / 2;
   let mouseY = canvas.height / 2;
+
+  // Create starfield
+  const stars = [];
+  for (let i = 0; i < 200; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5,
+      opacity: Math.random() * 0.8 + 0.2,
+      twinkle: Math.random() * 0.02
+    });
+  }
 
   // Mouse events
   canvas.addEventListener('mousemove', (e) => {
@@ -362,17 +375,23 @@ function initializeOrbitalSystem(container) {
     mouseY = e.clientY - rect.top;
 
     // Check if hovering over planet
-    hoveredPlanet = null;
+    let newHovered = null;
     planets.forEach(planet => {
       const angleRad = (planet.angle + rotation) * Math.PI / 180;
       const px = centerX + planet.radius * Math.cos(angleRad);
       const py = centerY + planet.radius * Math.sin(angleRad);
       const dist = Math.hypot(mouseX - px, mouseY - py);
-      if (dist < planet.size * 1.5) {
-        hoveredPlanet = planet;
+      if (dist < planet.size * 2) {
+        newHovered = planet;
         canvas.style.cursor = 'pointer';
       }
     });
+    
+    if (newHovered !== hoveredPlanet) {
+      hoveredPlanet = newHovered;
+      hoverAnimation = 0;
+    }
+    
     if (!hoveredPlanet) canvas.style.cursor = 'grab';
   });
 
@@ -393,7 +412,6 @@ function initializeOrbitalSystem(container) {
 
   document.addEventListener('mouseup', () => {
     isDragging = false;
-    canvas.style.cursor = 'grab';
   });
 
   document.addEventListener('mousemove', (e) => {
@@ -404,42 +422,84 @@ function initializeOrbitalSystem(container) {
     }
   });
 
+  // Draw nebula background
+  function drawNebula() {
+    const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, canvas.width);
+    gradient.addColorStop(0, 'rgba(30, 20, 60, 1)');
+    gradient.addColorStop(0.5, 'rgba(10, 10, 40, 1)');
+    gradient.addColorStop(1, 'rgba(5, 5, 20, 1)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Nebula clouds
+    ctx.fillStyle = 'rgba(100, 50, 150, 0.15)';
+    for (let i = 0; i < 5; i++) {
+      ctx.beginPath();
+      ctx.arc(centerX + Math.sin(i) * 200, centerY + Math.cos(i) * 200, 150 + i * 50, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Draw stars
+  function drawStars() {
+    stars.forEach(star => {
+      star.opacity += star.twinkle;
+      if (star.opacity > 1) star.twinkle = -Math.abs(star.twinkle);
+      if (star.opacity < 0.1) star.twinkle = Math.abs(star.twinkle);
+
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
   // Animation loop
   function animate() {
     requestAnimationFrame(animate);
     
-    // Clear canvas
-    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Draw background
+    drawNebula();
+    drawStars();
 
     // Update rotation
-    rotation = (rotation + 0.3 + userDrag * 0.01) % 360;
-    userDrag *= 0.95; // Friction
+    rotation = (rotation + 0.2 + userDrag * 0.01) % 360;
+    userDrag *= 0.93; // Friction
 
-    // Draw orbits
+    // Draw orbits with glow
     planets.forEach(planet => {
-      ctx.strokeStyle = 'rgba(201, 162, 91, 0.2)';
+      ctx.strokeStyle = 'rgba(100, 150, 200, 0.15)';
       ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, planet.radius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Orbit glow
+      ctx.strokeStyle = 'rgba(100, 150, 200, 0.05)';
+      ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.arc(centerX, centerY, planet.radius, 0, Math.PI * 2);
       ctx.stroke();
     });
 
     // Draw sun
-    const sunGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 20);
-    sunGrad.addColorStop(0, '#FFD700');
-    sunGrad.addColorStop(1, '#C9A25B');
+    const sunGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 25);
+    sunGrad.addColorStop(0, '#FFFF00');
+    sunGrad.addColorStop(0.5, '#FFA500');
+    sunGrad.addColorStop(1, '#FF6B00');
     ctx.fillStyle = sunGrad;
     ctx.beginPath();
-    ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
+    ctx.arc(centerX, centerY, 22, 0, Math.PI * 2);
     ctx.fill();
     
-    // Sun glow
-    ctx.strokeStyle = 'rgba(201, 162, 91, 0.4)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, 25, 0, Math.PI * 2);
-    ctx.stroke();
+    // Sun mega glow
+    for (let i = 3; i > 0; i--) {
+      ctx.strokeStyle = `rgba(255, 165, 0, ${0.3 / i})`;
+      ctx.lineWidth = i * 2;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 22 + i * 3, 0, Math.PI * 2);
+      ctx.stroke();
+    }
 
     // Draw planets
     planets.forEach(planet => {
@@ -447,35 +507,55 @@ function initializeOrbitalSystem(container) {
       const px = centerX + planet.radius * Math.cos(angleRad);
       const py = centerY + planet.radius * Math.sin(angleRad);
 
-      // Planet size based on hover
       let size = planet.size;
+      let rotation_planet = 0;
+      
       if (hoveredPlanet === planet) {
-        size *= 1.5;
-      }
-
-      // Planet glow if hovered
-      if (hoveredPlanet === planet) {
-        ctx.shadowColor = planet.color;
-        ctx.shadowBlur = 20;
+        hoverAnimation = Math.min(hoverAnimation + 0.05, 1);
+        size *= 1 + hoverAnimation * 0.5;
+        rotation_planet = hoverAnimation * Math.PI * 2;
       } else {
-        ctx.shadowBlur = 5;
+        hoverAnimation = Math.max(hoverAnimation - 0.05, 0);
       }
 
-      // Draw planet
-      ctx.fillStyle = planet.color;
+      // Planet atmosphere glow
+      if (hoveredPlanet === planet) {
+        ctx.shadowColor = planet.glowColor;
+        ctx.shadowBlur = 30;
+      } else {
+        ctx.shadowBlur = 10;
+      }
+
+      // Planet gradient
+      const planetGrad = ctx.createRadialGradient(px - size / 3, py - size / 3, 0, px, py, size * 1.5);
+      planetGrad.addColorStop(0, planet.glowColor + '44');
+      planetGrad.addColorStop(0.7, planet.color);
+      planetGrad.addColorStop(1, planet.color + '00');
+      
+      ctx.fillStyle = planetGrad;
       ctx.beginPath();
       ctx.arc(px, py, size, 0, Math.PI * 2);
       ctx.fill();
 
-      // Planet border
-      ctx.strokeStyle = planet.color + 'aa';
-      ctx.lineWidth = 2;
-      ctx.stroke();
+      // Planet core
+      ctx.fillStyle = planet.color;
+      ctx.beginPath();
+      ctx.arc(px, py, size * 0.7, 0, Math.PI * 2);
+      ctx.fill();
 
-      // Planet label (when not hovered)
-      if (hoveredPlanet !== planet) {
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 12px Inter, sans-serif';
+      // Planet rings if hovered
+      if (hoveredPlanet === planet && hoverAnimation > 0.3) {
+        ctx.strokeStyle = planet.glowColor + Math.floor(hoverAnimation * 255).toString(16);
+        ctx.lineWidth = 2 + hoverAnimation * 2;
+        ctx.beginPath();
+        ctx.ellipse(px, py, size * 2, size * 0.8, rotation_planet, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Planet label (only if not hovered or starting hover)
+      if (hoverAnimation < 0.5) {
+        ctx.fillStyle = `rgba(255, 255, 255, ${(1 - hoverAnimation * 2) * 0.8})`;
+        ctx.font = 'bold 11px Inter, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.shadowBlur = 0;
@@ -483,39 +563,53 @@ function initializeOrbitalSystem(container) {
       }
     });
 
-    // Draw hovered planet info
-    if (hoveredPlanet) {
+    // Draw hovered planet info with animation
+    if (hoveredPlanet && hoverAnimation > 0) {
       ctx.shadowBlur = 0;
       const angleRad = (hoveredPlanet.angle + rotation) * Math.PI / 180;
       const px = centerX + hoveredPlanet.radius * Math.cos(angleRad);
       const py = centerY + hoveredPlanet.radius * Math.sin(angleRad);
 
-      // Info box background
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.95)';
-      ctx.fillRect(px - 90, py + 50, 180, 70);
+      // Info box with fade-in
+      const boxOpacity = Math.min(hoverAnimation * 1.5, 1);
+      
+      // Background glow
+      ctx.fillStyle = `rgba(${parseInt(hoveredPlanet.glowColor.slice(1, 3), 16)}, ${parseInt(hoveredPlanet.glowColor.slice(3, 5), 16)}, ${parseInt(hoveredPlanet.glowColor.slice(5, 7), 16)}, ${0.2 * boxOpacity})`;
+      ctx.fillRect(px - 110, py + 40, 220, 90);
+
+      // Info box border glow
+      for (let i = 0; i < 3; i++) {
+        ctx.strokeStyle = hoveredPlanet.glowColor + Math.floor((0.5 - i * 0.15) * boxOpacity * 255).toString(16).padStart(2, '0');
+        ctx.lineWidth = 1;
+        ctx.strokeRect(px - 110 + i * 2, py + 40 + i * 2, 220 - i * 4, 90 - i * 4);
+      }
+
+      // Info box solid
+      ctx.fillStyle = `rgba(10, 10, 30, ${0.95 * boxOpacity})`;
+      ctx.fillRect(px - 108, py + 42, 216, 86);
 
       // Info box border
-      ctx.strokeStyle = hoveredPlanet.color;
+      ctx.strokeStyle = hoveredPlanet.glowColor;
       ctx.lineWidth = 2;
-      ctx.strokeRect(px - 90, py + 50, 180, 70);
+      ctx.strokeRect(px - 108, py + 42, 216, 86);
 
       // Info text
-      ctx.fillStyle = '#fff';
-      ctx.font = 'bold 14px Inter, sans-serif';
+      ctx.fillStyle = `rgba(255, 255, 255, ${boxOpacity})`;
+      ctx.font = 'bold 13px Inter, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(hoveredPlanet.name, px, py + 65);
+      ctx.fillText(hoveredPlanet.name, px, py + 60);
 
-      ctx.fillStyle = hoveredPlanet.color;
-      ctx.font = '12px Inter, sans-serif';
-      ctx.fillText(hoveredPlanet.fact, px, py + 90);
+      ctx.fillStyle = hoveredPlanet.glowColor;
+      ctx.font = '11px Inter, sans-serif';
+      ctx.fillText(hoveredPlanet.fact, px, py + 85);
     }
 
     // Draw tooltip
     if (!hoveredPlanet) {
-      ctx.fillStyle = 'rgba(201, 162, 91, 0.6)';
-      ctx.font = '12px Inter, sans-serif';
+      ctx.fillStyle = 'rgba(201, 162, 91, 0.5)';
+      ctx.font = '11px Inter, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('↻ Крути мышью • Наведи на планету', centerX, canvas.height - 20);
+      ctx.fillText('↻ Drag to rotate • Hover for details', centerX, canvas.height - 15);
     }
 
     // Handle window resize
