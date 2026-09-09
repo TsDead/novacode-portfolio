@@ -321,195 +321,209 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 3D Cube (Three.js)
-  const cubeContainer = document.getElementById('cubeContainer');
-  if (cubeContainer && typeof THREE !== 'undefined') {
-    initializeCube(cubeContainer);
+  // Orbital System (Canvas 2D)
+  const orbitalContainer = document.getElementById('orbitalContainer');
+  if (orbitalContainer) {
+    initializeOrbitalSystem(orbitalContainer);
   }
 });
 
-// 3D Cube Function
-function initializeCube(container) {
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-
-  // Scene setup
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+// Orbital System - Solar System with Planets
+function initializeOrbitalSystem(container) {
+  const canvas = document.createElement('canvas');
+  canvas.width = container.clientWidth;
+  canvas.height = container.clientHeight;
+  container.appendChild(canvas);
   
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setClearColor(0x000000, 0);
-  container.appendChild(renderer.domElement);
+  const ctx = canvas.getContext('2d');
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
 
-  camera.position.z = 2.5;
-
-  // Create cube with faces
-  const geometry = new THREE.BoxGeometry(2, 2, 2);
-  
-  // Create canvas textures for each face
-  const textures = createCubeTextures();
-  const materials = textures.map(texture => 
-    new THREE.MeshPhongMaterial({ 
-      map: texture,
-      emissive: 0x333333,
-      shininess: 100
-    })
-  );
-
-  const cube = new THREE.Mesh(geometry, materials);
-  scene.add(cube);
-
-  // Lighting - УМЕНЬШИЛ яркость чтобы не засвечивало текст
-  const light1 = new THREE.DirectionalLight(0xffffff, 0.3);  // Уменьшил с 0.8 до 0.3
-  light1.position.set(5, 5, 5);
-  scene.add(light1);
-
-  const light2 = new THREE.DirectionalLight(0xC9A25B, 0.15);  // Уменьшил с 0.4 до 0.15
-  light2.position.set(-5, -5, 5);
-  scene.add(light2);
-
-  const ambientLight = new THREE.AmbientLight(0x444444, 0.5);  // Уменьшил с 0.6 до 0.5
-  scene.add(ambientLight);
-
-  // Mouse tracking - МАКСИМУМ СКОРОСТЬ
-  let mouseX = 0, mouseY = 0;
-  let targetRotationX = 0, targetRotationY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-    targetRotationY = mouseX * 2.0;  // МАКСИМУМ
-    targetRotationX = mouseY * 2.0;  // МАКСИМУМ
-  });
-
-  // Click to scroll to projects
-  container.addEventListener('click', () => {
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  // Add tooltip
-  const tooltip = document.createElement('div');
-  tooltip.style.cssText = `
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    white-space: nowrap;
-  `;
-  tooltip.textContent = '↻ Крути • Клик → проекты';
-  container.parentElement.style.position = 'relative';
-  container.parentElement.appendChild(tooltip);
-
-  container.addEventListener('mouseenter', () => {
-    tooltip.style.opacity = '1';
-  });
-  container.addEventListener('mouseleave', () => {
-    tooltip.style.opacity = '0';
-  });
-
-  // Animation loop - МАКСИМУМ СКОРОСТЬ
-  function animate() {
-    requestAnimationFrame(animate);
-
-    // Smooth rotation - БЫСТРО
-    cube.rotation.x += (targetRotationX - cube.rotation.x) * 0.25;  // 0.25 = максимум плавности
-    cube.rotation.y += (targetRotationY - cube.rotation.y) * 0.25;
-
-    // Auto-rotate when mouse not moving - ОЧЕНЬ БЫСТРО
-    if (Math.abs(mouseX) < 0.01 && Math.abs(mouseY) < 0.01) {
-      cube.rotation.y += 0.02;  // Очень быстро крутится
-    }
-
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  // Resize handler
-  window.addEventListener('resize', () => {
-    const newWidth = container.clientWidth;
-    const newHeight = container.clientHeight;
-    camera.aspect = newWidth / newHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(newWidth, newHeight);
-  });
-}
-
-// Create textures for cube faces
-function createCubeTextures() {
-  const size = 512;
-  const textures = [];
-  
-  const faces = [
-    { label: 'БОТЫ', sub: 'Telegram\nMini Apps', accent: '#C9A25B' },
-    { label: 'САЙТЫ', sub: 'Landing\nPages', accent: '#C9A25B' },
-    { label: 'AI', sub: 'Content\nGeneration', accent: '#C9A25B' },
-    { label: 'CODE', sub: 'Full\nCycle Dev', accent: '#C9A25B' },
-    { label: 'UNITY', sub: 'Game\nDevelopment', accent: '#C9A25B' },
-    { label: 'DEPLOY', sub: 'Production\nReady', accent: '#C9A25B' }
+  // Planets data
+  const planets = [
+    { name: 'БОТЫ', fact: 'Telegram Mini Apps\n24/7 в работе', radius: 80, angle: 0, color: '#7B68EE', size: 30 },
+    { name: 'САЙТЫ', fact: 'Лендинги\nс конверсией', radius: 120, angle: 60, color: '#5EB3D6', size: 25 },
+    { name: 'AI', fact: 'Генерация\nконтента', radius: 160, angle: 120, color: '#FF6B9D', size: 28 },
+    { name: 'CODE', fact: 'Полный цикл\nразработки', radius: 100, angle: 180, color: '#00D084', size: 26 },
+    { name: 'UNITY', fact: 'C# игры\nна Unity', radius: 140, angle: 240, color: '#FFB84D', size: 27 },
+    { name: 'DEPLOY', fact: 'Production\nready код', radius: 180, angle: 300, color: '#C9A25B', size: 24 }
   ];
 
-  faces.forEach((face) => {
-    const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
+  let rotation = 0;
+  let userDrag = 0;
+  let hoveredPlanet = null;
+  let mouseX = canvas.width / 2;
+  let mouseY = canvas.height / 2;
 
-    // ТЁМНЫЙ фон (почти чёрный)
-    ctx.fillStyle = '#0a0a0a';
-    ctx.fillRect(0, 0, size, size);
+  // Mouse events
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
 
-    // Thin accent line at top
-    ctx.strokeStyle = face.accent;
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(40, 40);
-    ctx.lineTo(size - 40, 40);
-    ctx.stroke();
-
-    // Thin accent line at bottom
-    ctx.beginPath();
-    ctx.moveTo(40, size - 40);
-    ctx.lineTo(size - 40, size - 40);
-    ctx.stroke();
-
-    // Thin vertical lines
-    ctx.beginPath();
-    ctx.moveTo(40, 40);
-    ctx.lineTo(40, size - 40);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(size - 40, 40);
-    ctx.lineTo(size - 40, size - 40);
-    ctx.stroke();
-
-    // Main label - БОЛЬШОЙ, БЕЛЫЙ, КОНТРАСТНЫЙ
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 100px Inter, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.letterSpacing = '5px';
-    ctx.fillText(face.label, size / 2, size / 2 - 80);
-
-    // Sub-text - золотой акцент
-    ctx.font = '32px Inter, sans-serif';
-    ctx.fillStyle = face.accent;
-    ctx.fillText(face.sub, size / 2, size / 2 + 100);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.magFilter = THREE.LinearFilter;
-    texture.minFilter = THREE.LinearFilter;
-    textures.push(texture);
+    // Check if hovering over planet
+    hoveredPlanet = null;
+    planets.forEach(planet => {
+      const angleRad = (planet.angle + rotation) * Math.PI / 180;
+      const px = centerX + planet.radius * Math.cos(angleRad);
+      const py = centerY + planet.radius * Math.sin(angleRad);
+      const dist = Math.hypot(mouseX - px, mouseY - py);
+      if (dist < planet.size * 1.5) {
+        hoveredPlanet = planet;
+        canvas.style.cursor = 'pointer';
+      }
+    });
+    if (!hoveredPlanet) canvas.style.cursor = 'grab';
   });
 
-  return textures;
+  canvas.addEventListener('mouseleave', () => {
+    hoveredPlanet = null;
+    canvas.style.cursor = 'grab';
+  });
+
+  // Dragging to rotate
+  let isDragging = false;
+  let lastX = 0;
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    lastX = e.clientX;
+    canvas.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      const delta = e.clientX - lastX;
+      userDrag += delta * 0.5;
+      lastX = e.clientX;
+    }
+  });
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    // Clear canvas
+    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Update rotation
+    rotation = (rotation + 0.3 + userDrag * 0.01) % 360;
+    userDrag *= 0.95; // Friction
+
+    // Draw orbits
+    planets.forEach(planet => {
+      ctx.strokeStyle = 'rgba(201, 162, 91, 0.2)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, planet.radius, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+
+    // Draw sun
+    const sunGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 20);
+    sunGrad.addColorStop(0, '#FFD700');
+    sunGrad.addColorStop(1, '#C9A25B');
+    ctx.fillStyle = sunGrad;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Sun glow
+    ctx.strokeStyle = 'rgba(201, 162, 91, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 25, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Draw planets
+    planets.forEach(planet => {
+      const angleRad = (planet.angle + rotation) * Math.PI / 180;
+      const px = centerX + planet.radius * Math.cos(angleRad);
+      const py = centerY + planet.radius * Math.sin(angleRad);
+
+      // Planet size based on hover
+      let size = planet.size;
+      if (hoveredPlanet === planet) {
+        size *= 1.5;
+      }
+
+      // Planet glow if hovered
+      if (hoveredPlanet === planet) {
+        ctx.shadowColor = planet.color;
+        ctx.shadowBlur = 20;
+      } else {
+        ctx.shadowBlur = 5;
+      }
+
+      // Draw planet
+      ctx.fillStyle = planet.color;
+      ctx.beginPath();
+      ctx.arc(px, py, size, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Planet border
+      ctx.strokeStyle = planet.color + 'aa';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Planet label (when not hovered)
+      if (hoveredPlanet !== planet) {
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 12px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowBlur = 0;
+        ctx.fillText(planet.name, px, py);
+      }
+    });
+
+    // Draw hovered planet info
+    if (hoveredPlanet) {
+      ctx.shadowBlur = 0;
+      const angleRad = (hoveredPlanet.angle + rotation) * Math.PI / 180;
+      const px = centerX + hoveredPlanet.radius * Math.cos(angleRad);
+      const py = centerY + hoveredPlanet.radius * Math.sin(angleRad);
+
+      // Info box background
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.95)';
+      ctx.fillRect(px - 90, py + 50, 180, 70);
+
+      // Info box border
+      ctx.strokeStyle = hoveredPlanet.color;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(px - 90, py + 50, 180, 70);
+
+      // Info text
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 14px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(hoveredPlanet.name, px, py + 65);
+
+      ctx.fillStyle = hoveredPlanet.color;
+      ctx.font = '12px Inter, sans-serif';
+      ctx.fillText(hoveredPlanet.fact, px, py + 90);
+    }
+
+    // Draw tooltip
+    if (!hoveredPlanet) {
+      ctx.fillStyle = 'rgba(201, 162, 91, 0.6)';
+      ctx.font = '12px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('↻ Крути мышью • Наведи на планету', centerX, canvas.height - 20);
+    }
+
+    // Handle window resize
+    if (canvas.width !== container.clientWidth || canvas.height !== container.clientHeight) {
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
+    }
+  }
+
+  animate();
 }
