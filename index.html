@@ -109,8 +109,139 @@
                 </a>
             </div>
             
-            <!-- Orbital System Canvas -->
-            <div id="orbitalContainer" class="hero__orbital"></div>
+            <!-- Interactive Services Demo -->
+            <div class="hero__demo-container">
+              <div class="demo-tabs">
+                <button class="demo-tab demo-tab--active" data-service="bot">
+                  <span class="demo-tab__icon">🤖</span>
+                  <span class="demo-tab__label">Telegram Bot</span>
+                </button>
+                <button class="demo-tab" data-service="landing">
+                  <span class="demo-tab__icon">📱</span>
+                  <span class="demo-tab__label">Landing Page</span>
+                </button>
+                <button class="demo-tab" data-service="ai">
+                  <span class="demo-tab__icon">✨</span>
+                  <span class="demo-tab__label">AI Content</span>
+                </button>
+                <button class="demo-tab" data-service="game">
+                  <span class="demo-tab__icon">🎮</span>
+                  <span class="demo-tab__label">Game Dev</span>
+                </button>
+              </div>
+
+              <div class="demo-content">
+                <!-- Bot Demo -->
+                <div class="demo-panel demo-panel--active" data-service="bot">
+                  <div class="demo-preview">
+                    <div class="bot-chat">
+                      <div class="chat-msg bot-msg"><span>👋 Привет! Я бот для твоего бизнеса</span></div>
+                      <div class="chat-msg user-msg"><span>Сколько это стоит?</span></div>
+                      <div class="chat-msg bot-msg"><span>💰 От 15 000 ₽</span></div>
+                    </div>
+                  </div>
+                  <div class="demo-info">
+                    <div class="info-item">
+                      <span class="info-label">Время разработки:</span>
+                      <span class="info-value">3-5 дней</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Стоимость:</span>
+                      <span class="info-value">от 15 000 ₽</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Работает:</span>
+                      <span class="info-value">24/7 без вас</span>
+                    </div>
+                    <a href="https://t.me/n0vacode" class="demo-cta">Заказать бота</a>
+                  </div>
+                </div>
+
+                <!-- Landing Demo -->
+                <div class="demo-panel" data-service="landing">
+                  <div class="demo-preview">
+                    <div class="landing-preview">
+                      <div class="landing-hero">Ваш сайт</div>
+                      <div class="landing-form">
+                        <input type="text" placeholder="Имя" disabled>
+                        <input type="text" placeholder="Email" disabled>
+                        <button disabled>Отправить</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="demo-info">
+                    <div class="info-item">
+                      <span class="info-label">Время разработки:</span>
+                      <span class="info-value">5-10 дней</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Стоимость:</span>
+                      <span class="info-value">от 25 000 ₽</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Особенности:</span>
+                      <span class="info-value">Адаптив + i18n</span>
+                    </div>
+                    <a href="https://t.me/n0vacode" class="demo-cta">Заказать лендинг</a>
+                  </div>
+                </div>
+
+                <!-- AI Content Demo -->
+                <div class="demo-panel" data-service="ai">
+                  <div class="demo-preview">
+                    <div class="ai-generator">
+                      <input type="text" placeholder="Кроссовки Nike Air Max" disabled class="ai-input">
+                      <div class="ai-output">
+                        <p>Легендарные кроссовки Nike Air Max — идеальный выбор для активного образа жизни. Передовые технологии и стильный дизайн обеспечивают комфорт и производительность.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="demo-info">
+                    <div class="info-item">
+                      <span class="info-label">Скорость:</span>
+                      <span class="info-value">За секунды</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Стоимость:</span>
+                      <span class="info-value">от 10 000 ₽</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Объем:</span>
+                      <span class="info-value">Неограниченно</span>
+                    </div>
+                    <a href="https://t.me/n0vacode" class="demo-cta">Заказать AI</a>
+                  </div>
+                </div>
+
+                <!-- Game Demo -->
+                <div class="demo-panel" data-service="game">
+                  <div class="demo-preview">
+                    <div class="game-preview">
+                      <div class="game-screen">Obsession of Fear</div>
+                      <div class="game-stats">
+                        <div class="stat">Психика: 85%</div>
+                        <div class="stat">Энергия: 60%</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="demo-info">
+                    <div class="info-item">
+                      <span class="info-label">Движок:</span>
+                      <span class="info-value">Unity 6.0</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Язык:</span>
+                      <span class="info-value">C# / Optimization</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Жанр:</span>
+                      <span class="info-value">Psychological Horror</span>
+                    </div>
+                    <a href="#gamedev" class="demo-cta">Узнать больше</a>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="hero__stats" data-aos="fade-up" data-aos-delay="300">
                 <div class="hero__stat">
                     <div class="hero__stat-num" data-count="5">0</div>
