@@ -25,6 +25,19 @@ const translations = {
     'projects.p5H1Label': 'авто-тестов', 'projects.p5H2Label': 'парсинг канала', 'projects.p5H3Label': 'доставка', 'projects.p5H4Label': 'в проде',
     'projects.p5F1': 'Каталог с поиском и категориями (работает с кириллицей)', 'projects.p5F2': 'Авто-парсинг товаров из канала продавца', 'projects.p5F3': 'Корзина, оформление, интеграция СДЭК / Яндекс Доставки', 'projects.p5F4': 'Деплой в Docker на Amvera, 110 автотестов',
     'projects.p5Price': 'По запросу', 'projects.p5PriceLabel': 'коммерческий проект',
+    'projects.more': 'Смотреть ещё',
+    'projects.p1Status': 'Готов к продаже', 'projects.p1Meta1': 'Telegram Bot',
+    'projects.p1Title': 'Telegram-бот для барбершопа', 'projects.p1Text': 'Полностью готовый бот для записи клиентов.',
+    'projects.p1F1': 'Запись клиентов 24/7', 'projects.p1F2': 'Интеграция с Google Sheets', 'projects.p1F3': 'FSM (машина состояний)', 'projects.p1F4': 'Календарь без внешних библиотек', 'projects.p1F5': 'Админ-панель',
+    'projects.p2Status': 'Готов к продаже', 'projects.p2Meta1': 'Desktop App', 'projects.p2PriceLabel': 'разово',
+    'projects.p2Title': 'AI-генератор для маркетплейсов', 'projects.p2Text': 'Готовый AI-инструмент, который за 5 секунд создаёт:',
+    'projects.p2F1': 'Продающее название', 'projects.p2F2': 'Полное SEO-описание', 'projects.p2F3': 'Характеристики', 'projects.p2F4': 'Ключевые слова', 'projects.p2F5': 'Ответы на отзывы',
+    'projects.p3Status': 'Live', 'projects.p3Meta1': 'Landing Page', 'projects.p3Meta2': 'Премиум',
+    'projects.p3Title': 'Лендинг «Ремонт квартир под ключ»',
+    'projects.p3Text': 'Премиум-лендинг с калькулятором стоимости, мультиязычностью и реальными фото интерьеров.',
+    'projects.p3H1Label': 'блоков', 'projects.p3H2Label': 'языка', 'projects.p3H3Label': 'адаптив', 'projects.p3H4Label': 'калькулятор',
+    'projects.p3F1': 'Интерактивный калькулятор цены за м²', 'projects.p3F2': 'Переключатель RU/EN с автосохранением', 'projects.p3F3': 'Реальные фото интерьеров', 'projects.p3F4': 'Маска телефона + форма заявки',
+    'projects.p3Price': 'По запросу', 'projects.p3PriceLabel': 'индивидуальный кейс',
     'gamedev.eyebrow': '// Личный проект',
     'gamedev.title': 'Разработка игры на <span class="text-accent">Unity</span>',
     'gamedev.lead': 'Помимо коммерческой разработки — делаю собственную игру. Полный цикл: геймдизайн, код на C#, системный дизайн и оптимизация.',
@@ -101,6 +114,19 @@ const translations = {
     'projects.p5H1Label': 'auto-tests', 'projects.p5H2Label': 'channel parsing', 'projects.p5H3Label': 'delivery', 'projects.p5H4Label': 'in prod',
     'projects.p5F1': 'Catalog with search and categories (Cyrillic-aware)', 'projects.p5F2': 'Auto-parsing of products from the seller channel', 'projects.p5F3': 'Cart, checkout, CDEK / Yandex Delivery integration', 'projects.p5F4': 'Dockerized deploy on Amvera, 110 auto-tests',
     'projects.p5Price': 'On request', 'projects.p5PriceLabel': 'commercial project',
+    'projects.more': 'View more',
+    'projects.p1Status': 'Ready to ship', 'projects.p1Meta1': 'Telegram Bot',
+    'projects.p1Title': 'Telegram bot for barbershop', 'projects.p1Text': 'Ready-made client booking bot.',
+    'projects.p1F1': '24/7 client booking', 'projects.p1F2': 'Google Sheets integration', 'projects.p1F3': 'FSM (state machine)', 'projects.p1F4': 'Calendar without external libs', 'projects.p1F5': 'Admin panel',
+    'projects.p2Status': 'Ready to ship', 'projects.p2Meta1': 'Desktop App', 'projects.p2PriceLabel': 'one-time',
+    'projects.p2Title': 'AI generator for marketplaces', 'projects.p2Text': 'Ready AI tool that creates in 5 seconds:',
+    'projects.p2F1': 'Selling title', 'projects.p2F2': 'Full SEO description', 'projects.p2F3': 'Specifications', 'projects.p2F4': 'Keywords', 'projects.p2F5': 'Review replies',
+    'projects.p3Status': 'Live', 'projects.p3Meta1': 'Landing Page', 'projects.p3Meta2': 'Premium',
+    'projects.p3Title': 'Landing "Turnkey Apartment Renovation"',
+    'projects.p3Text': 'Premium landing with interactive calculator, multilingual support and real interior photos.',
+    'projects.p3H1Label': 'sections', 'projects.p3H2Label': 'languages', 'projects.p3H3Label': 'responsive', 'projects.p3H4Label': 'calculator',
+    'projects.p3F1': 'Interactive per-m² price calculator', 'projects.p3F2': 'RU/EN toggle with autosave', 'projects.p3F3': 'Real interior photos', 'projects.p3F4': 'Phone mask + lead form',
+    'projects.p3Price': 'On request', 'projects.p3PriceLabel': 'custom case',
     'gamedev.eyebrow': '// Personal project',
     'gamedev.title': 'Building a game in <span class="text-accent">Unity</span>',
     'gamedev.lead': 'Beyond commercial work — I build my own game. Full cycle: game design, C# code, systems design and optimization.',
@@ -600,7 +626,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function boot() { initFog(); initTilt(); initMagnetic(); initHeroGlow(); initHeadingReveal(); }
+  /* ---------- 6 · «Смотреть ещё» — раскрытие старых кейсов ---------- */
+  function initCasesToggle() {
+    const btn = document.getElementById('casesToggle');
+    const box = document.getElementById('casesMore');
+    if (!btn || !box) return;
+    btn.addEventListener('click', () => {
+      const open = box.hasAttribute('hidden');
+      if (open) { box.removeAttribute('hidden'); } else { box.setAttribute('hidden', ''); }
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+
+  function boot() { initFog(); initTilt(); initMagnetic(); initHeroGlow(); initHeadingReveal(); initCasesToggle(); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {

@@ -818,3 +818,11 @@ body { animation: pageIn .7s var(--ease) both; }
   .reveal-words .rw { opacity: 1; filter: none; transform: none; transition: none; }
   body { animation: none; }
 }
+
+/* «Смотреть ещё» — старые кейсы под YFB Store */
+.cases-more-wrap { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.cases-toggle { gap: 10px; }
+.cases-toggle__chev { transition: transform .35s var(--ease); }
+.cases-toggle[aria-expanded="true"] .cases-toggle__chev { transform: rotate(180deg); }
+.cases-more { width: 100%; }
+.cases-more[hidden] { display: none; }
