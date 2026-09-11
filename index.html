@@ -36,12 +36,14 @@
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- Background -->
+    <canvas class="bg-shader" id="fogCanvas" aria-hidden="true"></canvas>
     <div class="bg-grid"></div>
     <div class="bg-glow">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
+    <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
@@ -614,6 +616,9 @@
     <button class="scroll-top" id="scrollTop" aria-label="Наверх">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
+
+    <!-- Плёночное зерно (film grain) -->
+    <div class="grain" aria-hidden="true"></div>
 
     <script src="script.js"></script>
 </body>

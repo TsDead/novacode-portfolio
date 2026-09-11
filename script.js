@@ -349,3 +349,261 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+/* ════════════════════════════════════════════════════════════
+   PREMIUM MOTION LAYER (ревил — на AOS, здесь только фон+интеракции)
+   1) Шейдерная дымка (WebGL, тёплая палитра, доменный варпинг)
+   2) Тактильный наклон карточек + мягкий блик + световая рамка
+   3) Магнитные кнопки
+   4) Тёплый свет за курсором в hero
+   5) Reveal заголовков секций по словам (blur → focus)
+   Всё уважает prefers-reduced-motion и тач-устройства.
+   ════════════════════════════════════════════════════════════ */
+(function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  /* ---------- 1 · Шейдерная дымка ---------- */
+  function initFog() {
+    const canvas = document.getElementById('fogCanvas');
+    if (!canvas) return;
+    const gl = canvas.getContext('webgl', {
+      antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'low-power'
+    }) || canvas.getContext('experimental-webgl');
+    if (!gl) return; // нет WebGL → остаются орбы как фон
+
+    const vsrc = 'attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }';
+    const fsrc = [
+      'precision mediump float;',
+      'uniform vec2 u_res; uniform float u_time; uniform vec2 u_mouse;',
+      'float hash(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }',
+      'float noise(vec2 p){',
+      '  vec2 i=floor(p), f=fract(p);',
+      '  float a=hash(i), b=hash(i+vec2(1.,0.)), c=hash(i+vec2(0.,1.)), d=hash(i+vec2(1.,1.));',
+      '  vec2 u=f*f*(3.-2.*f);',
+      '  return mix(a,b,u.x)+(c-a)*u.y*(1.-u.x)+(d-b)*u.x*u.y;',
+      '}',
+      'float fbm(vec2 p){ float v=0., a=0.5; for(int i=0;i<4;i++){ v+=a*noise(p); p*=2.02; a*=0.5; } return v; }',
+      'void main(){',
+      '  vec2 uv = gl_FragCoord.xy / u_res.xy;',
+      '  vec2 p = uv * vec2(u_res.x/u_res.y, 1.0) * 2.4;',
+      '  float t = u_time * 0.035;',
+      '  vec2 q = vec2(fbm(p + vec2(0.0, t)), fbm(p + vec2(5.2, 1.3) - t));',
+      '  vec2 r = vec2(fbm(p + 3.5*q + vec2(1.7, 9.2) + t*0.4), fbm(p + 3.5*q + vec2(8.3, 2.8) - t*0.4));',
+      '  float f = fbm(p + 3.5*r);',
+      '  float md = distance(uv, u_mouse);',
+      '  float glow = smoothstep(0.55, 0.0, md) * 0.12;',
+      '  vec3 bg     = vec3(0.051, 0.055, 0.071);',
+      '  vec3 bronze = vec3(0.790, 0.635, 0.357);',
+      '  vec3 dark   = vec3(0.659, 0.518, 0.235);',
+      '  float mask = smoothstep(0.46, 1.06, f + 0.12*r.x);',
+      '  vec3 col = bg;',
+      '  col = mix(col, dark*0.32, mask*0.5);',
+      '  col = mix(col, bronze*0.6, pow(mask, 2.5) * 0.14);',
+      '  col += bronze * glow * (0.15 + 0.25*mask);',
+      '  gl_FragColor = vec4(col, 1.0);',
+      '}'
+    ].join('\n');
+
+    function compile(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+    }
+    const vs = compile(gl.VERTEX_SHADER, vsrc);
+    const fs = compile(gl.FRAGMENT_SHADER, fsrc);
+    if (!vs || !fs) return;
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const uRes = gl.getUniformLocation(prog, 'u_res');
+    const uTime = gl.getUniformLocation(prog, 'u_time');
+    const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+    const scale = isTouch ? 0.4 : 0.5;
+    let w = 0, h = 0;
+    function resize() {
+      const dw = Math.max(1, Math.floor(window.innerWidth * scale));
+      const dh = Math.max(1, Math.floor(window.innerHeight * scale));
+      if (dw === w && dh === h) return;
+      w = dw; h = dh; canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    let mx = 0.5, my = 0.55, tmx = 0.5, tmy = 0.55;
+    if (!isTouch) {
+      window.addEventListener('mousemove', (e) => {
+        tmx = e.clientX / window.innerWidth;
+        tmy = 1.0 - e.clientY / window.innerHeight;
+      }, { passive: true });
+    }
+
+    const animate = !reduceMotion && !isTouch;
+    const frameInt = 1000 / 30;
+    let last = 0, ready = false, start = performance.now();
+
+    function draw(now) {
+      mx += (tmx - mx) * 0.05; my += (tmy - my) * 0.05;
+      gl.uniform2f(uRes, w, h);
+      gl.uniform1f(uTime, animate ? (now - start) / 1000 : 14.0);
+      gl.uniform2f(uMouse, mx, my);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (!ready) { ready = true; canvas.classList.add('is-ready'); }
+    }
+    function loop(now) {
+      if (document.hidden) { requestAnimationFrame(loop); return; }
+      if (now - last >= frameInt) { last = now; draw(now); }
+      requestAnimationFrame(loop);
+    }
+    if (animate) { requestAnimationFrame(loop); } else { requestAnimationFrame(draw); }
+  }
+
+  /* ---------- 2 · Тактильный наклон карточек ---------- */
+  function initTilt() {
+    if (reduceMotion || isTouch) return;
+    function attach(el, maxTilt, withGlare) {
+      el.classList.add('tilt');
+      if (withGlare) {
+        el.classList.add('tilt--glare');
+        const glare = document.createElement('span');
+        glare.className = 'tilt-glare';
+        el.appendChild(glare);
+        const edge = document.createElement('span'); // световая рамка за курсором
+        edge.className = 'tilt-edge';
+        el.appendChild(edge);
+      }
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const ry = (px - 0.5) * 2 * maxTilt;
+        const rx = -(py - 0.5) * 2 * maxTilt;
+        if (withGlare) {
+          el.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
+          el.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+        }
+        el.style.transform =
+          'perspective(1100px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateY(-4px)';
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    }
+    document.querySelectorAll('.service-card, .project-card:not(.project-card--featured), .review-card')
+      .forEach(el => attach(el, 3.5, true));
+    document.querySelectorAll('.workflow-step, .highlight')
+      .forEach(el => attach(el, 3, false));
+    document.querySelectorAll('.project-card--featured')
+      .forEach(el => attach(el, 2, false));
+  }
+
+  /* ---------- 3 · Магнитные кнопки ---------- */
+  function initMagnetic() {
+    if (reduceMotion || isTouch) return;
+    const strength = 0.3;
+    document.querySelectorAll('.nav__cta, .btn--primary, .btn--cta, .btn--ghost, .project-card__btn, .scroll-top')
+      .forEach(btn => {
+        btn.classList.add('magnetic');
+        btn.addEventListener('mousemove', (e) => {
+          const r = btn.getBoundingClientRect();
+          const dx = e.clientX - (r.left + r.width / 2);
+          const dy = e.clientY - (r.top + r.height / 2);
+          btn.style.transform =
+            'translate(' + (dx * strength).toFixed(1) + 'px, ' + (dy * strength - 2).toFixed(1) + 'px)';
+        });
+        btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+      });
+  }
+
+  /* ---------- 4 · Тёплый свет за курсором в hero ---------- */
+  function initHeroGlow() {
+    if (reduceMotion || isTouch) return;
+    const glow = document.getElementById('heroGlow');
+    const hero = document.getElementById('hero');
+    if (!glow || !hero) return;
+    let gx = window.innerWidth / 2, gy = window.innerHeight / 2, tx = gx, ty = gy;
+    let raf = null;
+    function loop() {
+      gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;
+      glow.style.transform = 'translate3d(' + gx.toFixed(1) + 'px, ' + gy.toFixed(1) + 'px, 0)';
+      raf = requestAnimationFrame(loop);
+    }
+    hero.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      glow.style.opacity = '1';
+      if (!raf) loop();
+    });
+    hero.addEventListener('mouseleave', () => {
+      glow.style.opacity = '0';
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+    });
+  }
+
+  /* ---------- 5 · Reveal заголовков секций по словам ---------- */
+  function initHeadingReveal() {
+    if (reduceMotion) return;
+    const titles = document.querySelectorAll('.section__title');
+    if (!titles.length) return;
+
+    function splitWords(el) {
+      let idx = 0;
+      const frag = document.createDocumentFragment();
+      (function walk(node, target) {
+        node.childNodes.forEach(child => {
+          if (child.nodeType === 3) {
+            child.textContent.split(/(\s+)/).forEach(pt => {
+              if (pt === '') return;
+              if (/^\s+$/.test(pt)) { target.appendChild(document.createTextNode(pt)); return; }
+              const w = document.createElement('span');
+              w.className = 'rw';
+              w.textContent = pt;
+              w.style.transitionDelay = (idx * 55) + 'ms';
+              idx++;
+              target.appendChild(w);
+            });
+          } else if (child.nodeType === 1) {
+            if (child.tagName === 'BR') { target.appendChild(document.createElement('br')); }
+            else { const clone = child.cloneNode(false); walk(child, clone); target.appendChild(clone); }
+          }
+        });
+      })(el, frag);
+      el.innerHTML = '';
+      el.appendChild(frag);
+      el.classList.add('reveal-words');
+    }
+
+    titles.forEach(splitWords);
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-revealed'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    titles.forEach(el => io.observe(el));
+
+    setTimeout(() => titles.forEach(el => el.classList.add('is-revealed')), 3000);
+
+    document.querySelectorAll('#langSwitch button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTimeout(() => {
+          titles.forEach(el => { splitWords(el); el.classList.add('is-revealed'); });
+        }, 0);
+      });
+    });
+  }
+
+  function boot() { initFog(); initTilt(); initMagnetic(); initHeroGlow(); initHeadingReveal(); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
