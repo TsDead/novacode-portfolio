@@ -12,7 +12,7 @@
 
   /* ---------------- texts ---------------- */
   const EN = {
-    'meta.title': 'Stepan, NOVACODE: Telegram bots, Telegram shops and websites',
+    'meta.title': 'Novacode',
     'meta.desc': 'Telegram bots, in-Telegram shops and websites for small businesses. Since 2024, more than 5 projects.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
     'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.contact': 'Contact',
