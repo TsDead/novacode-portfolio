@@ -75,7 +75,7 @@
   const PRICES = [
     { v: 3500, from: true, ru: ['Бот для записи', '1–3 дня', 'Готовый бот, настрою под ваш бизнес'], en: ['Booking bot', '1–3 days', 'Ready-made bot set up for your business'] },
     { v: 15000, from: true, ru: ['Бот под задачу', 'от 5 дней', 'Заявки, оплаты, интеграции с таблицами и CRM'], en: ['Custom bot', 'from 5 days', 'Requests, payments, spreadsheet and CRM integrations'] },
-    { v: 15000, from: true, ru: ['Магазин в Telegram', 'от 3 недель', 'Как YFB Store: каталог, корзина, доставка'], en: ['Shop inside Telegram', 'from 3 weeks', 'Like YFB Store: catalog, cart, delivery'] },
+    { v: 15000, from: true, ru: ['Магазин в Telegram', 'от 1 недели', 'Как YFB Store: каталог, корзина, доставка'], en: ['Shop inside Telegram', 'from 1 week', 'Like YFB Store: catalog, cart, delivery'] },
     { v: 5000, from: true, ru: ['Лендинг', '3–5 дней', 'Одна страница с формой заявки'], en: ['Landing page', '3–5 days', 'One page with a request form'] },
     { v: 10000, from: true, ru: ['Сложный лендинг', '5–10 дней', 'Калькулятор, анимация, два языка'], en: ['Complex landing', '5–10 days', 'Calculator, animation, two languages'] },
     { v: 15000, from: false, ru: ['AI-генератор карточек', 'сразу', 'Готовая программа, разовая оплата'], en: ['AI card generator', 'right away', 'Ready app, one-time payment'] }
