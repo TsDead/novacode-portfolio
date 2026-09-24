@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Степан, NOVACODE: Telegram-боты, магазины в Telegram и сайты</title>
+<meta name="description" content="Telegram-боты, магазины внутри Telegram и сайты для малого бизнеса. С 2024 года, больше 5 проектов.">
+<meta name="theme-color" content="#1C1A18">
+<meta property="og:title" content="NOVACODE: Telegram-боты и сайты">
+<meta property="og:description" content="Магазины внутри Telegram, боты для записи, лендинги. С 2024 года, больше 5 проектов.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
+
+<header class="top" id="top">
+  <div class="top__inner">
+    <a class="mark" href="#main" aria-label="NOVACODE, в начало">NOVA<span>CODE</span></a>
+    <nav class="nav" id="nav" aria-label="Разделы" data-i18n-aria="navLabel">
+      <ul>
+        <li><a href="#work" data-i18n="nav.work">Работы</a></li>
+        <li><a href="#game" data-i18n="nav.game">Игра</a></li>
+        <li><a href="#price" data-i18n="nav.price">Цены</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
+      </ul>
+      <a class="nav__tg" href="https://t.me/n0vacode" target="_blank" rel="noopener">@n0vacode</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Язык сайта" data-i18n-aria="langLabel">
+      <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Открыть меню">
+      <span class="burger__lines" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__text">
+      <h1 id="hero-title" class="hero__name"><span class="name" id="name" data-i18n="hero.name">Степан</span></h1>
+      <p class="hero__line" data-i18n="hero.line">Telegram-боты, магазины и&nbsp;сайты. С&nbsp;2024 года, больше пяти проектов.</p>
+      <div class="hero__actions">
+        <a class="btn" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="hero.cta">Написать в Telegram</a>
+        <a class="link" href="#work" data-i18n="hero.work">Смотреть работы</a>
+      </div>
+    </div>
+
+    <div class="hero__demo">
+      <div class="tg" id="tg" aria-roledescription="демонстрация" aria-label="Покупатель заказывает худи в магазине YFB Store внутри Telegram" data-i18n-aria="demo.aria">
+        <div class="tg__head">
+          <span class="tg__back" aria-hidden="true"></span>
+          <span class="tg__ava" aria-hidden="true">YFB</span>
+          <span class="tg__who"><b>YFB Store</b><i data-i18n="demo.bot">бот</i></span>
+          <span class="tg__cart" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 7h13l-1.4 7.2a2 2 0 0 1-2 1.6H9.4a2 2 0 0 1-2-1.6L5.6 4H3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.3" fill="currentColor"/><circle cx="16" cy="20" r="1.3" fill="currentColor"/></svg><em id="tgBadge">0</em></span>
+        </div>
+        <div class="tg__screen" id="tgScreen"></div>
+        <span class="tg__tap" id="tgTap" aria-hidden="true"></span>
+      </div>
+      <div class="demo-ctrl">
+        <button type="button" class="demo-ctrl__btn" id="demoToggle">Пауза</button>
+        <span class="demo-ctrl__note" id="demoNote"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work" id="work" aria-labelledby="work-title">
+    <h2 id="work-title" class="work__title" data-reveal data-i18n="work.title">Работы</h2>
+    <div class="work__body">
+      <ul class="plist" id="plist" role="list"></ul>
+      <div class="stage" id="stage" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section class="game" id="game" aria-labelledby="game-title">
+    <div class="game__dark" id="gameDark">
+      <div class="game__scene" aria-hidden="true">
+        <svg class="game__svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+          <rect width="1600" height="900" fill="#1a1612"/>
+          <rect y="640" width="1600" height="260" fill="#231d17"/>
+          <rect x="230" y="150" width="300" height="360" fill="#2c3440"/>
+          <circle cx="440" cy="240" r="38" fill="#c9c2b0"/>
+          <rect x="230" y="150" width="300" height="360" fill="none" stroke="#3b3128" stroke-width="18"/>
+          <path d="M380 150v360M230 330h300" stroke="#3b3128" stroke-width="12"/>
+          <rect x="1030" y="170" width="250" height="470" fill="#0c0a08"/>
+          <path d="M1030 170l110 30v470l-110-30z" fill="#4a3c2e"/>
+          <rect x="1030" y="170" width="250" height="470" fill="none" stroke="#3b3128" stroke-width="14"/>
+          <rect x="620" y="520" width="360" height="24" fill="#5a4632"/>
+          <rect x="640" y="544" width="18" height="120" fill="#4a3a2a"/><rect x="942" y="544" width="18" height="120" fill="#4a3a2a"/>
+          <g fill="#6b4a24"><rect x="668" y="430" width="30" height="90" rx="8"/><rect x="714" y="410" width="30" height="110" rx="8"/><rect x="760" y="440" width="30" height="80" rx="8"/></g>
+          <rect x="820" y="400" width="120" height="120" rx="6" fill="#77706a"/><ellipse cx="880" cy="400" rx="60" ry="14" fill="#8d857d"/>
+          <path d="M1300 640c-40-10-60-60-40-110s80-40 90 10 10 90-50 100z" fill="#2a221b"/>
+          <text x="880" y="370" fill="#c9a25b" font-family="Unbounded, sans-serif" font-size="22" text-anchor="middle" opacity=".7">08:12</text>
+        </svg>
+        <img src="img/oof-1.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async" onerror="this.remove()">
+      </div>
+      <div class="game__text">
+        <p class="game__studio" data-i18n="game.studio">Своя игра студии Duallix</p>
+        <h2 id="game-title">Obsession of&nbsp;Fear</h2>
+        <p class="game__line" data-i18n="game.line">Хоррор без монстров. Страшно становится, когда растёт паранойя.</p>
+        <p class="game__hint" id="gameHint" data-i18n="game.hint">Посветите фонариком: ведите мышью</p>
+      </div>
+    </div>
+    <ul class="game__facts" data-reveal>
+      <li><b>Unity 6, C#</b><span data-i18n="game.f1">весь код на мне</span></li>
+      <li><b data-i18n="game.f2b">Варка и продажа</b><span data-i18n="game.f2">через мессенджер в игровом ПК</span></li>
+      <li><b data-i18n="game.f3b">Рассудок и паранойя</b><span data-i18n="game.f3">меняют то, что видит герой</span></li>
+    </ul>
+  </section>
+
+  <!-- PRICE -->
+  <section class="price" id="price" aria-labelledby="price-title">
+    <h2 id="price-title" data-reveal data-i18n="price.title">Что нужно сделать?</h2>
+    <div class="price__pick" id="pricePick" role="radiogroup" aria-labelledby="price-title"></div>
+    <div class="price__out" id="priceOut" aria-live="polite">
+      <div class="price__num"><span id="priceFrom" data-i18n="price.from">от</span> <b id="priceVal">3 500</b> ₽</div>
+      <div class="price__meta"><span id="priceTime"></span><span id="priceNote"></span></div>
+    </div>
+    <ol class="steps" data-reveal>
+      <li><b data-i18n="step1">Разговор</b><span data-i18n="step1t">план, срок и цена до начала</span></li>
+      <li><b data-i18n="step2">Разработка</b><span data-i18n="step2t">показываю версии по ходу</span></li>
+      <li><b data-i18n="step3">Запуск</b><span data-i18n="step3t">и 14 дней поддержки бесплатно</span></li>
+    </ol>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title" class="visually-hidden" data-i18n="contact.title">Контакты</h2>
+    <p class="contact__lead" data-reveal data-i18n="contact.lead">Напишите, отвечу в течение дня</p>
+    <a class="contact__tg" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-reveal>@n0vacode</a>
+    <div class="contact__row" data-reveal>
+      <button type="button" class="chip" data-copy="stepchikcrypto@gmail.com">stepchikcrypto@gmail.com</button>
+      <button type="button" class="chip" data-copy="+79105650340">+7 (910) 565-03-40</button>
+      <a class="chip" href="https://t.me/red_vent" target="_blank" rel="noopener" data-i18n="contact.channel">Личный канал</a>
+      <a class="chip" href="https://www.tiktok.com/@ts_deadd" target="_blank" rel="noopener">TikTok</a>
+      <button type="button" class="chip chip--gold" id="formOpen" aria-expanded="false" aria-controls="form" data-i18n="form.open">Оставить заявку</button>
+    </div>
+    <form class="form" id="form" action="https://formspree.io/f/xnjknbdw" method="POST" novalidate hidden>
+      <label><span data-i18n="form.name">Имя</span><input name="name" type="text" autocomplete="name" required></label>
+      <label><span data-i18n="form.contact">Telegram или телефон</span><input name="contact" type="text" autocomplete="tel" required></label>
+      <label class="form__wide"><span data-i18n="form.msg">Что нужно сделать</span><textarea name="message" rows="3" required></textarea></label>
+      <button class="btn" type="submit" id="formBtn" data-i18n="form.send">Отправить</button>
+      <p class="form__status" id="formStatus" role="status"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 NOVACODE</span>
+  <span data-i18n="foot">Разработчик и сооснователь студии Duallix</span>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
