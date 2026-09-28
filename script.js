@@ -728,4 +728,36 @@
 
 
   applyLang();
+
+  /* ---------------- language gate (first visit only) ---------------- */
+  (function langGate() {
+    if (store.get('lang')) return;                 // выбор уже был — окно не нужно
+    const gate = document.getElementById('langGate');
+    if (!gate) return;
+    const opts = [...gate.querySelectorAll('.langgate__opt')];
+
+    function choose(code) {
+      lang = code === 'en' ? 'en' : 'ru';
+      store.set('lang', lang);
+      applyLang();
+      gate.hidden = true;
+      document.body.classList.remove('menu-open');
+    }
+    function onKey(e) {
+      if (e.key !== 'Tab') return;                  // держим фокус внутри окна
+      const first = opts[0], last = opts[opts.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    opts.forEach(btn => btn.addEventListener('click', () => {
+      gate.removeEventListener('keydown', onKey);
+      choose(btn.dataset.lang);
+    }));
+    gate.addEventListener('keydown', onKey);
+
+    gate.hidden = false;
+    document.body.classList.add('menu-open');       // блокируем скролл (класс уже есть в CSS)
+    requestAnimationFrame(() => opts[0].focus());
+  })();
 })();
