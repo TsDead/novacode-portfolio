@@ -12,8 +12,8 @@
 
   /* ---------------- texts ---------------- */
   const EN = {
-    'meta.title': 'Stepan Bedin — AI / LLM Engineer · NOVACODE',
-    'meta.desc': 'AI/LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation, observability. Plus Telegram bots, shops and websites end-to-end. Since 2024.',
+    'meta.title': 'NOVACODE — Stepan Bedin · AI / LLM Engineer',
+    'meta.desc': 'NOVACODE — Stepan Bedin. AI/LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation, observability. Plus Telegram bots, shops and websites end-to-end. Since 2024.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
     'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.contact': 'Contact',
     'hero.role': 'AI / LLM Engineer',
