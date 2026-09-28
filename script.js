@@ -16,8 +16,9 @@
     'meta.desc': 'Telegram bots, in-Telegram shops and websites for small businesses. Since 2024, more than 5 projects.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
     'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.contact': 'Contact',
-    'hero.name': 'Stepan',
-    'hero.line': 'Telegram bots, shops and websites. Since 2024, more than five projects.',
+    'hero.role': 'AI / LLM Engineer',
+    'hero.name': 'Stepan Bedin',
+    'hero.line': 'I build autonomous agents, RAG and MCP servers. Plus websites and bots, end-to-end.',
     'hero.cta': 'Message me on Telegram', 'hero.work': 'See the work',
     'demo.aria': 'A customer orders a hoodie in the YFB Store shop inside Telegram', 'demo.bot': 'bot',
     'work.title': 'Work',
@@ -192,8 +193,11 @@
     function split() {
       const text = el.textContent;
       el.setAttribute('aria-label', text);
-      el.innerHTML = [...text].map(c => `<span class="ch" aria-hidden="true">${esc(c)}</span>`).join('');
-      chars = [...el.children];
+      // каждое слово — неразрывный блок (буквы не рвутся), перенос только между словами
+      el.innerHTML = text.split(' ').map(w =>
+        `<span class="word">${[...w].map(c => `<span class="ch" aria-hidden="true">${esc(c)}</span>`).join('')}</span>`
+      ).join(' ');
+      chars = [...el.querySelectorAll('.ch')];
       if (!reduceMotion.matches) wave();
     }
     function paint() {
@@ -225,8 +229,41 @@
   const work = (() => {
     const list = document.getElementById('plist');
     const stage = document.getElementById('stage');
-    const body = stage.parentElement;
-    let active = 0, hoverTimer = 0;
+    const body = stage.parentElement;              // .work__body
+    let active = 0, hoverTimer = 0, activeCat = 'ai';
+
+    // категории кейсов + порядок (AI первыми)
+    const CAT = { aiagent:'ai', mcprag:'ai', ragqdrant:'ai', observability:'ai', ragqa:'ai',
+                  coverletter:'ai', jobhunter:'ai', yfb:'bots', barbot:'bots',
+                  holo:'web', remont:'web', ai:'web', duallix:'web' };
+    const ORDER = ['aiagent','mcprag','ragqdrant','observability','ragqa','coverletter','jobhunter',
+                   'yfb','barbot','holo','remont','ai','duallix'];
+    const TABS = [{ k:'ai', ru:'AI', en:'AI' }, { k:'bots', ru:'Боты', en:'Bots' },
+                  { k:'web', ru:'Веб', en:'Web' }, { k:'all', ru:'Все', en:'All' }];
+    const byId = Object.fromEntries(PROJECTS.map(p => [p.id, p]));
+    const ordered = ORDER.map(id => byId[id]).filter(Boolean);
+    const viewOf = () => activeCat === 'all' ? ordered : ordered.filter(p => CAT[p.id] === activeCat);
+    let view = viewOf();
+
+    // панель фильтра над списком
+    const filter = document.createElement('div');
+    filter.className = 'pfilter';
+    filter.setAttribute('role', 'tablist');
+    body.parentElement.insertBefore(filter, body);
+    function renderFilter() {
+      const total = ordered.length;
+      const count = k => k === 'all' ? total : ordered.filter(p => CAT[p.id] === k).length;
+      filter.innerHTML = TABS.map(tb =>
+        `<button type="button" class="ptab${tb.k === activeCat ? ' is-on' : ''}" role="tab"
+           aria-selected="${tb.k === activeCat}" data-cat="${tb.k}">${tb[lang]}<i>${count(tb.k)}</i></button>`
+      ).join('');
+    }
+    filter.addEventListener('click', e => {
+      const b = e.target.closest('.ptab'); if (!b) return;
+      if (b.dataset.cat === activeCat) return;
+      activeCat = b.dataset.cat; view = viewOf(); active = 0;
+      renderFilter(); renderList(); renderStage(true); place();
+    });
 
     function media(p) {
       const s = p[lang];
@@ -236,13 +273,13 @@
       return `${cover(false)}${img(p.shot)}`;
     }
     function renderList() {
-      list.innerHTML = PROJECTS.map((p, i) => `
+      list.innerHTML = view.map((p, i) => `
         <div class="pitem"><button type="button" class="pitem__btn" id="pb-${p.id}" aria-controls="stage" aria-expanded="${i === active}" data-i="${i}">
           <span class="pitem__name">${esc(p[lang].name)}</span><span class="pitem__kind">${esc(p[lang].kind)}</span>
         </button></div>`).join('');
     }
     function renderStage(animate) {
-      const p = PROJECTS[active], s = p[lang], u = UI[lang];
+      const p = view[active], s = p[lang], u = UI[lang];
       stage.setAttribute('aria-labelledby', 'pb-' + p.id);
       stage.innerHTML = `
         <div class="stage__media">${media(p)}</div>
@@ -291,7 +328,7 @@
       m.querySelector('span').textContent = UI[lang][open ? 'less' : 'more'];
       stage.querySelector('.details').classList.toggle('is-open', open);
     });
-    return { render(anim) { renderList(); renderStage(anim); place(); }, place };
+    return { render(anim) { view = viewOf(); if (active >= view.length) active = 0; renderFilter(); renderList(); renderStage(anim); place(); }, place };
   })();
 
   /* ---------------- game: flashlight ---------------- */
