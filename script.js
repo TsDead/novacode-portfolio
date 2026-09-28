@@ -12,8 +12,8 @@
 
   /* ---------------- texts ---------------- */
   const EN = {
-    'meta.title': 'Novacode',
-    'meta.desc': 'Telegram bots, in-Telegram shops and websites for small businesses. Since 2024, more than 5 projects.',
+    'meta.title': 'Stepan Bedin — AI / LLM Engineer · NOVACODE',
+    'meta.desc': 'AI/LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation, observability. Plus Telegram bots, shops and websites end-to-end. Since 2024.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
     'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.contact': 'Contact',
     'hero.role': 'AI / LLM Engineer',
@@ -33,7 +33,7 @@
     step3: 'Launch', step3t: 'plus 14 days of free support',
     'contact.title': 'Contact', 'contact.lead': 'Message me, I reply within a day', 'contact.channel': 'Personal channel',
     'form.open': 'Leave a request', 'form.name': 'Name', 'form.contact': 'Telegram or phone', 'form.msg': 'What needs to be built', 'form.send': 'Send',
-    foot: 'Developer and co-founder of Duallix studio'
+    foot: 'AI / LLM Engineer · co-founder of Duallix studio'
   };
   const UI = {
     ru: { sent: 'Заявка отправлена. Отвечу в течение дня.', fail: 'Не отправилось. Напишите в Telegram: @n0vacode', fill: 'Заполните все три поля.', sending: 'Отправляю…', copied: 'Скопировано', play: 'Продолжить', pause: 'Пауза', next: 'Следующий шаг', again: 'Сначала', menuOpen: 'Закрыть меню', menuClosed: 'Открыть меню', more: 'Как это было', less: 'Свернуть', was: 'Было', did: 'Сделал', end: 'Итог', hintTouch: 'Посветите фонариком: ведите пальцем', formClose: 'Скрыть заявку' },
@@ -128,9 +128,24 @@
   const t = key => (lang === 'en' ? (EN[key] ?? RU[key]) : RU[key]);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+  /* подзаголовок «печатается» по токенам, как ответ LLM */
+  function streamLine(el, text) {
+    text = String(text);
+    if (reduceMotion.matches) { el.textContent = text; return; }
+    const parts = text.split(/(\s+)/);
+    el.innerHTML = parts.map(p => /^\s+$/.test(p) ? p : `<w>${esc(p)}</w>`).join('') + '<span class="caret" aria-hidden="true"></span>';
+    const ws = [...el.querySelectorAll('w')];
+    let i = 0;
+    (function tick() {
+      if (i < ws.length) { ws[i].classList.add('on'); i++; setTimeout(tick, 42); }
+      else { const c = el.querySelector('.caret'); if (c) setTimeout(() => c.classList.add('done'), 2200); }
+    })();
+  }
+
   function applyLang() {
     document.documentElement.lang = lang;
     nodes.text.forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+    const heroLine = document.querySelector('.hero__line'); if (heroLine) streamLine(heroLine, heroLine.textContent);
     nodes.aria.forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
     document.title = t('meta.title');
     metaDesc.content = t('meta.desc');
@@ -334,6 +349,7 @@
   /* ---------------- game: flashlight ---------------- */
   const game = (() => {
     const box = document.getElementById('gameDark');
+    if (!box) return { hint() {} };   // блок игры удалён — модуль отключён
     const scene = box.querySelector('.game__scene');
     const hintEl = document.getElementById('gameHint');
     let tx = 0, ty = 0, cx = 0, cy = 0, touched = false, visible = false, raf = 0, t0 = performance.now();

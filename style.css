@@ -84,6 +84,12 @@ main, .foot, .top { position: relative; z-index: 1; }
 .name .word { display: inline-block; white-space: nowrap; }
 .name .ch { display: inline-block; font-weight: var(--w, 800); color: color-mix(in srgb, var(--gold) calc(var(--h, 0) * 100%), var(--ink)); transition: font-weight .35s var(--ease), color .35s; }
 .hero__line { margin-top: clamp(22px, 3vw, 36px); max-width: 26ch; font-size: clamp(19px, 1.8vw, 24px); line-height: 1.4; color: var(--ink-soft); }
+.hero__line w { opacity: 0; transition: opacity .18s var(--ease); }
+.hero__line w.on { opacity: 1; }
+.hero__line .caret { display: inline-block; width: .5em; height: 1.05em; margin-left: 3px; vertical-align: -2px; background: var(--gold); border-radius: 2px; animation: caretBlink 1s steps(1) infinite; }
+.hero__line .caret.done { animation: none; opacity: 0; transition: opacity .5s; }
+@keyframes caretBlink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hero__line w { opacity: 1; } .hero__line .caret { display: none; } }
 .hero__actions { margin-top: 34px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; }
 .hero__demo { justify-self: end; }
 
