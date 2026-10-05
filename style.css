@@ -392,5 +392,13 @@ main, .foot, .top { position: relative; z-index: 1; }
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .35); display: inline-flex; }
 .langgate__opt .flag svg { display: block; }
 .langgate__lbl { flex: 1; }
+.langgate__step[hidden] { display: none; }
+#goalStep { animation: lg-rise .3s var(--ease); }
+.langgate__ico { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
+  background: rgba(201, 162, 91, .12); color: var(--gold); }
+.langgate__lbl small { display: block; margin-top: 5px; font: 400 13.5px/1.3 var(--text); color: var(--ink-soft); }
+.langgate__skip { margin-top: 18px; padding: 6px; background: none; border: 0; cursor: pointer; font: 400 15px/1.3 var(--text);
+  color: var(--ink-soft); text-decoration: underline; text-underline-offset: 4px; }
+.langgate__skip:hover { color: var(--ink); }
 @keyframes lg-fade { from { opacity: 0; } }
 @keyframes lg-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } }

@@ -15,7 +15,8 @@
     'meta.title': 'NOVACODE — Stepan Bedin · AI / LLM Engineer',
     'meta.desc': 'NOVACODE — Stepan Bedin. AI/LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation, observability. Plus Telegram bots, shops and websites end-to-end. Since 2024.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
-    'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.contact': 'Contact',
+    'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.nfc': 'NFC tags', 'nav.contact': 'Contact',
+    'g.title': 'What are you interested in?', 'g.ai': 'AI agents & LLM', 'g.aiT': 'agents, RAG, MCP servers', 'g.bots': 'Telegram bots & shops', 'g.botsT': 'bookings, requests, a shop in Telegram', 'g.web': 'Websites & landing pages', 'g.webT': 'landing page, company or event site', 'g.nfc': 'NFC tags', 'g.nfcT': 'Yandex Maps reviews in one tap', 'g.skip': 'Just browse the site',
     'hero.role': 'AI / LLM Engineer',
     'hero.name': 'Stepan Bedin',
     'hero.line': 'I build autonomous agents, RAG and MCP servers. Plus websites and bots, end-to-end.',
@@ -32,7 +33,6 @@
     step2: 'Development', step2t: 'I show versions along the way',
     step3: 'Launch', step3t: 'plus 14 days of free support',
     'contact.title': 'Contact', 'contact.lead': 'Message me, I reply within a day', 'contact.channel': 'Personal channel',
-    'form.open': 'Leave a request', 'form.name': 'Name', 'form.contact': 'Telegram or phone', 'form.msg': 'What needs to be built', 'form.send': 'Send',
     foot: 'AI / LLM Engineer · co-founder of Duallix studio'
   };
   const UI = {
@@ -155,7 +155,6 @@
     work.render(false);
     game.hint();
     price.build();
-    formToggleLabel();
     demo.relang();
   }
   document.querySelectorAll('.lang button').forEach(btn => btn.addEventListener('click', () => {
@@ -343,7 +342,8 @@
       m.querySelector('span').textContent = UI[lang][open ? 'less' : 'more'];
       stage.querySelector('.details').classList.toggle('is-open', open);
     });
-    return { render(anim) { view = viewOf(); if (active >= view.length) active = 0; renderFilter(); renderList(); renderStage(anim); place(); }, place };
+    return { render(anim) { view = viewOf(); if (active >= view.length) active = 0; renderFilter(); renderList(); renderStage(anim); place(); }, place,
+      show(k) { if (!TABS.some(tb => tb.k === k)) return; activeCat = k; view = viewOf(); active = 0; renderFilter(); renderList(); renderStage(true); place(); } };
   })();
 
   /* ---------------- game: flashlight ---------------- */
@@ -434,35 +434,6 @@
     try { await navigator.clipboard.writeText(v); say(UI[lang].copied + ': ' + v); }
     catch (e) { window.location.href = v.startsWith('+') ? 'tel:' + v : 'mailto:' + v; }
   }));
-
-  /* ---------------- form ---------------- */
-  const form = document.getElementById('form');
-  const formOpen = document.getElementById('formOpen');
-  const status = document.getElementById('formStatus');
-  const formBtn = document.getElementById('formBtn');
-  function formToggleLabel() { formOpen.textContent = form.hidden ? t('form.open') : UI[lang].formClose; }
-  formOpen.addEventListener('click', () => {
-    form.hidden = !form.hidden;
-    formOpen.setAttribute('aria-expanded', String(!form.hidden));
-    formToggleLabel();
-    if (!form.hidden) form.querySelector('input').focus();
-  });
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const fields = [...form.querySelectorAll('input, textarea')];
-    let ok = true;
-    fields.forEach(f => { const bad = !f.value.trim(); f.setAttribute('aria-invalid', String(bad)); if (bad && ok) { f.focus(); ok = false; } });
-    status.className = 'form__status';
-    if (!ok) { status.textContent = UI[lang].fill; status.classList.add('is-err'); return; }
-    formBtn.disabled = true; status.textContent = UI[lang].sending;
-    try {
-      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-      if (!res.ok) throw new Error(res.status);
-      form.reset(); fields.forEach(f => f.removeAttribute('aria-invalid'));
-      status.textContent = UI[lang].sent; status.classList.add('is-ok');
-    } catch (err) { status.textContent = UI[lang].fail; status.classList.add('is-err'); }
-    finally { formBtn.disabled = false; }
-  });
 
   /* ---------------- reveal on scroll ---------------- */
   if ('IntersectionObserver' in window) {
@@ -729,35 +700,52 @@
 
   applyLang();
 
-  /* ---------------- language gate (first visit only) ---------------- */
+  /* ---------------- language gate (first visit only): язык, затем направление ---------------- */
   (function langGate() {
     if (store.get('lang')) return;                 // выбор уже был — окно не нужно
     const gate = document.getElementById('langGate');
     if (!gate) return;
-    const opts = [...gate.querySelectorAll('.langgate__opt')];
+    const langStep = document.getElementById('langStep');
+    const goalStep = document.getElementById('goalStep');
+    const buttons = () => [...gate.querySelectorAll('.langgate__step:not([hidden]) button')];
 
+    function close() {
+      gate.hidden = true;
+      gate.removeEventListener('keydown', onKey);
+      document.body.classList.remove('menu-open');
+    }
     function choose(code) {
       lang = code === 'en' ? 'en' : 'ru';
       store.set('lang', lang);
       applyLang();
-      gate.hidden = true;
-      document.body.classList.remove('menu-open');
+      langStep.hidden = true;
+      goalStep.hidden = false;
+      gate.setAttribute('aria-labelledby', 'goalStep-title');
+      requestAnimationFrame(() => buttons()[0].focus());
+    }
+    function go(goal) {
+      close();
+      if (goal === 'nfc') { location.href = 'nfc.html'; return; }
+      if (goal === 'skip') return;
+      work.show(goal);
+      document.getElementById('work').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
     }
     function onKey(e) {
+      if (e.key === 'Escape' && !goalStep.hidden) { close(); return; }
       if (e.key !== 'Tab') return;                  // держим фокус внутри окна
-      const first = opts[0], last = opts[opts.length - 1];
+      const opts = buttons(), first = opts[0], last = opts[opts.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
 
-    opts.forEach(btn => btn.addEventListener('click', () => {
-      gate.removeEventListener('keydown', onKey);
-      choose(btn.dataset.lang);
-    }));
+    gate.addEventListener('click', e => {
+      const l = e.target.closest('[data-lang]'); if (l) { choose(l.dataset.lang); return; }
+      const g = e.target.closest('[data-goal]'); if (g) go(g.dataset.goal);
+    });
     gate.addEventListener('keydown', onKey);
 
     gate.hidden = false;
     document.body.classList.add('menu-open');       // блокируем скролл (класс уже есть в CSS)
-    requestAnimationFrame(() => opts[0].focus());
+    requestAnimationFrame(() => buttons()[0].focus());
   })();
 })();
