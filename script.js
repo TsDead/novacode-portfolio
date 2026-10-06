@@ -31,7 +31,7 @@
     'svc.more': 'Also: a custom bot with payments, spreadsheets and CRM, from 15,000 ₽. AI product-card generator for Wildberries and Ozon, 15,000 ₽.',
     'ait.aria': 'For employers', 'ait.eyebrow': 'For employers', 'ait.title': 'Looking for an AI / LLM engineer?', 'ait.text': 'Agents, RAG, MCP servers, evaluation: 7 projects with code and live demos.',
     'ai.projects': 'See the projects', 'ai.title': 'AI projects', 'foot.biz': 'Stepan Bedin · co-founder of Duallix studio',
-    'g.close': 'Close', 'foot.privacy': 'Privacy policy',
+    'g.title': 'What are you interested in?', 'g.ai': 'AI agents & LLM', 'g.aiT': 'hiring an AI / LLM engineer', 'g.bots': 'Telegram bots & shops', 'g.botsT': 'bookings, requests, a shop in Telegram', 'g.web': 'Websites & landing pages', 'g.webT': 'landing page, company or event site', 'g.nfc': 'NFC tags', 'g.nfcT': 'Yandex Maps reviews in one tap', 'g.skip': 'Just browse the site', 'g.close': 'Close', 'foot.privacy': 'Privacy policy',
     'hero.role': 'AI / LLM Engineer',
     'hero.name': 'Stepan Bedin',
     'hero.line': 'I build autonomous agents, RAG and MCP servers. Plus websites and bots, end-to-end.',
@@ -730,17 +730,39 @@
 
   applyLang();
 
-  /* ---------------- language gate (first visit only) ---------------- */
+  /* ---------------- welcome gate: язык (только первый визит), затем направление (каждый визит) ---------------- */
   (function langGate() {
-    if (store.get('lang')) return;                 // язык уже выбран — окно не нужно
     const gate = document.getElementById('langGate');
     if (!gate) return;
-    const buttons = () => [...gate.querySelectorAll('.langgate__opt, .langgate__close')];
+    const langStep = document.getElementById('langStep');
+    const goalStep = document.getElementById('goalStep');
+    const buttons = () => [...gate.querySelectorAll('.langgate__step:not([hidden]) button, .langgate__close')];
 
     function close() {
       gate.hidden = true;
       document.removeEventListener('keydown', onKey);
       document.body.classList.remove('menu-open');
+    }
+    function choose(code) {
+      lang = code === 'en' ? 'en' : 'ru';
+      store.set('lang', lang);
+      applyLang();
+      showGoal();
+    }
+    function showGoal() {
+      langStep.hidden = true;
+      goalStep.hidden = false;
+      gate.setAttribute('aria-labelledby', 'goalStep-title');
+      requestAnimationFrame(() => buttons()[0].focus());
+    }
+    function go(goal) {
+      close();
+      if (goal === 'nfc') { location.href = 'nfc.html'; return; }
+      if (goal === 'ai') { location.href = 'ai.html'; return; }
+      if (goal === 'skip') return;
+      const target = document.getElementById(goal === 'bots' ? 'svc-bot' : 'svc-web');
+      target.scrollIntoView({ block: 'center', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      target.classList.add('is-picked'); setTimeout(() => target.classList.remove('is-picked'), 2200);
     }
     function onKey(e) {
       if (e.key === 'Escape') { close(); return; }
@@ -752,16 +774,14 @@
 
     gate.addEventListener('click', e => {
       if (e.target.closest('.langgate__close')) { close(); return; }
-      const l = e.target.closest('[data-lang]'); if (!l) return;
-      lang = l.dataset.lang === 'en' ? 'en' : 'ru';
-      store.set('lang', lang);
-      applyLang();
-      close();
+      const l = e.target.closest('[data-lang]'); if (l) { choose(l.dataset.lang); return; }
+      const g = e.target.closest('[data-goal]'); if (g) go(g.dataset.goal);
     });
     document.addEventListener('keydown', onKey);      // Esc работает, даже если фокус ещё не в окне
 
     gate.hidden = false;
     document.body.classList.add('menu-open');       // блокируем скролл (класс уже есть в CSS)
-    requestAnimationFrame(() => buttons()[0].focus());
+    if (store.get('lang')) showGoal();              // язык уже выбран — сразу вопрос о направлении
+    else requestAnimationFrame(() => buttons()[0].focus());
   })();
 })();

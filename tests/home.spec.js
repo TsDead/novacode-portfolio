@@ -4,27 +4,59 @@ const { presetLang } = require('./helpers');
 
 const CYRILLIC = /[А-Яа-яЁё]/;
 
-test.describe('окно выбора языка', () => {
-  test('показывается при первом визите и запоминает выбор', async ({ page }) => {
+/** Открыть главную и закрыть приветственное окно (оно показывается при каждом входе). */
+async function openHome(page, url = '/index.html') {
+  await page.goto(url);
+  await page.locator('.langgate__close').click();
+  await expect(page.locator('#langGate')).toBeHidden();
+}
+
+test.describe('приветственное окно', () => {
+  test('первый визит: язык, потом вопрос «Что вас интересует?»', async ({ page }) => {
     await page.goto('/index.html');
     const gate = page.locator('#langGate');
-    await expect(gate).toBeVisible();
+    await expect(page.locator('#langStep')).toBeVisible();
+    await expect(page.locator('#goalStep')).toBeHidden();
     await expect(page.locator('body')).toHaveClass(/menu-open/);   // прокрутка заблокирована, пока окно открыто
     await gate.locator('[data-lang="en"]').click();
-    await expect(gate).toBeHidden();
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-    await expect(page.locator('body')).not.toHaveClass(/menu-open/);
+    await expect(page.locator('#goalStep')).toBeVisible();
+    await expect(page.locator('#goalStep-title')).toHaveText('What are you interested in?');
     expect(await page.evaluate(() => localStorage.getItem('lang'))).toBe('en');
-    await page.reload();
-    await expect(gate).toBeHidden();
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  });
+
+  test('повторный визит: язык не спрашивает, сразу вопрос', async ({ page }) => {
+    await presetLang(page, 'ru');
+    await page.goto('/index.html');
+    await expect(page.locator('#langStep')).toBeHidden();
+    await expect(page.locator('#goalStep')).toBeVisible();
+    await expect(page.locator('#goalStep-title')).toHaveText('Что вас интересует?');
+  });
+
+  test('ответы ведут в нужное место', async ({ page }) => {
+    await presetLang(page, 'ru');
+    for (const [goal, check] of [
+      ['bots', async () => { await expect(page.locator('#svc-bot')).toBeInViewport(); }],
+      ['web', async () => { await expect(page.locator('#svc-web')).toBeInViewport(); }],
+      ['ai', async () => { await expect(page).toHaveURL(/ai\.html$/); }],
+      ['nfc', async () => { await expect(page).toHaveURL(/nfc\.html$/); }],
+      ['skip', async () => { await expect(page.locator('#langGate')).toBeHidden(); }],
+    ]) {
+      await page.goto('/index.html');
+      await page.locator(`[data-goal="${goal}"]`).click();
+      await check();
+      if (goal === 'bots' || goal === 'web') {
+        await expect(page.locator('#langGate')).toBeHidden();
+        await expect(page.locator('body')).not.toHaveClass(/menu-open/);
+      }
+    }
   });
 
   test('закрывается крестиком и клавишей Esc', async ({ page }) => {
     await page.goto('/index.html');
     await page.locator('.langgate__close').click();
     await expect(page.locator('#langGate')).toBeHidden();
-    await page.evaluate(() => localStorage.clear());
+    await expect(page.locator('body')).not.toHaveClass(/menu-open/);
     await page.reload();
     await expect(page.locator('#langGate')).toBeVisible();
     await page.keyboard.press('Escape');
@@ -40,7 +72,7 @@ test.describe('окно выбора языка', () => {
 for (const path of ['index.html', 'ai.html']) {
   test(`${path}: в английской версии не осталось русского текста`, async ({ page }) => {
     await presetLang(page, 'ru');
-    await page.goto('/' + path);
+    if (path === 'index.html') await openHome(page); else await page.goto('/' + path);
     await page.locator('.lang [data-lang="en"]').click();
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page).toHaveTitle(/^[^А-Яа-яЁё]*$/);
@@ -62,7 +94,7 @@ for (const path of ['index.html', 'ai.html']) {
 }
 
 test.describe('главная', () => {
-  test.beforeEach(async ({ page }) => { await presetLang(page); await page.goto('/index.html'); });
+  test.beforeEach(async ({ page }) => { await presetLang(page); await openHome(page); });
 
   test('четыре услуги с ценами и действиями', async ({ page }) => {
     const cards = page.locator('.svc__card');
@@ -139,7 +171,7 @@ test.describe('меню на телефоне', () => {
   test.skip(({ isMobile }) => !isMobile, 'бургер есть только на телефоне');
   test('открывается, закрывается по Esc и после выбора пункта', async ({ page }) => {
     await presetLang(page);
-    await page.goto('/index.html');
+    await openHome(page);
     const burger = page.locator('#burger'), nav = page.locator('#nav');
     await burger.click();
     await expect(burger).toHaveAttribute('aria-expanded', 'true');
