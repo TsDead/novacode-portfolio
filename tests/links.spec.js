@@ -89,3 +89,16 @@ test('на сайте нет форм и сторонних скриптов, ш
   }
   expect(bad).toEqual([]);
 });
+
+test('стили и скрипт подключены с номером версии, одинаковым на всех страницах', () => {
+  // без ?v= браузеры показывают старую версию сайта из кэша после обновления
+  const versions = new Set();
+  for (const page of ['index.html', 'ai.html']) {
+    const html = read(page);
+    const css = html.match(/href="style\.css\?v=([\w.-]+)"/), js = html.match(/src="script\.js\?v=([\w.-]+)"/);
+    expect(css, `${page}: style.css без ?v=`).not.toBeNull();
+    expect(js, `${page}: script.js без ?v=`).not.toBeNull();
+    versions.add(css[1]); versions.add(js[1]);
+  }
+  expect([...versions], 'версии должны совпадать').toHaveLength(1);
+});
