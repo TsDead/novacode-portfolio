@@ -397,11 +397,11 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 400; pointer-even
 .svc__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 .svc__card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; padding: 24px 22px 22px; border-radius: 16px; background: var(--raised); border: 1px solid var(--line); transition: border-color .2s, transform .2s var(--ease); }
 .svc__card::before { content: ""; position: absolute; right: -40%; top: -40%; width: 90%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(201, 162, 91, .16), transparent 65%); opacity: 0; transition: opacity .35s; pointer-events: none; }
-.svc__card:hover::before, .svc__card.is-picked::before { opacity: 1; }
+.svc__card:hover::before { opacity: 1; }
 .svc__num { position: absolute; top: 20px; right: 22px; font: 700 13px/1 var(--display); color: var(--ink-soft); opacity: .55; letter-spacing: .04em; }
 .svc__ex { align-self: flex-start; margin-top: -2px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--raised-2); color: var(--ink-soft); font: 500 12.5px/1.2 var(--text); cursor: pointer; transition: border-color .15s, color .15s; }
 .svc__ex:hover { border-color: var(--gold); color: var(--ink); }
-.svc__card:hover, .svc__card.is-picked { border-color: var(--gold); transform: translateY(-3px); }
+.svc__card:hover { border-color: var(--gold); transform: translateY(-3px); }
 .svc__ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(201, 162, 91, .12); color: var(--gold); }
 .svc__card h3 { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.15; letter-spacing: -0.02em; }
 .svc__text { color: var(--ink-soft); font-size: 15.5px; line-height: 1.45; }
@@ -458,12 +458,5 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 400; pointer-even
 .langgate__close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; display: grid; place-items: center;
   background: none; border: 0; border-radius: 10px; color: var(--ink-soft); cursor: pointer; transition: color .15s, background-color .15s; }
 .langgate__close:hover { color: var(--ink); background: var(--raised-2); }
-#goalStep { animation: lg-rise .3s var(--ease); }
-.langgate__ico { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
-  background: rgba(201, 162, 91, .12); color: var(--gold); }
-.langgate__lbl small { display: block; margin-top: 5px; font: 400 13.5px/1.3 var(--text); color: var(--ink-soft); }
-.langgate__skip { margin-top: 18px; padding: 6px; background: none; border: 0; cursor: pointer; font: 400 15px/1.3 var(--text);
-  color: var(--ink-soft); text-decoration: underline; text-underline-offset: 4px; }
-.langgate__skip:hover { color: var(--ink); }
 @keyframes lg-fade { from { opacity: 0; } }
 @keyframes lg-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } }
