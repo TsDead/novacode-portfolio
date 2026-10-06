@@ -19,7 +19,10 @@
     'ai.meta.desc': 'Stepan Bedin, AI / LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation and observability. Projects with code and live demos.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
     'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.nfc': 'NFC tags', 'nav.contact': 'Contact', 'nav.services': 'Services & prices', 'nav.ai': 'AI engineer', 'nav.projects': 'Projects', 'nav.biz': 'For business',
-    'h.role': 'Stepan Bedin · NOVACODE', 'h.name': 'Bots and websites for business', 'h.line': 'Telegram bots, shops inside Telegram, websites and NFC review tags. I build them myself, from 3,500 ₽, live in 1–3 days.', 'h.services': 'Services & prices',
+    'h.role': 'Stepan Bedin · NOVACODE', 'h.name': 'Bots and websites for business', 'h.line': 'Telegram bots, shops inside Telegram, websites and NFC review tags. I build them myself, from 3,500 ₽, live in 1–3 days.', 'h.services': 'Services & prices', 'h.f1': 'Since 2024', 'h.f2': 'I build it myself, no middlemen', 'h.f3': '14 days of free support',
+    'eb.svc': 'Services & prices', 'eb.work': 'Cases', 'eb.contact': 'Contact', 'eb.ai': 'Projects',
+    'svc.botE': 'Example: BarBot', 'svc.shopE': 'Example: YFB Store', 'svc.webE': 'Example: hologram exhibition',
+    'ai.stack': 'What I work with', 'ai.stackNote': '7 projects with code on GitHub, 2 with a live demo',
     'svc.title': 'What I build',
     'svc.bot': 'Booking & request bot', 'svc.botT': 'Clients book and send requests themselves; you get everything in Telegram and a spreadsheet.', 'svc.botP': 'from 3,500 ₽', 'svc.botD': '1–3 days', 'svc.botA': 'Discuss on Telegram',
     'svc.shop': 'Shop inside Telegram', 'svc.shopT': 'Catalog, cart and delivery right in Telegram. Products are pulled from your channel.', 'svc.shopP': 'from 15,000 ₽', 'svc.shopD': 'from 1 week', 'svc.shopA': 'Discuss on Telegram',
@@ -257,7 +260,7 @@
     const list = document.getElementById('plist');
     const stage = document.getElementById('stage');
     const body = stage.parentElement;              // .work__body
-    let active = 0, hoverTimer = 0, activeCat = PAGE === 'ai' ? 'ai' : 'client';
+    let active = 0, hoverTimer = 0, activeCat = PAGE === 'ai' ? 'ai' : 'client', hoverLockUntil = 0;
 
     // категории кейсов + порядок (AI первыми)
     const CAT = { aiagent:'ai', mcprag:'ai', ragqdrant:'ai', observability:'ai', ragqa:'ai',
@@ -345,7 +348,7 @@
     list.addEventListener('click', e => { const b = e.target.closest('.pitem__btn'); if (b) set(+b.dataset.i, { scroll: true }); });
     list.addEventListener('focusin', e => { const b = e.target.closest('.pitem__btn'); if (b && !mobileMq.matches) set(+b.dataset.i); });
     list.addEventListener('pointerover', e => {
-      if (!finePointer.matches || mobileMq.matches) return;
+      if (!finePointer.matches || mobileMq.matches || Date.now() < hoverLockUntil) return;
       const b = e.target.closest('.pitem__btn'); if (!b) return;
       clearTimeout(hoverTimer); hoverTimer = setTimeout(() => set(+b.dataset.i), 90);
     });
@@ -358,6 +361,7 @@
       stage.querySelector('.details').classList.toggle('is-open', open);
     });
     return { render(anim) { view = viewOf(); if (active >= view.length) active = 0; renderFilter(); renderList(); renderStage(anim); place(); }, place,
+      select(id) { const i = view.findIndex(p => p.id === id); if (i < 0) return; hoverLockUntil = Date.now() + 1500; clearTimeout(hoverTimer); set(i); },   // пока страница едет к кейсу, наведение не перебивает выбор
       show(k) { if (!TABS.some(tb => tb.k === k)) return; activeCat = k; view = viewOf(); active = 0; renderFilter(); renderList(); renderStage(true); place(); } };
   })();
 
@@ -449,6 +453,12 @@
     const v = b.dataset.copy;
     try { await navigator.clipboard.writeText(v); say(UI[lang].copied + ': ' + v); }
     catch (e) { window.location.href = v.startsWith('+') ? 'tel:' + v : 'mailto:' + v; }
+  }));
+
+  /* ---------------- service card → example case ---------------- */
+  document.querySelectorAll('.svc__ex').forEach(b => b.addEventListener('click', () => {
+    work.select(b.dataset.case);
+    document.getElementById('work').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
   }));
 
   /* ---------------- reveal on scroll ---------------- */
