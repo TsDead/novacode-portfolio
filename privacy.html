@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Политика конфиденциальности — NOVACODE</title>
+<meta name="description" content="Какие данные собирает сайт new-coder.ru и что происходит с сообщениями, которые вы отправляете NOVACODE.">
+<meta name="theme-color" content="#1C1A18">
+<link rel="canonical" href="https://new-coder.ru/privacy.html">
+<link rel="icon" href="icons/favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Unbounded";src:url("fonts/unbounded-cyrillic-wght-normal.woff2") format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Unbounded";src:url("fonts/unbounded-latin-wght-normal.woff2") format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:"Onest";src:url("fonts/onest-cyrillic-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Onest";src:url("fonts/onest-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
+:root{
+  --bg:#1C1A18; --raised:#262320; --raised-2:#2F2B27; --line:#36312C;
+  --ink:#F0E9DD; --ink-soft:#A89F92; --gold:#C9A25B; --gold-hi:#DDB977; --on-gold:#1E1A15;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --text:"Onest","Segoe UI",system-ui,-apple-system,sans-serif;
+  --pad:clamp(20px,5vw,64px); --ease:cubic-bezier(.2,.8,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--text);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration-color:var(--gold);text-underline-offset:3px}
+a:hover{color:var(--gold-hi)}
+p,ul{margin:0}
+::selection{background:var(--gold);color:var(--on-gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+.top{position:sticky;top:0;z-index:50;background:rgba(28,26,24,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.top__in{max-width:880px;margin:0 auto;padding:0 var(--pad);height:68px;display:flex;align-items:center;gap:20px}
+.mark{font:700 17px/1 var(--display);text-decoration:none;margin-right:auto}
+.mark span{color:var(--gold)}
+.top a.back{font-size:15px;color:var(--ink-soft);text-decoration:none}
+.top a.back:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:8px;padding:2px}
+.lang button{font:600 13px/1 var(--text);color:var(--ink-soft);background:none;border:0;padding:7px 9px;border-radius:6px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.doc{max-width:880px;margin:0 auto;padding:clamp(40px,7vw,90px) var(--pad) clamp(60px,8vw,110px)}
+.doc[hidden]{display:none}
+.doc h1{margin:0;font:700 clamp(34px,5.5vw,60px)/1.02 var(--display);letter-spacing:-.04em;text-wrap:balance}
+.doc .upd{margin-top:14px;color:var(--ink-soft);font-size:15px}
+.tldr{margin-top:34px;padding:22px 24px;border-radius:16px;background:var(--raised);border-left:3px solid var(--gold)}
+.tldr b{display:block;font:600 18px/1.3 var(--display);letter-spacing:-.02em;margin-bottom:6px}
+.doc h2{margin:44px 0 12px;font:600 clamp(20px,2.4vw,26px)/1.2 var(--display);letter-spacing:-.025em}
+.doc p + p{margin-top:12px}
+.doc ul{padding-left:1.2em}
+.doc li + li{margin-top:6px}
+.doc p,.doc li{color:#DCD4C7;max-width:68ch}
+.foot{max-width:880px;margin:0 auto;padding:24px var(--pad) 36px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;color:var(--ink-soft);font-size:14px}
+@media (max-width:600px){ body{font-size:16.5px} .top a.back{display:none} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top__in">
+    <a class="mark" href="index.html">NOVA<span>CODE</span></a>
+    <a class="back" href="index.html" data-ru="← На главную" data-en="← Back to the site">← На главную</a>
+    <div class="lang" role="group" aria-label="Язык страницы">
+      <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <article class="doc" lang="ru" id="doc-ru">
+    <h1>Политика конфиденциальности</h1>
+    <p class="upd">Действует с 6 октября 2026 года</p>
+
+    <div class="tldr">
+      <b>Коротко</b>
+      <p>Сайт new-coder.ru не собирает ваши персональные данные. На нём нет форм, регистрации, аналитики, рекламных счётчиков и cookie. Мы узнаём о вас только то, что вы сами напишете нам в Telegram, на почту или по телефону.</p>
+    </div>
+
+    <h2>Кто отвечает за сайт</h2>
+    <p>Сайт ведёт Степан Бедин (NOVACODE). По любым вопросам о данных пишите на <a href="mailto:stepchikcrypto@gmail.com">stepchikcrypto@gmail.com</a> или в Telegram <a href="https://t.me/n0vacode" target="_blank" rel="noopener">@n0vacode</a>.</p>
+
+    <h2>Что сайт хранит в вашем браузере</h2>
+    <p>Только выбранный язык сайта (RU или EN). Он хранится в памяти вашего браузера (localStorage), чтобы не спрашивать язык при каждом визите. Это не персональные данные, на сервер они не отправляются. Удалить их можно, очистив данные сайта в настройках браузера.</p>
+    <p>Поля на странице NFC-меток (калькулятор, название на метке) работают только в вашем браузере и никуда не отправляются.</p>
+
+    <h2>Хостинг</h2>
+    <p>Сайт размещён на GitHub Pages (GitHub, Inc.). Как любой веб-сервер, хостинг технически получает IP-адрес и сведения о браузере, чтобы отдать страницу и защититься от атак. У нас нет доступа к этим данным, и мы их не используем. Как с ними обращается GitHub, описано в <a href="https://docs.github.com/ru/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">его политике конфиденциальности</a>.</p>
+    <p>Шрифты, картинки и скрипты загружаются с этого же сайта. Сторонних сервисов, которые получали бы данные о вашем визите, на сайте нет.</p>
+
+    <h2>Если вы нам пишете</h2>
+    <p>Когда вы пишете в Telegram, на почту или звоните, мы получаем то, что вы сообщаете сами: имя, контакт и описание задачи. Эти данные нужны, чтобы ответить вам, обсудить проект и выполнить работу.</p>
+    <ul>
+      <li>Мы не передаём их третьим лицам и не используем для рассылок и рекламы.</li>
+      <li>Храним переписку, пока идёт обсуждение или работа над проектом, и столько, сколько нужно для поддержки после запуска.</li>
+      <li>Вы можете попросить показать, исправить или удалить ваши данные: напишите на почту или в Telegram, ответим в течение 10 рабочих дней.</li>
+    </ul>
+
+    <h2>Ссылки на другие сайты</h2>
+    <p>На сайте есть ссылки на Telegram, TikTok, GitHub и сайты проектов. У этих сервисов свои правила обработки данных, мы за них не отвечаем.</p>
+
+    <h2>Изменения</h2>
+    <p>Если сайт начнёт собирать данные (например, появится форма заявки или аналитика), мы обновим эту страницу до того, как это произойдёт, и поменяем дату вверху.</p>
+  </article>
+
+  <article class="doc" lang="en" id="doc-en" hidden>
+    <h1>Privacy policy</h1>
+    <p class="upd">Effective from 6 October 2026</p>
+
+    <div class="tldr">
+      <b>In short</b>
+      <p>new-coder.ru does not collect your personal data. There are no forms, sign-ups, analytics, ad trackers or cookies. We only know what you tell us yourself on Telegram, by email or by phone.</p>
+    </div>
+
+    <h2>Who runs the site</h2>
+    <p>The site is run by Stepan Bedin (NOVACODE). For any data questions, email <a href="mailto:stepchikcrypto@gmail.com">stepchikcrypto@gmail.com</a> or message <a href="https://t.me/n0vacode" target="_blank" rel="noopener">@n0vacode</a> on Telegram.</p>
+
+    <h2>What the site stores in your browser</h2>
+    <p>Only the site language you chose (RU or EN). It is kept in your browser’s storage (localStorage) so the site doesn’t ask again on every visit. It is not personal data and is never sent to a server. You can remove it by clearing site data in your browser settings.</p>
+    <p>The fields on the NFC tags page (the calculator and the name on the tag) work only in your browser and are not sent anywhere.</p>
+
+    <h2>Hosting</h2>
+    <p>The site is hosted on GitHub Pages (GitHub, Inc.). Like any web server, the host technically receives your IP address and browser details to serve pages and protect against attacks. We have no access to that data and don’t use it. GitHub describes how it handles it in <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">its privacy statement</a>.</p>
+    <p>Fonts, images and scripts are served from this site. There are no third-party services that would receive data about your visit.</p>
+
+    <h2>If you contact us</h2>
+    <p>When you message us on Telegram, email or call, we receive what you share yourself: your name, contact details and a description of the task. We use it to reply, discuss the project and do the work.</p>
+    <ul>
+      <li>We don’t pass it to third parties or use it for newsletters or ads.</li>
+      <li>We keep the conversation while the project is being discussed or built, and for as long as needed to support it after launch.</li>
+      <li>You can ask us to show, correct or delete your data: email us or message us on Telegram, and we’ll respond within 10 business days.</li>
+    </ul>
+
+    <h2>Links to other sites</h2>
+    <p>The site links to Telegram, TikTok, GitHub and project websites. Those services have their own data rules, which we are not responsible for.</p>
+
+    <h2>Changes</h2>
+    <p>If the site starts collecting data (for example, a request form or analytics), we will update this page before that happens and change the date at the top.</p>
+  </article>
+</main>
+
+<footer class="foot"><span>© 2026 NOVACODE</span><a href="index.html" id="footHome">new-coder.ru</a></footer>
+
+<script>
+(() => {
+  'use strict';
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  const back = document.querySelector('.top a.back');
+  function apply(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById('doc-ru').hidden = lang !== 'ru';
+    document.getElementById('doc-en').hidden = lang !== 'en';
+    document.title = lang === 'en' ? 'Privacy policy — NOVACODE' : 'Политика конфиденциальности — NOVACODE';
+    back.textContent = back.dataset[lang];
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  }
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { store.set('lang', b.dataset.lang); apply(b.dataset.lang); }));
+  apply(store.get('lang') === 'en' ? 'en' : 'ru');
+})();
+</script>
+</body>
+</html>
