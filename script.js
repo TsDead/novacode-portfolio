@@ -9,14 +9,26 @@
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   };
   if ('IntersectionObserver' in window) document.documentElement.classList.add('js');
+  const PAGE = document.body.dataset.page === 'ai' ? 'ai' : 'home';   // главная для заказчиков или ai.html для работодателей
 
   /* ---------------- texts ---------------- */
   const EN = {
-    'meta.title': 'NOVACODE — Stepan Bedin · AI / LLM Engineer',
-    'meta.desc': 'NOVACODE — Stepan Bedin. AI/LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation, observability. Plus Telegram bots, shops and websites end-to-end. Since 2024.',
+    'meta.title': 'NOVACODE — Telegram bots, shops and websites for business',
+    'meta.desc': 'NOVACODE, Stepan Bedin: Telegram bots for bookings and requests, shops inside Telegram, websites and landing pages, NFC tags for reviews. From 3,500 ₽, live in 1–3 days.',
+    'ai.meta.title': 'Stepan Bedin — AI / LLM Engineer · NOVACODE',
+    'ai.meta.desc': 'Stepan Bedin, AI / LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation and observability. Projects with code and live demos.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
-    'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.nfc': 'NFC tags', 'nav.contact': 'Contact',
-    'g.title': 'What are you interested in?', 'g.ai': 'AI agents & LLM', 'g.aiT': 'agents, RAG, MCP servers', 'g.bots': 'Telegram bots & shops', 'g.botsT': 'bookings, requests, a shop in Telegram', 'g.web': 'Websites & landing pages', 'g.webT': 'landing page, company or event site', 'g.nfc': 'NFC tags', 'g.nfcT': 'Yandex Maps reviews in one tap', 'g.skip': 'Just browse the site', 'g.close': 'Close', 'foot.privacy': 'Privacy policy',
+    'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.nfc': 'NFC tags', 'nav.contact': 'Contact', 'nav.services': 'Services & prices', 'nav.ai': 'AI engineer', 'nav.projects': 'Projects', 'nav.biz': 'For business',
+    'h.role': 'Stepan Bedin · NOVACODE', 'h.name': 'Bots and websites for business', 'h.line': 'Telegram bots, shops inside Telegram, websites and NFC review tags. I build them myself, from 3,500 ₽, live in 1–3 days.', 'h.services': 'Services & prices',
+    'svc.title': 'What I build',
+    'svc.bot': 'Booking & request bot', 'svc.botT': 'Clients book and send requests themselves; you get everything in Telegram and a spreadsheet.', 'svc.botP': 'from 3,500 ₽', 'svc.botD': '1–3 days', 'svc.botA': 'Discuss on Telegram',
+    'svc.shop': 'Shop inside Telegram', 'svc.shopT': 'Catalog, cart and delivery right in Telegram. Products are pulled from your channel.', 'svc.shopP': 'from 15,000 ₽', 'svc.shopD': 'from 1 week', 'svc.shopA': 'Discuss on Telegram',
+    'svc.web': 'Website or landing page', 'svc.webT': 'A page with your services, prices and a contact button. More complex, with a calculator and two languages, from 10,000 ₽.', 'svc.webP': 'from 5,000 ₽', 'svc.webD': '3–5 days', 'svc.webA': 'Discuss on Telegram',
+    'svc.nfc': 'NFC tags for reviews', 'svc.nfcT': 'A customer taps their phone on the tag and leaves a review on Yandex Maps right away.', 'svc.nfcP': 'from 1,990 ₽', 'svc.nfcD': 'one-time', 'svc.nfcA': 'More about the tags',
+    'svc.more': 'Also: a custom bot with payments, spreadsheets and CRM, from 15,000 ₽. AI product-card generator for Wildberries and Ozon, 15,000 ₽.',
+    'ait.aria': 'For employers', 'ait.eyebrow': 'For employers', 'ait.title': 'Looking for an AI / LLM engineer?', 'ait.text': 'Agents, RAG, MCP servers, evaluation: 7 projects with code and live demos.',
+    'ai.projects': 'See the projects', 'ai.title': 'AI projects', 'foot.biz': 'Stepan Bedin · co-founder of Duallix studio',
+    'g.title': 'What are you interested in?', 'g.ai': 'AI agents & LLM', 'g.aiT': 'hiring an AI / LLM engineer', 'g.bots': 'Telegram bots & shops', 'g.botsT': 'bookings, requests, a shop in Telegram', 'g.web': 'Websites & landing pages', 'g.webT': 'landing page, company or event site', 'g.nfc': 'NFC tags', 'g.nfcT': 'Yandex Maps reviews in one tap', 'g.skip': 'Just browse the site', 'g.close': 'Close', 'foot.privacy': 'Privacy policy',
     'hero.role': 'AI / LLM Engineer',
     'hero.name': 'Stepan Bedin',
     'hero.line': 'I build autonomous agents, RAG and MCP servers. Plus websites and bots, end-to-end.',
@@ -122,9 +134,10 @@
   const nodes = { text: [...document.querySelectorAll('[data-i18n]')], aria: [...document.querySelectorAll('[data-i18n-aria]')] };
   nodes.text.forEach(el => { RU[el.dataset.i18n] = el.innerHTML; });
   nodes.aria.forEach(el => { RU[el.dataset.i18nAria] = el.getAttribute('aria-label'); });
-  RU['meta.title'] = document.title;
+  const META = PAGE === 'ai' ? 'ai.meta' : 'meta';
+  RU[META + '.title'] = document.title;
   const metaDesc = document.querySelector('meta[name="description"]');
-  RU['meta.desc'] = metaDesc.content;
+  RU[META + '.desc'] = metaDesc.content;
   const t = key => (lang === 'en' ? (EN[key] ?? RU[key]) : RU[key]);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -147,8 +160,8 @@
     nodes.text.forEach(el => { el.innerHTML = t(el.dataset.i18n); });
     const heroLine = document.querySelector('.hero__line'); if (heroLine) streamLine(heroLine, heroLine.textContent);
     nodes.aria.forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
-    document.title = t('meta.title');
-    metaDesc.content = t('meta.desc');
+    document.title = t(META + '.title');
+    metaDesc.content = t(META + '.desc');
     document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     syncBurger();
     nameFx.split();
@@ -244,7 +257,7 @@
     const list = document.getElementById('plist');
     const stage = document.getElementById('stage');
     const body = stage.parentElement;              // .work__body
-    let active = 0, hoverTimer = 0, activeCat = 'ai';
+    let active = 0, hoverTimer = 0, activeCat = PAGE === 'ai' ? 'ai' : 'client';
 
     // категории кейсов + порядок (AI первыми)
     const CAT = { aiagent:'ai', mcprag:'ai', ragqdrant:'ai', observability:'ai', ragqa:'ai',
@@ -256,14 +269,16 @@
                   { k:'web', ru:'Веб', en:'Web' }, { k:'all', ru:'Все', en:'All' }];
     const byId = Object.fromEntries(PROJECTS.map(p => [p.id, p]));
     const ordered = ORDER.map(id => byId[id]).filter(Boolean);
-    const viewOf = () => activeCat === 'all' ? ordered : ordered.filter(p => CAT[p.id] === activeCat);
+    const viewOf = () => activeCat === 'all' ? ordered
+      : activeCat === 'client' ? ordered.filter(p => CAT[p.id] !== 'ai')
+      : ordered.filter(p => CAT[p.id] === activeCat);
     let view = viewOf();
 
     // панель фильтра над списком
     const filter = document.createElement('div');
     filter.className = 'pfilter';
     filter.setAttribute('role', 'tablist');
-    body.parentElement.insertBefore(filter, body);
+    // вкладки больше не показываем: на главной только клиентские кейсы, AI — на ai.html
     function renderFilter() {
       const total = ordered.length;
       const count = k => k === 'all' ? total : ordered.filter(p => CAT[p.id] === k).length;
@@ -388,6 +403,7 @@
   /* ---------------- price picker ---------------- */
   const price = (() => {
     const pick = document.getElementById('pricePick');
+    if (!pick) return { build() {} };   // блока цен нет — услуги и цены в карточках
     const val = document.getElementById('priceVal');
     const fromEl = document.getElementById('priceFrom');
     const time = document.getElementById('priceTime');
@@ -487,6 +503,7 @@
 
   const demo = (() => {
     const tg = document.getElementById('tg');
+    if (!tg) return { start() {}, relang() {} };
     const screen = document.getElementById('tgScreen');
     const tapEl = document.getElementById('tgTap');
     const badge = document.getElementById('tgBadge');
@@ -728,9 +745,11 @@
     function go(goal) {
       close();
       if (goal === 'nfc') { location.href = 'nfc.html'; return; }
+      if (goal === 'ai') { location.href = 'ai.html'; return; }
       if (goal === 'skip') return;
-      work.show(goal);
-      document.getElementById('work').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      const target = document.getElementById(goal === 'bots' ? 'svc-bot' : 'svc-web');
+      target.scrollIntoView({ block: 'center', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      target.classList.add('is-picked'); setTimeout(() => target.classList.remove('is-picked'), 2200);
     }
     function onKey(e) {
       if (e.key === 'Escape') { close(); return; }

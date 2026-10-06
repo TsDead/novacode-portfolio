@@ -81,6 +81,7 @@ main, .foot, .top { position: relative; z-index: 1; }
 .hero__eyebrow { display: inline-block; font: 600 clamp(13px, 1.3vw, 16px)/1 var(--text); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); background: rgba(201,162,91,.10); border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px; margin-bottom: clamp(16px, 2vw, 24px); }
 .hero__name { font-size: clamp(48px, 9vw, 128px); line-height: .92; letter-spacing: -0.04em; margin-left: -0.03em; }
 .name { display: inline-block; white-space: normal; touch-action: pan-y; }
+.hero__name--offer { font-size: clamp(42px, 6.6vw, 100px); line-height: .95; }
 .name .word { display: inline-block; white-space: nowrap; }
 .name .ch { display: inline-block; font-weight: var(--w, 800); color: color-mix(in srgb, var(--gold) calc(var(--h, 0) * 100%), var(--ink)); transition: font-weight .35s var(--ease), color .35s; }
 .hero__line { margin-top: clamp(22px, 3vw, 36px); max-width: 26ch; font-size: clamp(19px, 1.8vw, 24px); line-height: 1.4; color: var(--ink-soft); }
@@ -370,6 +371,34 @@ main, .foot, .top { position: relative; z-index: 1; }
   *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
   .js [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* services: что делаю и сколько стоит */
+.svc { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad) clamp(100px, 12vw, 170px); }
+.svc__title { font-size: clamp(38px, 5.4vw, 76px); margin-bottom: clamp(26px, 3.5vw, 44px); }
+.svc__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.svc__card { display: flex; flex-direction: column; gap: 12px; padding: 24px 22px 22px; border-radius: 16px; background: var(--raised); border: 1px solid var(--line); transition: border-color .2s, transform .2s var(--ease); }
+.svc__card:hover, .svc__card.is-picked { border-color: var(--gold); transform: translateY(-3px); }
+.svc__ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(201, 162, 91, .12); color: var(--gold); }
+.svc__card h3 { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.15; letter-spacing: -0.02em; }
+.svc__text { color: var(--ink-soft); font-size: 15.5px; line-height: 1.45; }
+.svc__price { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.svc__price b { font: 700 clamp(22px, 2vw, 27px)/1 var(--display); letter-spacing: -0.03em; color: var(--gold); white-space: nowrap; }
+.svc__price span { font-size: 14px; color: var(--ink-soft); }
+.svc__card .link { align-self: flex-start; font-size: 15px; }
+.svc__more { margin-top: 22px; color: var(--ink-soft); font-size: 15.5px; max-width: 80ch; }
+.svc .steps { margin-top: clamp(56px, 7vw, 90px); }
+
+/* AI teaser: вход для работодателей */
+.aiteaser { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+.aiteaser__card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: clamp(24px, 3vw, 36px) clamp(24px, 3vw, 40px); padding-right: 96px; border-radius: 18px; background: linear-gradient(120deg, var(--raised), var(--raised-2)); border: 1px solid var(--line); text-decoration: none; transition: border-color .2s; }
+.aiteaser__card:hover { border-color: var(--gold); }
+.aiteaser__eyebrow { font: 600 12.5px/1 var(--text); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.aiteaser__card b { font: 700 clamp(24px, 3vw, 38px)/1.08 var(--display); letter-spacing: -0.03em; }
+.aiteaser__text { color: var(--ink-soft); max-width: 60ch; }
+.aiteaser__arrow { position: absolute; right: clamp(24px, 3vw, 40px); top: 50%; transform: translateY(-50%); font: 400 40px/1 var(--text); font-style: normal; color: var(--gold); transition: transform .25s var(--ease); }
+.aiteaser__card:hover .aiteaser__arrow { transform: translate(6px, -50%); }
+@media (max-width: 1100px) { .svc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .svc__grid { grid-template-columns: 1fr; } .aiteaser__card { padding-right: 24px; } .aiteaser__arrow { position: static; transform: none; margin-top: 6px; } .aiteaser__card:hover .aiteaser__arrow { transform: translateX(6px); } }
 
 /* language gate (first visit only) */
 .langgate { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 24px;
