@@ -1,9 +1,10 @@
 /* NOVACODE portfolio. Plain CSS, no framework. */
+/* Onest — font-display: optional: если шрифт не успел к первой отрисовке, текст остаётся системным и не «прыгает» (CLS). */
 
 @font-face { font-family: "Unbounded"; src: url("fonts/unbounded-cyrillic-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-display: swap; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
 @font-face { font-family: "Unbounded"; src: url("fonts/unbounded-latin-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: "Onest"; src: url("fonts/onest-cyrillic-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: swap; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
-@font-face { font-family: "Onest"; src: url("fonts/onest-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Onest"; src: url("fonts/onest-cyrillic-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: optional; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Onest"; src: url("fonts/onest-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: optional; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 :root {
   --bg: #1C1A18;
@@ -84,6 +85,8 @@ main, .foot, .top { position: relative; z-index: 1; }
 .hero__name--offer { font-size: clamp(42px, 6.6vw, 100px); line-height: .95; }
 .name .word { display: inline-block; white-space: nowrap; }
 .name .ch { display: inline-block; font-weight: var(--w, 800); color: color-mix(in srgb, var(--gold) calc(var(--h, 0) * 100%), var(--ink)); transition: font-weight .35s var(--ease), color .35s; }
+/* в длинном заголовке толщина букв не меняется: иначе слова перескакивают между строками */
+.hero__name--offer .ch { font-weight: 800; }
 .hero__line { margin-top: clamp(22px, 3vw, 36px); max-width: 26ch; font-size: clamp(19px, 1.8vw, 24px); line-height: 1.4; color: var(--ink-soft); }
 .hero__line w { opacity: 0; transition: opacity .18s var(--ease); }
 .hero__line w.on { opacity: 1; }
@@ -276,7 +279,7 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 400; pointer-even
 .tg__tap {
   position: absolute; z-index: 5; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px;
   border-radius: 50%; border: 2px solid var(--gold); background: rgba(201, 162, 91, .28);
-  opacity: 0; pointer-events: none; transition: left .45s cubic-bezier(.4, 0, .2, 1), top .45s cubic-bezier(.4, 0, .2, 1), opacity .2s;
+  opacity: 0; pointer-events: none; transition: translate .45s cubic-bezier(.4, 0, .2, 1), opacity .2s;   /* двигаем через translate: не сдвигает макет (CLS) */
 }
 .tg__tap.is-press { animation: tap .32s ease-out; }
 @keyframes tap { 50% { transform: scale(.72); background: rgba(201, 162, 91, .55); } }
@@ -361,7 +364,7 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 400; pointer-even
   .nav ul a { font: 700 38px/1.25 var(--display); color: var(--ink); letter-spacing: -0.03em; }
   .nav .nav__tg { font-size: 18px; color: var(--gold); }
 
-  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
   .hero__demo { justify-self: center; }
   .work__body { display: block; }
   .stage { position: static; padding: 18px 0 26px; border-bottom: 1px solid var(--line); }
@@ -429,7 +432,7 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 400; pointer-even
 .aiteaser__arrow { position: absolute; right: clamp(24px, 3vw, 40px); top: 50%; transform: translateY(-50%); font: 400 40px/1 var(--text); font-style: normal; color: var(--gold); transition: transform .25s var(--ease); }
 .aiteaser__card:hover .aiteaser__arrow { transform: translate(6px, -50%); }
 @media (max-width: 1100px) { .svc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 880px) { .stackcard { justify-self: start; } .svc .steps li::after { display: none; } }
+@media (max-width: 880px) { .stackcard { justify-self: stretch; width: auto; } .svc .steps li::after { display: none; } }
 @media (max-width: 600px) { .svc__grid { grid-template-columns: 1fr; } .aiteaser__card { padding-right: 24px; } .aiteaser__arrow { position: static; transform: none; margin-top: 6px; } .aiteaser__card:hover .aiteaser__arrow { transform: translateX(6px); } }
 
 /* language gate (first visit only) */
@@ -460,3 +463,34 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 400; pointer-even
 .langgate__close:hover { color: var(--ink); background: var(--raised-2); }
 @keyframes lg-fade { from { opacity: 0; } }
 @keyframes lg-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+
+/* ---------- телефоны и сенсорные экраны ---------- */
+@media (max-width: 400px) {
+  .hero__name:not(.hero__name--offer) { font-size: 12vw; }
+  .work__title { font-size: 15vw; }
+}
+@media (max-width: 600px) {
+  .svc__card { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; row-gap: 8px; padding: 18px 16px; }
+  .svc__card > * { grid-column: 2; }
+  .svc__ex { justify-self: start; }
+  .svc__ico { grid-column: 1; grid-row: 1 / span 2; width: 40px; height: 40px; }
+  .svc__num { top: 16px; right: 16px; }
+  .svc__card h3 { padding-right: 26px; }
+  .svc__price { padding-top: 10px; }
+  .hero__facts { gap: 8px 16px; font-size: 13.5px; }
+  .tg { height: 580px; }
+}
+/* палец крупнее курсора: расширяем зону нажатия, не меняя вид */
+@media (pointer: coarse) {
+  .link, .mark, .svc__ex, .foot a, .nav__tg { position: relative; }
+  .link::after, .mark::after, .foot a::after, .nav__tg::after { content: ""; position: absolute; inset: -12px -8px; }
+  .svc__ex { padding: 8px 12px; }
+  .lang button { min-width: 44px; min-height: 36px; }
+  .demo-ctrl__btn { min-height: 40px; padding: 8px 14px; }
+}
+/* на сенсорных экранах hover «залипает» после касания — убираем сдвиги */
+@media (hover: none) {
+  .btn:hover, .chip:hover, .ptab:hover, .svc__card:hover, .langgate__opt:hover { transform: none; }
+  .svc__card:hover { border-color: var(--line); }
+  .svc__card:hover::before { opacity: 0; }
+}

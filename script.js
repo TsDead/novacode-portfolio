@@ -61,37 +61,37 @@
         was: 'Товары в постах канала, заказы в личке, учёт в таблице.', did: 'Магазин из семи экранов внутри Telegram. Бот читает посты канала и сам делает карточки, продавец одобряет их одним нажатием.', end: 'Работает на своём сервере, бэкап каждый день приходит продавцу в личку.' },
       en: { name: 'YFB Store', kind: 'Clothing shop inside Telegram', line: 'The catalog builds itself from the seller’s channel posts. Cart, CDEK delivery, 110 automated tests.', open: 'Open the shop',
         was: 'Products in channel posts, orders in DMs, stock in a spreadsheet.', did: 'A seven-screen shop inside Telegram. The bot reads channel posts and makes product cards itself; the seller approves them with one tap.', end: 'Runs on its own server; a backup lands in the seller’s DMs every day.' } },
-    { id: 'jobhunter', shot: 'img/jobhunter-cover.png', link: 'https://github.com/TsDead/job-hunter', tags: ['Python', 'LLM · Groq', 'REST API', 'SQLite', 'Telegram'],
+    { id: 'jobhunter', shot: 'img/jobhunter-cover.webp', link: 'https://github.com/TsDead/job-hunter', tags: ['Python', 'LLM · Groq', 'REST API', 'SQLite', 'Telegram'],
       ru: { name: 'AI Job-Hunter', kind: 'Умный поиск вакансий с ИИ', line: 'Бот следит за вакансиями (hh.ru + RemoteOK) и оценивает каждую нейросетью — подходит или нет.', open: 'Код на GitHub',
         was: 'Вакансии разбросаны по сайтам, половина — не по уровню или мутные.', did: 'Собирает вакансии из нескольких API, а бесплатная LLM ставит балл 0–100, находит совпадающие и недостающие навыки и красные флаги скама. Ниже порога — не присылает.', end: 'В Telegram приходят только подходящие вакансии с разбором; текущие можно листать кнопками.' },
       en: { name: 'AI Job-Hunter', kind: 'AI-powered job search', line: 'A bot that tracks jobs (hh.ru + RemoteOK) and scores each with an LLM — fit or not.', open: 'Code on GitHub',
         was: 'Jobs scattered across sites; half are off-level or sketchy.', did: 'Aggregates jobs from several APIs; a free LLM rates each 0–100, extracts matched and missing skills and scam red-flags. Below the threshold, it is not sent.', end: 'Only relevant jobs reach Telegram, each with a breakdown; current ones are browsable with buttons.' } },
-    { id: 'coverletter', shot: 'img/coverletter-cover.png', link: 'https://tsdead.github.io/ai-coverletter/', tags: ['Python', 'FastAPI', 'LLM · Groq', 'REST API'],
+    { id: 'coverletter', shot: 'img/coverletter-cover.webp', link: 'https://tsdead.github.io/ai-coverletter/', tags: ['Python', 'FastAPI', 'LLM · Groq', 'REST API'],
       ru: { name: 'AI Cover-Letter', kind: 'Генератор сопроводительных с ИИ', line: 'Вставляешь вакансию и резюме — нейросеть пишет письмо под неё, EN/RU, без выдумок.', open: 'Живое демо',
         was: 'Каждый отклик пишешь вручную по 20 минут, подгоняя под вакансию.', did: 'Веб-инструмент на FastAPI: LLM генерит письмо под вакансию из резюме, подсвечивает совпадающие навыки и вставляет нужное слово-маркер. На бесплатной модели.', end: 'Живое демо на GitHub Pages: вставил вакансию — получил готовое письмо за пару секунд.' },
       en: { name: 'AI Cover-Letter', kind: 'AI cover-letter generator', line: 'Paste a job posting and CV — the AI writes a letter tailored to it, EN/RU, no fabrication.', open: 'Live demo',
         was: 'Writing each application by hand, ~20 min, tailoring it to the role.', did: 'A FastAPI web tool: the LLM drafts a letter for the job from your CV, highlights matching skills and inserts a required marker word. Runs on a free model.', end: 'Live demo on GitHub Pages: paste a posting, get a ready letter in seconds.' } },
-    { id: 'ragqa', shot: 'img/ragqa-cover.png', link: 'https://github.com/TsDead/rag-qa', tags: ['Python', 'FastAPI', 'RAG', 'Embeddings', 'LLM · Groq'],
+    { id: 'ragqa', shot: 'img/ragqa-cover.webp', link: 'https://github.com/TsDead/rag-qa', tags: ['Python', 'FastAPI', 'RAG', 'Embeddings', 'LLM · Groq'],
       ru: { name: 'RAG Q&A', kind: 'Вопросы к документу с ИИ', line: 'Загружаешь документ — ИИ отвечает по нему, строго по тексту, с указанием источника.', open: 'Код на GitHub',
         was: 'Обычный чат-бот не знает твои документы и выдумывает ответы.', did: 'Локальные эмбеддинги + поиск по смыслу + LLM: ответ строится только из документа, с цитатами. Встроенный эвал (golden-набор + LLM-судья) измеряет качество.', end: 'На демо-документе retrieval hit-rate 100%, accuracy 100%. Загрузка .txt и .pdf.' },
       en: { name: 'RAG Q&A', kind: 'AI questions over documents', line: 'Upload a document — the AI answers from it, using only the text, with sources.', open: 'Code on GitHub',
         was: 'A plain chatbot does not know your documents and makes answers up.', did: 'Local embeddings + semantic search + LLM: answers come only from the document, with citations. A built-in eval (golden set + LLM-judge) measures quality.', end: 'On the demo doc: retrieval hit-rate 100%, accuracy 100%. Supports .txt and .pdf upload.' } },
-    { id: 'aiagent', shot: 'img/ai-agent.png', link: 'https://tsdead.github.io/ai-agent/', tags: ['Python', 'FastAPI', 'AI-агент · ReAct', 'Tool use', 'LLM · Groq'],
+    { id: 'aiagent', shot: 'img/ai-agent.webp', link: 'https://tsdead.github.io/ai-agent/', tags: ['Python', 'FastAPI', 'AI agent · ReAct', 'Tool use', 'LLM · Groq'],
       ru: { name: 'AI Agent', kind: 'ИИ-агент с инструментами', line: 'Задаёшь вопрос — агент сам решает, какие инструменты вызвать, и показывает всю цепочку рассуждений.', open: 'Живое демо',
         was: 'Обычная модель не умеет точно считать и не знает свежих фактов — выдумывает.', did: 'ReAct-цикл на чистом Python без фреймворков: LLM рассуждает, выбирает инструмент (Википедия / калькулятор / время), читает результат и повторяет до ответа. UI показывает каждый шаг. Встроенный эвал считает и качество, и продакшн-метрики.', end: 'На golden-наборе: верный инструмент 100%, верный ответ 100%, ~2 шага и ~3s на задачу.' },
       en: { name: 'AI Agent', kind: 'AI agent with tools', line: 'Ask a question — the agent decides which tools to call and shows its whole reasoning chain.', open: 'Live demo',
         was: 'A plain model can not compute exactly and does not know fresh facts — it hallucinates.', did: 'A pure-Python ReAct loop, no frameworks: the LLM reasons, picks a tool (Wikipedia / calculator / time), reads the result and repeats until it answers. The UI shows every step. A built-in eval tracks both quality and production metrics.', end: 'On the golden set: correct tool 100%, correct answer 100%, ~2 steps and ~3s per task.' } },
-    { id: 'observability', shot: 'img/observability.png', link: 'https://github.com/TsDead/observability', tags: ['Python', 'FastAPI', 'SQLite', 'Observability', 'LLM · Groq'],
+    { id: 'observability', shot: 'img/observability.webp', link: 'https://github.com/TsDead/observability', tags: ['Python', 'FastAPI', 'SQLite', 'Observability', 'LLM · Groq'],
       ru: { name: 'LLM Observability', kind: 'Стоимость, latency и надёжность', line: 'Каждый вызов модели пишется в журнал — время, токены, деньги, ошибки. Дашборд превращает это в продакшн-метрики.', open: 'Код на GitHub',
         was: 'Вызов модели — чёрный ящик: непонятно, сколько он стоит, тормозит и падает ли.', did: 'Слой наблюдаемости логирует каждый вызов LLM в SQLite. Дашборд считает p50/p95 latency, error-rate, суммарную стоимость и токены по дням. Ровно тот навык, что ценят выше метрик самой модели.', end: 'p95 latency, стоимость и надёжность — по каждому вызову; дизайн в OLED-минимализме.' },
       en: { name: 'LLM Observability', kind: 'Cost, latency & reliability', line: 'Every model call is logged — latency, tokens, money, errors. The dashboard turns it into production metrics.', open: 'Code on GitHub',
         was: 'An LLM call is a black box — you can not see what it costs, how slow it is, or whether it failed.', did: 'An observability layer logs every LLM call into SQLite. The dashboard computes p50/p95 latency, error rate, total cost and tokens over time — the exact skill valued above the model’s own metrics.', end: 'p95 latency, cost and reliability per call; OLED-minimal design.' } },
-    { id: 'ragqdrant', shot: 'img/rag-qdrant.png', link: 'https://github.com/TsDead/rag-qdrant', tags: ['Python', 'FastAPI', 'Qdrant', 'Vector DB · HNSW', 'LLM · Groq'],
+    { id: 'ragqdrant', shot: 'img/rag-qdrant.webp', link: 'https://github.com/TsDead/rag-qdrant', tags: ['Python', 'FastAPI', 'Qdrant', 'Vector DB · HNSW', 'LLM · Groq'],
       ru: { name: 'RAG · Qdrant', kind: 'RAG на векторной БД', line: 'Тот же RAG, но поиск живёт в настоящей векторной БД Qdrant, а не в памяти — продакшн-стек.', open: 'Код на GitHub',
         was: 'Поиск в памяти (numpy) — это O(N), не персистится и не масштабируется.', did: 'Эмбеддинги хранятся в Qdrant с HNSW-индексом (поиск ~O(log N)), payload и фильтры. Один код работает и локально на диске (без Docker), и против боевого сервера Qdrant (docker-compose).', end: 'Ответы с цитатами и score близости; коллекция/точки видны в UI вживую.' },
       en: { name: 'RAG · Qdrant', kind: 'RAG on a vector database', line: 'The same RAG, but search lives in a real vector DB (Qdrant) instead of memory — a production stack.', open: 'Code on GitHub',
         was: 'In-memory (numpy) search is O(N), non-persistent and does not scale.', did: 'Embeddings live in Qdrant with an HNSW index (~O(log N) search), payloads and filters. One codebase runs both locally on disk (no Docker) and against a real Qdrant server (docker-compose).', end: 'Answers with citations and similarity scores; collection/points shown live in the UI.' } },
-    { id: 'mcprag', shot: 'img/mcprag-cover.png', link: 'https://github.com/TsDead/mcp-rag', tags: ['Python', 'MCP', 'Qdrant', 'Tool server', 'stdio'],
+    { id: 'mcprag', shot: 'img/mcprag-cover.webp', link: 'https://github.com/TsDead/mcp-rag', tags: ['Python', 'MCP', 'Qdrant', 'Tool server', 'stdio'],
       ru: { name: 'MCP · RAG', kind: 'MCP-сервер с инструментами', line: 'Сервер по протоколу MCP отдаёт инструменты поиска по базе знаний — их вызывает любой клиент (Claude Desktop/Code).', open: 'Код на GitHub',
         was: 'Обычно инструменты зашиты в одно приложение и никуда не переиспользуются.', did: 'MCP-сервер (официальный SDK) поверх Qdrant-базы: search_docs (HNSW-поиск), ingest_text, kb_info + ресурс. Транспорт stdio; сервер только даёт данные, рассуждает модель клиента. Тест-клиент доказывает работу без клиент-приложения.', end: 'Инструменты подключаются к Claude Desktop/Code одной строкой — редкий навык на рынке.' },
       en: { name: 'MCP · RAG', kind: 'MCP tool server', line: 'A Model Context Protocol server exposes knowledge-base search as tools any client (Claude Desktop/Code) can call.', open: 'Code on GitHub',
@@ -111,12 +111,12 @@
         was: 'Бригаде нужен был сайт, где стоимость видна сразу.', did: 'Калькулятор цены за м², фото объектов, две языковые версии, форма с маской телефона.', end: 'Заявки приходят от людей, которые уже знают бюджет.' },
       en: { name: 'Apartment renovation', kind: 'Landing page with a calculator', line: 'Clients work out the price before calling.',
         was: 'The crew needed a site that shows the cost right away.', did: 'Price-per-m² calculator, project photos, two languages, a form with a phone mask.', end: 'Requests come from people who already know their budget.' } },
-    { id: 'ai', shot: 'img/ai-gen.png', tags: ['Python', 'AI'],
+    { id: 'ai', shot: 'img/ai-gen.webp', tags: ['Python', 'AI'],
       ru: { name: 'AI-генератор карточек', kind: 'Для Wildberries и Ozon', line: 'Карточка товара за 5 секунд вместо часа.',
         was: 'На одну карточку уходит около часа ручной работы.', did: 'Программа пишет название, SEO-описание, характеристики, ключи и ответы на отзывы.', end: 'Продаётся лицензией за 15 000 ₽.' },
       en: { name: 'AI card generator', kind: 'For Wildberries and Ozon', line: 'A product card in 5 seconds instead of an hour.',
         was: 'One card takes about an hour of manual work.', did: 'The app writes the title, SEO description, specs, keywords and replies to reviews.', end: 'Sold as a 15,000 ₽ licence.' } },
-    { id: 'duallix', shot: 'img/duallix.png', link: 'https://tsdead.github.io/duallix/', tags: ['HTML', 'CSS', 'JS'],
+    { id: 'duallix', shot: 'img/duallix.webp', link: 'https://tsdead.github.io/duallix/', tags: ['HTML', 'CSS', 'JS'],
       ru: { name: 'Duallix', kind: 'Презентация своей студии', line: 'Одна ссылка вместо PDF с коммерческим предложением.', open: 'tsdead.github.io/duallix',
         was: 'Клиентам приходилось объяснять в переписке, чем бот на заказ лучше конструктора.', did: 'Страница с живым макетом магазина и сравнением с конструкторами.', end: 'Отправляю её вместо КП.' },
       en: { name: 'Duallix', kind: 'Presentation for my studio', line: 'One link instead of a PDF proposal.', open: 'tsdead.github.io/duallix',
@@ -300,9 +300,13 @@
     function media(p) {
       const s = p[lang];
       const cover = (small) => `<div class="cover"><b>${esc(s.name)}</b>${small ? '' : `<span>${esc(s.kind)}</span>`}</div>`;
-      const img = src => `<img src="${src}" alt="" loading="lazy" decoding="async" onerror="this.remove()" style="position:absolute;inset:0;z-index:1">`;
+      // у обложек есть лёгкая версия -640.webp: телефон грузит её, компьютер — полную
+      const img = (src, responsive) => {
+        const set = responsive ? ` srcset="${src.replace(/\.webp$/, '-640.webp')} 640w, ${src} 1200w" sizes="(max-width: 880px) 92vw, 55vw"` : '';
+        return `<img src="${src}"${set} alt="" loading="lazy" decoding="async" onerror="this.remove()" style="position:absolute;inset:0;z-index:1">`;
+      };
       if (p.phones) return `<div class="fan">${p.phones.map(src => `<figure>${cover(true)}${img(src)}</figure>`).join('')}</div>`;
-      return `${cover(false)}${img(p.shot)}`;
+      return `${cover(false)}${img(p.shot, true)}`;
     }
     function renderList() {
       list.innerHTML = view.map((p, i) => `
@@ -619,8 +623,7 @@
     async function tap(el, id) {
       if (manual || !el) return;
       const r = el.getBoundingClientRect(), base = tg.getBoundingClientRect();
-      tapEl.style.left = (r.left - base.left + r.width / 2) + 'px';
-      tapEl.style.top = (r.top - base.top + r.height / 2) + 'px';
+      tapEl.style.translate = `${r.left - base.left + r.width / 2}px ${r.top - base.top + r.height / 2}px`;
       tapEl.style.opacity = '1';
       await wait(520, id);
       tapEl.classList.remove('is-press'); void tapEl.offsetWidth; tapEl.classList.add('is-press');
@@ -736,7 +739,7 @@
 
     function close() {
       gate.hidden = true;
-      gate.removeEventListener('keydown', onKey);
+      document.removeEventListener('keydown', onKey);
       document.body.classList.remove('menu-open');
     }
     function onKey(e) {
@@ -755,7 +758,7 @@
       applyLang();
       close();
     });
-    gate.addEventListener('keydown', onKey);
+    document.addEventListener('keydown', onKey);      // Esc работает, даже если фокус ещё не в окне
 
     gate.hidden = false;
     document.body.classList.add('menu-open');       // блокируем скролл (класс уже есть в CSS)

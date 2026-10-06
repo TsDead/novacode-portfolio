@@ -1,0 +1,13 @@
+{
+  "name": "novacode-portfolio",
+  "private": true,
+  "description": "new-coder.ru — static site; this file is only for the automated tests",
+  "scripts": {
+    "test": "playwright test",
+    "test:mobile": "playwright test --project=mobile",
+    "test:desktop": "playwright test --project=desktop"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}
