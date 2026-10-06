@@ -1,6 +1,7 @@
 # GitHub Pages собирает сайт через Jekyll. Файлы тестов на сайт не публикуем.
 exclude:
   - tests
+  - CLAUDE.md
   - node_modules
   - package.json
   - package-lock.json
