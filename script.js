@@ -16,7 +16,7 @@
     'meta.desc': 'NOVACODE — Stepan Bedin. AI/LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation, observability. Plus Telegram bots, shops and websites end-to-end. Since 2024.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
     'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.nfc': 'NFC tags', 'nav.contact': 'Contact',
-    'g.title': 'What are you interested in?', 'g.ai': 'AI agents & LLM', 'g.aiT': 'agents, RAG, MCP servers', 'g.bots': 'Telegram bots & shops', 'g.botsT': 'bookings, requests, a shop in Telegram', 'g.web': 'Websites & landing pages', 'g.webT': 'landing page, company or event site', 'g.nfc': 'NFC tags', 'g.nfcT': 'Yandex Maps reviews in one tap', 'g.skip': 'Just browse the site',
+    'g.title': 'What are you interested in?', 'g.ai': 'AI agents & LLM', 'g.aiT': 'agents, RAG, MCP servers', 'g.bots': 'Telegram bots & shops', 'g.botsT': 'bookings, requests, a shop in Telegram', 'g.web': 'Websites & landing pages', 'g.webT': 'landing page, company or event site', 'g.nfc': 'NFC tags', 'g.nfcT': 'Yandex Maps reviews in one tap', 'g.skip': 'Just browse the site', 'g.close': 'Close',
     'hero.role': 'AI / LLM Engineer',
     'hero.name': 'Stepan Bedin',
     'hero.line': 'I build autonomous agents, RAG and MCP servers. Plus websites and bots, end-to-end.',
@@ -706,7 +706,7 @@
     if (!gate) return;
     const langStep = document.getElementById('langStep');
     const goalStep = document.getElementById('goalStep');
-    const buttons = () => [...gate.querySelectorAll('.langgate__step:not([hidden]) button')];
+    const buttons = () => [...gate.querySelectorAll('.langgate__step:not([hidden]) button, .langgate__close')];
 
     function close() {
       gate.hidden = true;
@@ -733,7 +733,7 @@
       document.getElementById('work').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
     }
     function onKey(e) {
-      if (e.key === 'Escape' && !goalStep.hidden) { close(); return; }
+      if (e.key === 'Escape') { close(); return; }
       if (e.key !== 'Tab') return;                  // держим фокус внутри окна
       const opts = buttons(), first = opts[0], last = opts[opts.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
@@ -741,6 +741,7 @@
     }
 
     gate.addEventListener('click', e => {
+      if (e.target.closest('.langgate__close')) { close(); return; }
       const l = e.target.closest('[data-lang]'); if (l) { choose(l.dataset.lang); return; }
       const g = e.target.closest('[data-goal]'); if (g) go(g.dataset.goal);
     });

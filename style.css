@@ -393,6 +393,10 @@ main, .foot, .top { position: relative; z-index: 1; }
 .langgate__opt .flag svg { display: block; }
 .langgate__lbl { flex: 1; }
 .langgate__step[hidden] { display: none; }
+.langgate__card { position: relative; }
+.langgate__close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; display: grid; place-items: center;
+  background: none; border: 0; border-radius: 10px; color: var(--ink-soft); cursor: pointer; transition: color .15s, background-color .15s; }
+.langgate__close:hover { color: var(--ink); background: var(--raised-2); }
 #goalStep { animation: lg-rise .3s var(--ease); }
 .langgate__ico { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
   background: rgba(201, 162, 91, .12); color: var(--gold); }
