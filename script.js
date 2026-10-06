@@ -700,9 +700,8 @@
 
   applyLang();
 
-  /* ---------------- language gate (first visit only): язык, затем направление ---------------- */
+  /* ---------------- welcome gate: язык (только первый визит), затем направление (каждый визит) ---------------- */
   (function langGate() {
-    if (store.get('lang')) return;                 // выбор уже был — окно не нужно
     const gate = document.getElementById('langGate');
     if (!gate) return;
     const langStep = document.getElementById('langStep');
@@ -718,6 +717,9 @@
       lang = code === 'en' ? 'en' : 'ru';
       store.set('lang', lang);
       applyLang();
+      showGoal();
+    }
+    function showGoal() {
       langStep.hidden = true;
       goalStep.hidden = false;
       gate.setAttribute('aria-labelledby', 'goalStep-title');
@@ -746,6 +748,7 @@
 
     gate.hidden = false;
     document.body.classList.add('menu-open');       // блокируем скролл (класс уже есть в CSS)
-    requestAnimationFrame(() => buttons()[0].focus());
+    if (store.get('lang')) showGoal();              // язык уже выбран — сразу вопрос о направлении
+    else requestAnimationFrame(() => buttons()[0].focus());
   })();
 })();
