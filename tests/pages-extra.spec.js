@@ -92,6 +92,43 @@ test.describe('komok.html', () => {
   });
 });
 
+test.describe('vnedrenie.html', () => {
+  test.beforeEach(async ({ page }) => { await page.goto('/vnedrenie.html'); });
+
+  test('ночная переписка доигрывает до заявки в CRM', async ({ page }) => {
+    await page.locator('#chat').scrollIntoViewIfNeeded();
+    await expect(page.locator('#log .crm')).toHaveClass(/on/, { timeout: 15_000 });
+    await expect(page.locator('#replay')).toBeEnabled();
+  });
+
+  test('калькулятор потерь: заявки и рутина, склонения', async ({ page }) => {
+    await expect(page.locator('#loss')).toHaveText(/180\s000/);              // 10 × 30 × 20% × 30% × 10 000
+    await expect(page.locator('#resSub')).toContainText('60 заявок');
+    await setRange(page, 'leads', 1); await setRange(page, 'missed', 5);   // 1.5 → 2 заявки
+    await expect(page.locator('#resSub')).toContainText('2 заявки');
+    await page.locator('[data-mode="routine"]').click();
+    await expect(page.locator('#fLeads')).toBeHidden();
+    await expect(page.locator('#loss')).toHaveText(/52\s800/);               // 3 × 2 ч × 22 дня × 400
+    await expect(page.locator('#resSub')).toContainText('132 часа');
+    await setRange(page, 'staff', 1); await setRange(page, 'hours', 0.5);  // 11 часов
+    await expect(page.locator('#resSub')).toContainText('11 часов');
+    await page.locator('[data-mode="leads"]').click();
+    await expect(page.locator('#fRoutine')).toBeHidden();
+  });
+
+  test('вкладки сфер: мышью и стрелками', async ({ page }) => {
+    await expect(page.locator('#p-law')).toBeVisible();
+    await page.locator('#t-med').click();
+    await expect(page.locator('#p-med')).toBeVisible();
+    await expect(page.locator('#p-law')).toBeHidden();
+    await page.locator('#t-med').press('ArrowRight');
+    await expect(page.locator('#t-build')).toBeFocused();
+    await expect(page.locator('#p-build')).toBeVisible();
+    await page.locator('#t-build').press('ArrowLeft');
+    await expect(page.locator('#t-med')).toHaveAttribute('aria-selected', 'true');
+  });
+});
+
 test.describe('privacy.html', () => {
   test('переключение RU/EN и общий выбор языка с главной', async ({ page }) => {
     await page.goto('/privacy.html');                                    // язык не выбран — по умолчанию русский

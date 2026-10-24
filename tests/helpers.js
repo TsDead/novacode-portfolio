@@ -1,5 +1,5 @@
 // Общие помощники для тестов.
-const PAGES = ['index.html', 'ai.html', 'nfc.html', 'komok.html', 'privacy.html'];
+const PAGES = ['index.html', 'ai.html', 'nfc.html', 'vnedrenie.html', 'komok.html', 'privacy.html'];
 
 /** Пропустить окно выбора языка: язык уже «выбран» до загрузки страницы. */
 async function presetLang(page, lang = 'ru') {

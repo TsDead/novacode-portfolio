@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Внедрение ИИ в бизнес в Рязани — NOVACODE</title>
+<meta name="description" content="Нахожу, где бизнес теряет заявки, деньги и время, и закрываю это с помощью ИИ. Бесплатный разбор, пилот с замером «до» и «после», данные остаются в России. Рязань.">
+<meta name="theme-color" content="#1C1A18">
+<link rel="preload" href="fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Unbounded";src:url("fonts/unbounded-cyrillic-wght-normal.woff2") format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Unbounded";src:url("fonts/unbounded-latin-wght-normal.woff2") format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:"Onest";src:url("fonts/onest-cyrillic-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Onest";src:url("fonts/onest-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
+</style>
+<style>
+:root{
+  --bg:#1C1A18; --raised:#262320; --raised-2:#2F2B27; --line:#36312C;
+  --ink:#F0E9DD; --ink-soft:#A89F92; --gold:#C9A25B; --gold-hi:#DDB977; --on-gold:#1E1A15; --ok:#5FAE84;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --text:"Onest","Segoe UI",system-ui,-apple-system,sans-serif;
+  --pad:clamp(20px,5vw,64px); --max:1240px; --ease:cubic-bezier(.2,.8,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:76px;height:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:700;line-height:1.02;letter-spacing:-.03em;text-wrap:balance}
+p{margin:0}
+::selection{background:var(--gold);color:var(--on-gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(520px circle at var(--gx,80%) var(--gy,15%),rgba(201,162,91,.10),transparent 65%)}
+.top,main,.foot{position:relative;z-index:1}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;background:var(--gold);color:var(--on-gold);font:600 16px/1 var(--text);border:0;border-radius:10px;cursor:pointer;text-decoration:none;transition:background-color .15s,transform .15s var(--ease)}
+.btn:hover{background:var(--gold-hi);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1px var(--ink-soft);background:transparent}
+
+/* header */
+.top{position:sticky;top:0;z-index:50;background:rgba(28,26,24,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.top__in{max-width:var(--max);margin:0 auto;padding:0 var(--pad);height:68px;display:flex;align-items:center;gap:24px}
+.mark{font:700 17px/1 var(--display);text-decoration:none;margin-right:auto}
+.mark span{color:var(--gold)}
+.top a.back{font-size:15px;color:var(--ink-soft);text-decoration:none}
+.top a.back:hover{color:var(--ink)}
+.top .tg{font-size:15px;font-weight:600;text-decoration:none}
+
+/* hero */
+.hero{max-width:var(--max);margin:0 auto;padding:clamp(24px,4vw,56px) var(--pad) clamp(70px,9vw,120px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;min-height:calc(100svh - 68px)}
+.kicker{font-size:15px;color:var(--gold);font-weight:600;margin-bottom:18px}
+.hero h1{font-size:clamp(36px,5vw,76px);font-weight:800;letter-spacing:-.045em;line-height:.96}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero__line{margin-top:26px;max-width:34ch;font-size:clamp(18px,1.7vw,22px);color:var(--ink-soft);line-height:1.45}
+.hero__cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
+.hero__facts{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14.5px;color:var(--ink-soft)}
+.hero__facts span::before{content:"✓ ";color:var(--gold);font-weight:700}
+
+/* night chat scene: the one wow element */
+.chat{position:relative;justify-self:end;width:100%;max-width:440px;border-radius:30px;background:var(--raised);padding:18px;box-shadow:0 0 0 1px var(--line)}
+.chat__bar{display:flex;align-items:center;gap:12px;padding:6px 6px 14px;border-bottom:1px solid var(--line)}
+.chat__av{width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--on-gold);display:grid;place-items:center;font:700 14px/1 var(--display)}
+.chat__bar b{display:block;font-size:15px}
+.chat__bar small{font-size:12.5px;color:var(--ok)}
+.chat__clock{margin-left:auto;font:700 13px/1 var(--display);color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.chat__log{display:flex;flex-direction:column;gap:10px;padding:16px 4px 6px;min-height:388px}
+.msg{max-width:86%;padding:10px 14px;border-radius:18px;font-size:14.5px;line-height:1.4;transition:opacity .4s,transform .45s var(--ease)}
+.msg.in{align-self:flex-start;background:var(--raised-2);border-bottom-left-radius:5px}
+.msg.out{align-self:flex-end;background:#3A3226;border-bottom-right-radius:5px}
+.msg small{display:block;margin-top:3px;font-size:11px;color:var(--ink-soft);text-align:right}
+.crm{border-radius:16px;background:var(--ink);color:var(--on-gold);padding:12px 14px;font-size:14px;line-height:1.4;transition:opacity .4s,transform .45s var(--ease)}
+.crm b{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.crm b i{font-style:normal;width:22px;height:22px;border-radius:50%;background:#2F6B4F;color:#fff;display:grid;place-items:center;font-size:12px}
+.crm span{color:#6E6253}
+.js .chat__log > *{opacity:0;transform:translateY(10px)}
+.js .chat__log > .on{opacity:1;transform:none}
+.chat__ctrl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--line);margin-top:8px}
+.chat__ctrl span{font-size:13px;color:var(--ink-soft)}
+.chat__ctrl button{border:0;border-radius:999px;background:var(--gold);color:var(--on-gold);font-weight:700;font-size:14px;padding:9px 16px;cursor:pointer;white-space:nowrap;flex:none}
+
+/* sections */
+.sec{max-width:var(--max);margin:0 auto;padding:clamp(80px,10vw,140px) var(--pad) 0}
+.sec h2{font-size:clamp(30px,4.6vw,64px);max-width:18ch}
+.sec .lead{margin-top:18px;max-width:56ch;color:var(--ink-soft);font-size:18.5px}
+.note{margin-top:14px;font-size:13.5px;color:var(--ink-soft);max-width:72ch}
+
+/* calculator */
+.seg{display:inline-flex;padding:4px;border-radius:14px;background:var(--raised);gap:4px;margin-top:34px;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:12px 16px;border-radius:10px;font-weight:600;cursor:pointer;color:var(--ink-soft)}
+.seg button[aria-checked="true"]{background:var(--ink);color:var(--bg)}
+.calc{margin-top:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);background:var(--raised);border-radius:24px;padding:clamp(22px,3.5vw,44px)}
+.calc [hidden]{display:none}
+.field + .field{margin-top:24px}
+.field label{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:var(--ink-soft)}
+.field label output{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.field input[type=range]{width:100%;margin:10px 0 0;accent-color:var(--gold);height:36px}
+.res{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.res .cap0{font-size:16px;color:var(--ink-soft)}
+.res .big{margin-top:6px;font:800 clamp(38px,5.6vw,80px)/1 var(--display);letter-spacing:-.05em;color:var(--gold);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.res .cap{margin-top:8px;font-size:18px}
+.res .sub{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:15px}
+.res .sub b{color:var(--ink)}
+
+/* steps */
+.steps{list-style:none;counter-reset:s;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.steps li{counter-increment:s;padding-top:16px;border-top:2px solid var(--gold)}
+.steps li::before{content:counter(s);display:block;font:700 40px/1 var(--display);color:var(--gold);margin-bottom:14px}
+.steps li:nth-child(2){margin-top:28px}.steps li:nth-child(3){margin-top:56px}.steps li:nth-child(4){margin-top:84px}
+.steps b{display:block;font:600 19px/1.2 var(--display);letter-spacing:-.02em}
+.steps .tag{font-style:normal;display:inline-block;margin-top:10px;padding:4px 10px;border-radius:999px;background:var(--raised-2);color:var(--gold);font-size:13px;font-weight:700}
+.steps .tag.free{background:var(--gold);color:var(--on-gold)}
+.steps span{display:block;margin-top:8px;color:var(--ink-soft)}
+
+/* modules */
+.mods{margin-top:44px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.mod{background:var(--raised);border-radius:20px;padding:26px 24px}
+.mod b{display:block;font:600 19px/1.2 var(--display);letter-spacing:-.02em}
+.mod p{margin-top:10px;color:var(--ink-soft);font-size:15.5px}
+.mod .m{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-soft)}
+.mod .m strong{color:var(--gold);font-weight:600}
+
+/* industries */
+.tabs{margin-top:36px;display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{border:1px solid var(--line);background:none;border-radius:999px;padding:10px 16px;font-weight:600;font-size:15px;cursor:pointer;color:var(--ink-soft);transition:background-color .2s,color .2s,border-color .2s}
+.tabs button[aria-selected="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.ind{margin-top:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.ind[hidden]{display:none}
+.ind div{background:var(--raised);border-radius:20px;padding:24px}
+.ind h3{font:600 15px/1.2 var(--text);letter-spacing:.04em;text-transform:uppercase;color:var(--gold)}
+.ind ul{margin:12px 0 0;padding-left:18px;color:var(--ink)}
+.ind li + li{margin-top:6px}
+
+/* why */
+.why{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,80px);align-items:start}
+.why ul{list-style:none;margin:0;padding:0}
+.why li{padding:22px 0;border-bottom:1px solid var(--line)}
+.why li:first-child{border-top:1px solid var(--line)}
+.why li b{display:block;font:600 clamp(18px,1.7vw,22px)/1.2 var(--display);letter-spacing:-.02em}
+.why li span{display:block;margin-top:6px;color:var(--ink-soft)}
+
+/* trust */
+.trust{margin-top:40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.trust div{background:var(--raised);border-radius:20px;padding:24px}
+.trust b{display:block;font:600 17px/1.25 var(--display);letter-spacing:-.02em}
+.trust span{display:block;margin-top:8px;color:var(--ink-soft);font-size:15px}
+.me{margin-top:16px;background:var(--raised);border-radius:20px;padding:26px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.me p{max-width:62ch;color:var(--ink-soft)}
+.me p b{color:var(--ink)}
+.me nav{display:flex;flex-wrap:wrap;gap:10px}
+
+/* pilot offer */
+.offer{margin-top:40px;border-radius:24px;padding:clamp(24px,4vw,48px);background:linear-gradient(135deg,#2E2619,#221F1B);box-shadow:inset 0 0 0 1px #4A3D27;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
+.offer h3{font-size:clamp(24px,3vw,38px)}
+.offer p{margin-top:14px;color:var(--ink-soft)}
+.offer ul{margin:0;padding:0;list-style:none}
+.offer li{padding:10px 0;border-bottom:1px solid #3E3424}
+.offer li::before{content:"→ ";color:var(--gold);font-weight:700}
+
+.faq{margin-top:40px;max-width:840px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 0;display:flex;justify-content:space-between;gap:16px;font:600 clamp(16px,1.6vw,20px)/1.3 var(--display);letter-spacing:-.015em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--gold);font-size:24px;line-height:1;transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 20px;color:var(--ink-soft);max-width:64ch}
+
+.final{max-width:var(--max);margin:0 auto;padding:clamp(100px,12vw,170px) var(--pad) clamp(70px,9vw,110px)}
+.final h2{font-size:clamp(30px,6.6vw,96px);max-width:13ch;letter-spacing:-.045em;overflow-wrap:break-word}
+.final p{margin-top:18px;color:var(--ink-soft);font-size:18px;max-width:46ch}
+.final .btn{margin-top:30px}
+.foot{max-width:var(--max);margin:0 auto;padding:24px var(--pad) 36px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;color:var(--ink-soft);font-size:14px}
+
+.js [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js [data-reveal].in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .mods,.ind{grid-template-columns:1fr 1fr}
+  .trust{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps li:nth-child(n){margin-top:0}
+}
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr;min-height:0}
+  .chat{justify-self:center}
+  .why,.calc,.offer{grid-template-columns:1fr}
+  .top a.back{display:none}
+}
+@media (max-width:600px){
+  body{font-size:16.5px}
+  .hero__cta .btn{flex:1 1 100%}
+  .mods,.ind,.trust,.steps{grid-template-columns:1fr}
+  .chat__log{min-height:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0s!important;animation:none!important}
+  .js [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<header class="top">
+  <div class="top__in">
+    <a class="mark" href="index.html">NOVA<span>CODE</span></a>
+    <a class="back" href="index.html">← Все работы</a>
+    <a class="tg" href="https://t.me/n0vacode" target="_blank" rel="noopener">@n0vacode</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="h1">
+    <div>
+      <p class="kicker">Внедрение ИИ в бизнес · Рязань</p>
+      <h1 id="h1">Найду, где бизнес <em>теряет деньги</em>, и&nbsp;закрою это ИИ</h1>
+      <p class="hero__line">Не «чат-бот ради чат-бота». Сначала считаю, сколько вы теряете на заявках и рутине, потом внедряю решение и показываю цифры «до» и «после».</p>
+      <div class="hero__cta">
+        <a class="btn" href="https://t.me/n0vacode" target="_blank" rel="noopener">Бесплатный разбор</a>
+        <a class="btn ghost" href="#calc">Посчитать потери</a>
+      </div>
+      <div class="hero__facts"><span>сначала замер — потом оплата</span><span>данные остаются в России</span><span>приеду к вам в офис</span></div>
+    </div>
+
+    <div class="chat" id="chat" aria-label="Пример: ночью клиент пишет в компанию, ИИ уточняет детали и создаёт заявку в CRM">
+      <div class="chat__bar">
+        <span class="chat__av" aria-hidden="true">ИИ</span>
+        <div><b>Ремонт и отделка</b><small>помощник на связи</small></div>
+        <span class="chat__clock" id="clock">02:14</span>
+      </div>
+      <div class="chat__log" id="log">
+        <div class="msg in">Здравствуйте! Сколько стоит ремонт ванной 6&nbsp;м²?<small>02:14</small></div>
+        <div class="msg out">Добрый вечер! Под ключ или только плитка? Есть проект или нужен замер?<small>02:14</small></div>
+        <div class="msg in">Под ключ, нужен замер<small>02:15</small></div>
+        <div class="msg out">Могу записать замерщика на завтра: 10:00 или 15:00?<small>02:15</small></div>
+        <div class="msg in">15:00<small>02:15</small></div>
+        <div class="crm"><b><i>✓</i>Новая заявка в CRM</b>Ремонт ванной под ключ, 6&nbsp;м², замер завтра в&nbsp;15:00<br><span>менеджер увидит утром</span></div>
+      </div>
+      <div class="chat__ctrl">
+        <span id="chatNote">Менеджер спит. Заявка не потерялась.</span>
+        <button type="button" id="replay">Ещё раз</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="calc" aria-labelledby="calc-h">
+    <h2 id="calc-h" data-reveal>Сколько вы теряете сейчас</h2>
+    <p class="lead" data-reveal>Подставьте свои цифры. Считаем только их, никаких «средних по рынку».</p>
+    <div class="seg" role="radiogroup" aria-label="Что считаем">
+      <button type="button" role="radio" aria-checked="true" data-mode="leads">Пропущенные заявки</button>
+      <button type="button" role="radio" aria-checked="false" data-mode="routine">Рутина сотрудников</button>
+    </div>
+    <div class="calc">
+      <div>
+        <div id="fLeads">
+          <div class="field"><label for="leads">Заявок в день <output id="leadsOut"></output></label><input type="range" id="leads" min="1" max="100" step="1" value="10"></div>
+          <div class="field"><label for="missed">Без ответа или с ответом через час и дольше <output id="missedOut"></output></label><input type="range" id="missed" min="5" max="60" step="5" value="20"></div>
+          <div class="field"><label for="conv">Сколько заявок обычно становятся продажей <output id="convOut"></output></label><input type="range" id="conv" min="5" max="80" step="5" value="30"></div>
+          <div class="field"><label for="check">Средний чек <output id="checkOut"></output></label><input type="range" id="check" min="1000" max="300000" step="1000" value="10000"></div>
+        </div>
+        <div id="fRoutine" hidden>
+          <div class="field"><label for="staff">Сотрудников на однотипной работе <output id="staffOut"></output></label><input type="range" id="staff" min="1" max="30" step="1" value="3"></div>
+          <div class="field"><label for="hours">Часов в день у каждого на одно и то же <output id="hoursOut"></output></label><input type="range" id="hours" min="0.5" max="6" step="0.5" value="2"></div>
+          <div class="field"><label for="rate">Час работы сотрудника обходится вам в <output id="rateOut"></output></label><input type="range" id="rate" min="200" max="2000" step="50" value="400"></div>
+        </div>
+      </div>
+      <div class="res" aria-live="polite">
+        <div class="cap0" id="resCap0">В месяц уходит примерно</div>
+        <div class="big" id="loss">0</div>
+        <div class="cap" id="resCap">на заявках, до которых не дошли руки</div>
+        <div class="sub" id="resSub"></div>
+      </div>
+    </div>
+    <p class="note">Это оценка по вашим же цифрам, не обещание. Точную картину даёт разбор: смотрим реальные заявки и переписки за последние недели.</p>
+  </section>
+
+  <section class="sec" aria-labelledby="how">
+    <h2 id="how" data-reveal>Как работаю</h2>
+    <p class="lead" data-reveal>Сначала цифры, потом деньги. Платите за то, что сработало на пилоте.</p>
+    <ol class="steps" data-reveal>
+      <li><b>Разбор</b><em class="tag free">бесплатно</em><span>Час у вас в офисе или онлайн. На выходе одна страница: 3–5 мест, где теряются клиенты и время, с оценкой в рублях.</span></li>
+      <li><b>Пилот на одну задачу</b><em class="tag">2–4 недели</em><span>Закрываем самую дорогую утечку. Замеряем «до» и «после» на ваших реальных заявках.</span></li>
+      <li><b>Внедрение остального</b><em class="tag">по плану</em><span>Только если пилот дал результат. Подключаю к вашим мессенджерам, таблицам и CRM.</span></li>
+      <li><b>Поддержка</b><em class="tag">ежемесячно</em><span>Обновляю базу знаний, проверяю качество ответов, раз в месяц присылаю отчёт по цифрам.</span></li>
+    </ol>
+  </section>
+
+  <section class="sec" aria-labelledby="mods-h">
+    <h2 id="mods-h" data-reveal>Что внедряю</h2>
+    <p class="lead" data-reveal>Шесть задач, на которых чаще всего теряют деньги. Каждую настраиваю на ваших данных: прайсах, регламентах, шаблонах.</p>
+    <div class="mods" data-reveal>
+      <div class="mod"><b>Заявки 24/7</b><p>ИИ отвечает в Telegram, MAX, ВКонтакте, на сайте и Авито, уточняет детали и передаёт готовую заявку менеджеру.</p><div class="m"><strong>Меряем:</strong> время до первого ответа, сколько заявок дошло до сделки</div></div>
+      <div class="mod"><b>Онлайн-запись</b><p>Клиент сам выбирает услугу и время, получает напоминание за день и приглашение на повторный визит.</p><div class="m"><strong>Меряем:</strong> неявки, повторные визиты</div></div>
+      <div class="mod"><b>Документы за минуты</b><p>Черновики КП, смет, договоров и ответов на претензии по вашим шаблонам. Сотрудник проверяет и отправляет.</p><div class="m"><strong>Меряем:</strong> минуты на один документ</div></div>
+      <div class="mod"><b>База знаний</b><p>ИИ отвечает сотрудникам по вашим регламентам и прайсам. Новички учатся быстрее, руководителя дёргают реже.</p><div class="m"><strong>Меряем:</strong> вопросы к руководителю, срок ввода новичка</div></div>
+      <div class="mod"><b>Возврат клиентов</b><p>Напоминает тем, кто давно не покупал и не приходил, с поводом и предложением.</p><div class="m"><strong>Меряем:</strong> сколько вернулось, выручка с базы</div></div>
+      <div class="mod"><b>Сводка владельцу</b><p>Каждый вечер: сколько заявок, кто остался без ответа, что просрочено. Без ручных отчётов.</p><div class="m"><strong>Меряем:</strong> часы владельца на контроль</div></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="ind-h">
+    <h2 id="ind-h" data-reveal>Что это даст вашей сфере</h2>
+    <p class="lead" data-reveal>Примеры того, с чего обычно начинают. Это не кейсы, а план: точный список даёт разбор вашего бизнеса.</p>
+    <div class="tabs" role="tablist" aria-label="Сфера бизнеса" id="tabs"></div>
+    <div id="panels"></div>
+  </section>
+
+  <section class="sec why" aria-labelledby="why">
+    <div>
+      <h2 id="why" data-reveal>Почему начинать сейчас</h2>
+      <p class="lead" data-reveal>ИИ для малого бизнеса только начинают внедрять. Кто сделает это первым в своей нише, тот отвечает быстрее и тратит меньше.</p>
+    </div>
+    <ul data-reveal>
+      <li><b>Клиент уходит к тому, кто ответил первым</b><span>Пока вы перезваниваете утром, он уже договорился с конкурентом, который ответил ночью.</span></li>
+      <li><b>Людей найти всё труднее</b><span>ИИ не заменяет сотрудников, а снимает с них однотипную работу. Тот же штат успевает больше.</span></li>
+      <li><b>Это уже недорого</b><span>Решение настраивается за недели, а не за месяцы, и стоит меньше зарплаты одного сотрудника.</span></li>
+      <li><b>Опыт копится</b><span>База знаний и шаблоны со временем становятся точнее. Через полгода догнать вас будет сложнее.</span></li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="trust-h">
+    <h2 id="trust-h" data-reveal>Честно и официально</h2>
+    <div class="trust" data-reveal>
+      <div><b>Данные остаются в России</b><span>Российские нейросети (YandexGPT, GigaChat) и соглашение о конфиденциальности.</span></div>
+      <div><b>Решает человек</b><span>ИИ готовит ответ или документ, сотрудник проверяет. Важное без человека не уходит.</span></div>
+      <div><b>Самозанятый, с чеком</b><span>Каждая оплата оформляется официально.</span></div>
+      <div><b>Я в Рязани</b><span>Приеду в офис, посмотрю, как устроена работа, на месте.</span></div>
+    </div>
+    <div class="me" data-reveal>
+      <p><b>Степан Бедин, NOVACODE.</b> Делаю ботов, мини-приложения и сайты для бизнеса, плюс 7 открытых ИИ-проектов: агенты, поиск по документам компании, контроль качества ответов.</p>
+      <nav aria-label="Портфолио"><a class="btn ghost" href="index.html#work">Работы для клиентов</a><a class="btn ghost" href="ai.html">ИИ-проекты</a></nav>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="pilot-h">
+    <div class="offer" data-reveal>
+      <div>
+        <h3 id="pilot-h">3 бесплатных пилота для компаний Рязани</h3>
+        <p>Мне нужны первые кейсы с настоящими цифрами. Поэтому трём компаниям делаю пилот бесплатно.</p>
+      </div>
+      <ul>
+        <li>Разбор и пилот на одну задачу — бесплатно</li>
+        <li>Замер «до» и «после» на ваших заявках</li>
+        <li>Взамен — честный отзыв и разрешение показать цифры</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="faq-h">
+    <h2 id="faq-h" data-reveal>Частые вопросы</h2>
+    <div class="faq">
+      <details><summary>Сколько это стоит?</summary><p>Разбор бесплатный. Внедрение — от 30 000 ₽, точная цена зависит от задач и того, что нужно подключить. Поддержка — ежемесячно, по объёму работы. Цену называю после разбора, когда понятно, что именно делаем.</p></details>
+      <details><summary>А если не сработает?</summary><p>Для этого и нужен пилот: сначала одна задача и замер. Если цифры не изменились, дальше не идём, и вы не платите за то, что не работает.</p></details>
+      <details><summary>Куда уходят данные наших клиентов?</summary><p>Использую российские нейросети, подписываем соглашение о конфиденциальности. Персональные данные не уходят в зарубежные сервисы.</p></details>
+      <details><summary>Придётся менять наши программы?</summary><p>Нет. Подключаюсь к тому, чем вы уже пользуетесь: мессенджерам, почте, таблицам, CRM.</p></details>
+      <details><summary>Сколько времени это займёт у нас?</summary><p>Час на разбор и одна-две короткие встречи во время пилота. Дальше всё делаю я.</p></details>
+      <details><summary>ИИ заменит сотрудников?</summary><p>Нет, он снимает с них однотипную работу. Ответ клиенту или документ готовит ИИ, проверяет и отправляет человек.</p></details>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="final-h">
+    <h2 id="final-h" data-reveal>Начнём с&nbsp;бесплатного разбора</h2>
+    <p data-reveal>Напишите, чем занимается ваш бизнес и что сейчас отнимает больше всего времени. Предложу, с чего начать.</p>
+    <a class="btn" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-reveal>Написать в Telegram</a>
+  </section>
+</main>
+
+<footer class="foot"><span>© 2026 NOVACODE</span><span>Рязань · самозанятый</span><a href="privacy.html">Политика конфиденциальности</a></footer>
+
+<script>
+(() => {
+'use strict';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString('ru-RU') + ' ₽';
+if ('IntersectionObserver' in window) {
+  document.documentElement.classList.add('js');
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+}
+
+/* pointer light */
+const glow = document.querySelector('.glow');
+if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+  let raf = 0, x = 0, y = 0;
+  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(() => { glow.style.setProperty('--gx', x + 'px'); glow.style.setProperty('--gy', y + 'px'); raf = 0; }); }, { passive: true });
+}
+
+/* night chat */
+const items = [...$('log').children], replay = $('replay'), note = $('chatNote');
+let playing = false;
+const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+async function play() {
+  if (playing) return; playing = true; replay.disabled = true;
+  items.forEach(i => i.classList.remove('on')); note.textContent = 'Клиент пишет ночью…';
+  for (const [i, el] of items.entries()) { await wait(i ? 900 : 300); el.classList.add('on'); }
+  note.textContent = 'Менеджер спит. Заявка не потерялась.';
+  playing = false; replay.disabled = false;
+}
+replay.addEventListener('click', play);
+if (reduce || !('IntersectionObserver' in window)) items.forEach(i => i.classList.add('on'));
+else new IntersectionObserver(([e], o) => { if (e.isIntersecting) { play(); o.disconnect(); } }, { threshold: .4 }).observe($('chat'));
+
+/* calculator */
+let mode = 'leads';
+const plural = (n, a, b, c) => { const m = n % 10, h = n % 100; return m === 1 && h !== 11 ? a : m >= 2 && m <= 4 && (h < 10 || h >= 20) ? b : c; };
+function calc() {
+  if (mode === 'leads') {
+    const leads = +$('leads').value, missed = +$('missed').value, conv = +$('conv').value, check = +$('check').value;
+    const lost = leads * 30 * missed / 100;           // заявок в месяц без быстрого ответа
+    const money = lost * conv / 100 * check;
+    $('leadsOut').textContent = leads; $('missedOut').textContent = missed + '%'; $('convOut').textContent = conv + '%'; $('checkOut').textContent = fmt(check);
+    $('resCap0').textContent = 'В месяц уходит примерно';
+    $('loss').textContent = fmt(money);
+    $('resCap').textContent = 'на заявках, до которых не дошли руки';
+    const k = Math.round(lost);
+    $('resSub').innerHTML = `Это <b>${k}</b> ${plural(k, 'заявка', 'заявки', 'заявок')} в месяц и <b>${fmt(money * 12)}</b> в год. Если ИИ отвечает за минуту, хотя бы половину из них можно вернуть.`;
+  } else {
+    const staff = +$('staff').value, hours = +$('hours').value, rate = +$('rate').value;
+    const h = staff * hours * 22, money = h * rate;
+    $('staffOut').textContent = staff; $('hoursOut').textContent = String(hours).replace('.', ','); $('rateOut').textContent = fmt(rate);
+    $('resCap0').textContent = 'В месяц вы платите примерно';
+    $('loss').textContent = fmt(money);
+    $('resCap').textContent = 'за однотипную работу, которую может делать ИИ';
+    $('resSub').innerHTML = `Это <b>${Math.round(h)}</b> ${plural(Math.round(h), 'час', 'часа', 'часов')} в месяц. Если ИИ заберёт хотя бы половину, вернётся <b>${fmt(money / 2)}</b> и <b>${Math.round(h / 2)}</b>&nbsp;ч.`;
+  }
+}
+document.querySelectorAll('.calc input').forEach(i => i.addEventListener('input', calc));
+document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
+  $('fLeads').hidden = mode !== 'leads'; $('fRoutine').hidden = mode !== 'routine';
+  calc();
+}));
+calc();
+
+/* industries */
+const IND = [
+  { id:'law', name:'Юристы', loss:['Заявки вечером и в выходные остаются без ответа','Одни и те же вопросы по телефону: «сколько стоит», «что нужно»','Черновики претензий и исков пишутся вручную часами'],
+    fix:['Приём заявок 24/7 с уточнением сути дела','Черновики документов по шаблонам вашей практики','База знаний по типовым вопросам для сотрудников'],
+    kpi:['Время до первого ответа','Часы на один черновик','Сколько заявок дошло до консультации'] },
+  { id:'med', name:'Клиники', loss:['Неявки на приём','Администратор весь день отвечает на «сколько стоит» и «как подготовиться»','Пациенты не возвращаются на контроль'],
+    fix:['Онлайн-запись с напоминаниями','Ответы по прайсу и подготовке к процедурам','Приглашения на повторный визит в нужный срок'],
+    kpi:['Доля неявок','Доля вернувшихся пациентов','Нагрузка на администратора'] },
+  { id:'build', name:'Стройка и ремонт', loss:['Заявки с сайта и Авито ночью и в выходные','Сметы и КП собираются вручную','Клиент ушёл, пока ждал расчёт'],
+    fix:['ИИ уточняет объект и записывает на замер','Черновик сметы и КП по вашим расценкам','Напоминания тем, кто взял паузу'],
+    kpi:['Заявки → замеры','Время на одно КП','Сколько КП стали договорами'] },
+  { id:'opt', name:'Опт и производство', loss:['Однотипные запросы о наличии и ценах','Счета и КП вручную','Входящие накладные перебиваются в таблицу'],
+    fix:['Ответы по остаткам и прайсу','Счета и КП по шаблону за минуты','Разбор входящих документов в таблицу или учётную систему'],
+    kpi:['Время ответа на запрос','Часы ручного ввода','Заказы на менеджера'] },
+  { id:'auto', name:'Автосервисы', loss:['Мастера не берут трубку во время работы','Запись в тетрадке или в голове','Клиенты забывают про ТО и сезонную замену'],
+    fix:['Запись и ответы на вопросы в мессенджерах','Подтверждение и напоминание о визите','Напоминания о ТО по пробегу и сезону'],
+    kpi:['Пропущенные обращения','Загрузка постов','Повторные визиты'] },
+  { id:'realty', name:'Недвижимость', loss:['Много одинаковых вопросов по объектам','Заявки после 20:00 ждут до утра','Агенты тратят время на тех, кто «просто смотрит»'],
+    fix:['ИИ отвечает по базе объектов и записывает на просмотр','Уточняет бюджет и сроки до звонка агента','Подборка новых объектов тем, кто ещё ищет'],
+    kpi:['Время до ответа','Заявки → просмотры','Часы агента на одну сделку'] },
+];
+const tabs = $('tabs'), panels = $('panels');
+const li = a => a.map(t => `<li>${t}</li>`).join('');
+tabs.innerHTML = IND.map((x, i) => `<button type="button" role="tab" id="t-${x.id}" aria-controls="p-${x.id}" aria-selected="${!i}" tabindex="${i ? -1 : 0}">${x.name}</button>`).join('');
+panels.innerHTML = IND.map((x, i) => `<div class="ind" role="tabpanel" id="p-${x.id}" aria-labelledby="t-${x.id}" ${i ? 'hidden' : ''}>
+  <div><h3>Где теряют</h3><ul>${li(x.loss)}</ul></div><div><h3>Что внедряем</h3><ul>${li(x.fix)}</ul></div><div><h3>Что меряем</h3><ul>${li(x.kpi)}</ul></div></div>`).join('');
+const tabBtns = [...tabs.children];
+function select(b, focus) {
+  tabBtns.forEach(t => { const on = t === b; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; $(t.getAttribute('aria-controls')).hidden = !on; });
+  if (focus) b.focus();
+}
+tabBtns.forEach((b, i) => {
+  b.addEventListener('click', () => select(b));
+  b.addEventListener('keydown', e => {
+    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (d) { e.preventDefault(); select(tabBtns[(i + d + tabBtns.length) % tabBtns.length], true); }
+  });
+});
+})();
+</script>
+</body>
+</html>
