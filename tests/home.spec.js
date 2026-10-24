@@ -96,13 +96,14 @@ for (const path of ['index.html', 'ai.html']) {
 test.describe('главная', () => {
   test.beforeEach(async ({ page }) => { await presetLang(page); await openHome(page); });
 
-  test('четыре услуги с ценами и действиями', async ({ page }) => {
+  test('пять услуг с ценами и действиями, внедрение ИИ — первым', async ({ page }) => {
     const cards = page.locator('.svc__card');
-    await expect(cards).toHaveCount(4);
+    await expect(cards).toHaveCount(5);
+    await expect(cards.first()).toHaveAttribute('id', 'svc-ai');
     for (const card of await cards.all()) {
       await expect(card.locator('h3')).not.toBeEmpty();
       await expect(card.locator('.svc__price b')).toHaveText(/\d.*₽/);
-      await expect(card.locator('a.link')).toHaveAttribute('href', /^(https:\/\/t\.me\/n0vacode|nfc\.html)$/);
+      await expect(card.locator('a.link')).toHaveAttribute('href', /^(https:\/\/t\.me\/n0vacode|nfc\.html|vnedrenie\.html)$/);
     }
   });
 
