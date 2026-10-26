@@ -51,7 +51,7 @@
     'contact.title': 'Contact', 'contact.lead': 'Message me, I reply within a day', 'contact.channel': 'Personal channel',
     foot: 'AI / LLM Engineer · co-founder of Duallix studio',
     'nav.impl': 'AI for business', 'nav.calc': 'Loss calculator', 'nav.quick': 'Bots & websites',
-    'hero.call': 'Call', 'h.f4': '25+ reviews on Avito', 'mcta.write': 'Message',
+    'hero.call': 'Call', 'h.f4': '<a class="hero__rev" href="https://www.avito.ru/brands/bef6b6dd2afa4adc1995c39daeae428e" target="_blank" rel="noopener">25+ reviews on Avito</a>', 'mcta.write': 'Message',
     'chat.av': 'AI', 'chat.biz': 'Renovation company', 'chat.m1': 'Hi! How much is a 6 m² bathroom renovation?', 'chat.m2': 'Good evening! Turnkey or just tiling? Do you have a design, or do you need a measurement visit?',
     'chat.m3': 'Turnkey, need a measurement', 'chat.m4': 'I can book a surveyor for tomorrow: 10:00 or 15:00?', 'chat.crm': 'New request in the CRM',
     'chat.crmT': 'Turnkey bathroom renovation, 6 m², measurement tomorrow at 15:00', 'chat.crmS': 'the manager will see it in the morning',

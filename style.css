@@ -588,3 +588,5 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 400; pointer-even
   .nav ul a { font-size: clamp(26px, 8vw, 38px); }
   .nav.is-open ul li:nth-child(5) { transition-delay: .2s; }
 }
+.hero__rev { color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+.hero__rev:hover { color: var(--gold-hi); }

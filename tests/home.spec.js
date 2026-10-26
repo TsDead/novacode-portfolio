@@ -67,6 +67,7 @@ test.describe('главная', () => {
     await expect(page.locator('.hero__actions a.btn').first()).toHaveAttribute('href', 'https://t.me/n0vacode');
     await expect(page.locator('.hero__actions a[href="tel:+79105650340"]')).toHaveCount(1);
     await expect(page.locator('.hero__facts')).toContainText('отзывов на Авито');
+    await expect(page.locator('.hero__facts a.hero__rev')).toHaveAttribute('href', 'https://www.avito.ru/brands/bef6b6dd2afa4adc1995c39daeae428e');
   });
 
   test('лестница внедрения: четыре шага, разбор бесплатный, ссылка на подробности', async ({ page }) => {
