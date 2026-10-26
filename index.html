@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NOVACODE (новакод) — Telegram-боты, магазины и сайты для бизнеса</title>
-<meta name="description" content="NOVACODE (новакод), Степан Бедин: Telegram-боты для записи и заявок, магазины в Telegram, сайты и лендинги, NFC-метки для отзывов. От 3 500 ₽, запуск за 1–3 дня.">
+<title>NOVACODE — внедрение ИИ, боты и сайты для бизнеса в Рязани</title>
+<meta name="description" content="NOVACODE (новакод), Степан Бедин, Рязань: нахожу, где бизнес теряет заявки и время, и закрываю это ИИ. Бесплатный разбор в вашем офисе. Также боты, магазины в Telegram, сайты и NFC-метки от 3 500 ₽.">
 <meta name="theme-color" content="#1C1A18">
 <meta name="p:domain_verify" content="3f037aee9a0c290344af8c0b0fd63c8a"/>
 <link rel="canonical" href="https://new-coder.ru/">
@@ -36,7 +36,7 @@
   "founder": {
     "@type": "Person",
     "name": "Степан Бедин",
-    "jobTitle": "AI / LLM Engineer",
+    "jobTitle": "Внедрение ИИ в бизнес",
     "url": "https://new-coder.ru/"
   },
   "sameAs": [
@@ -49,7 +49,7 @@
 <link rel="preload" href="fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/onest-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20261024-1">
+<link rel="stylesheet" href="style.css?v=20261026-1">
 </head>
 <body>
 <div class="glow" aria-hidden="true"></div>
@@ -60,10 +60,11 @@
     <a class="mark" href="#main" aria-label="NOVACODE, в начало">NOVA<span>CODE</span></a>
     <nav class="nav" id="nav" aria-label="Разделы" data-i18n-aria="navLabel">
       <ul>
-        <li><a href="#services" data-i18n="nav.services">Услуги и цены</a></li>
+        <li><a href="#services" data-i18n="nav.impl">Внедрение ИИ</a></li>
+        <li><a href="#calc" data-i18n="nav.calc">Калькулятор потерь</a></li>
+        <li><a href="#quick" data-i18n="nav.quick">Боты и сайты</a></li>
         <li><a href="#work" data-i18n="nav.work">Работы</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
-        <li><a href="ai.html" data-i18n="nav.ai">AI-инженер</a></li>
       </ul>
       <a class="nav__tg" href="https://t.me/n0vacode" target="_blank" rel="noopener">@n0vacode</a>
     </nav>
@@ -82,83 +83,132 @@
   <!-- HERO -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__text">
-      <p class="hero__eyebrow" data-i18n="h.role">Степан Бедин · NOVACODE</p>
-      <h1 id="hero-title" class="hero__name hero__name--offer"><span class="name" id="name" data-i18n="h.name">Боты и&nbsp;сайты для бизнеса</span></h1>
-      <p class="hero__line" data-i18n="h.line">Telegram-боты, магазины в&nbsp;Telegram, сайты и&nbsp;NFC-метки для отзывов. Делаю сам, от&nbsp;3&nbsp;500&nbsp;₽, запуск за&nbsp;1–3&nbsp;дня.</p>
+      <p class="hero__eyebrow" data-i18n="h.role">Внедрение ИИ · Рязань</p>
+      <h1 id="hero-title" class="hero__name hero__name--offer hero__name--long"><span class="name" id="name" data-i18n="h.name">Найду, где бизнес теряет заявки, и&nbsp;закрою это&nbsp;ИИ</span></h1>
+      <p class="hero__line" data-i18n="h.line">Отвечаю вашим клиентам 24/7, забираю рутину у&nbsp;сотрудников и&nbsp;показываю результат в&nbsp;рублях. Начинаем с&nbsp;бесплатного разбора.</p>
       <div class="hero__actions">
-        <a class="btn" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="hero.cta">Написать в Telegram</a>
-        <a class="link" href="#services" data-i18n="h.services">Услуги и цены</a>
+        <a class="btn" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="hero.cta">Бесплатный разбор</a>
+        <a class="btn btn--ghost" href="tel:+79105650340" data-i18n="hero.call">Позвонить</a>
       </div>
       <ul class="hero__facts">
-        <li data-i18n="h.f1">С 2024 года</li>
-        <li data-i18n="h.f2">Пишу сам, без посредников</li>
-        <li data-i18n="h.f3">14 дней поддержки бесплатно</li>
+        <li data-i18n="h.f4">25+ отзывов на Авито</li>
+        <li data-i18n="h.f1">Приеду к вам в офис</li>
+        <li data-i18n="h.f2">Самозанятый, выдаю чек</li>
+        <li data-i18n="h.f3">Данные остаются в России</li>
       </ul>
     </div>
 
     <div class="hero__demo">
-      <div class="tg" id="tg" aria-roledescription="демонстрация" aria-label="Покупатель заказывает худи в магазине YFB Store внутри Telegram" data-i18n-aria="demo.aria">
-        <div class="tg__head">
-          <span class="tg__back" aria-hidden="true"></span>
-          <span class="tg__ava" aria-hidden="true">YFB</span>
-          <span class="tg__who"><b>YFB Store</b><i data-i18n="demo.bot">бот</i></span>
-          <span class="tg__cart" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 7h13l-1.4 7.2a2 2 0 0 1-2 1.6H9.4a2 2 0 0 1-2-1.6L5.6 4H3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.3" fill="currentColor"/><circle cx="16" cy="20" r="1.3" fill="currentColor"/></svg><em id="tgBadge">0</em></span>
+      <div class="chat" id="chat" aria-label="Пример: ночью клиент пишет в компанию, ИИ уточняет детали и создаёт заявку в CRM" data-i18n-aria="chat.aria">
+        <div class="chat__bar">
+          <span class="chat__av" aria-hidden="true" data-i18n="chat.av">ИИ</span>
+          <div><b data-i18n="chat.biz">Ремонт и отделка</b><small data-i18n="chat.on">помощник на связи</small></div>
+          <span class="chat__clock">02:14</span>
         </div>
-        <div class="tg__screen" id="tgScreen"></div>
-        <span class="tg__tap" id="tgTap" aria-hidden="true"></span>
-      </div>
-      <div class="demo-ctrl">
-        <button type="button" class="demo-ctrl__btn" id="demoToggle">Пауза</button>
-        <span class="demo-ctrl__note" id="demoNote"></span>
+        <div class="chat__log" id="chatLog">
+          <div class="msg in"><span data-i18n="chat.m1">Здравствуйте! Сколько стоит ремонт ванной 6&nbsp;м²?</span><small>02:14</small></div>
+          <div class="msg out"><span data-i18n="chat.m2">Добрый вечер! Под ключ или только плитка? Есть проект или нужен замер?</span><small>02:14</small></div>
+          <div class="msg in"><span data-i18n="chat.m3">Под ключ, нужен замер</span><small>02:15</small></div>
+          <div class="msg out"><span data-i18n="chat.m4">Могу записать замерщика на завтра: 10:00 или 15:00?</span><small>02:15</small></div>
+          <div class="msg in">15:00<small>02:15</small></div>
+          <div class="crm"><b><i>✓</i><span data-i18n="chat.crm">Новая заявка в CRM</span></b><span class="crm__t" data-i18n="chat.crmT">Ремонт ванной под ключ, 6&nbsp;м², замер завтра в&nbsp;15:00</span><br><span data-i18n="chat.crmS">менеджер увидит утром</span></div>
+        </div>
+        <div class="chat__ctrl">
+          <span id="chatNote"></span>
+          <button type="button" id="chatReplay" data-i18n="chat.again">Ещё раз</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- AI IMPLEMENTATION: ladder -->
   <section class="svc" id="services" aria-labelledby="svc-title">
-    <p class="eyebrow" data-reveal><span class="eyebrow__n">01</span><span data-i18n="eb.svc">Услуги и цены</span></p>
-    <h2 id="svc-title" class="svc__title" data-reveal data-i18n="svc.title">Что я делаю</h2>
+    <p class="eyebrow" data-reveal><span class="eyebrow__n">01</span><span data-i18n="eb.impl">Внедрение ИИ</span></p>
+    <h2 id="svc-title" class="svc__title" data-reveal data-i18n="svc.title">Как я работаю с&nbsp;бизнесом</h2>
+    <ol class="ladder" data-reveal>
+      <li><b data-i18n="lad.1">Разбор</b><em class="free" data-i18n="lad.1p">бесплатно</em><span data-i18n="lad.1t">Приезжаю в&nbsp;офис на&nbsp;час, смотрю заявки и&nbsp;переписки. Отдаю карту: где и&nbsp;сколько вы теряете.</span></li>
+      <li><b data-i18n="lad.2">Пилот</b><em class="free" data-i18n="lad.2p">бесплатно первым 3&nbsp;компаниям</em><span data-i18n="lad.2t">Закрываю одну утечку за&nbsp;2–4 недели и&nbsp;меряю «до» и&nbsp;«после» на&nbsp;ваших заявках.</span></li>
+      <li><b data-i18n="lad.3">Внедрение</b><em data-i18n="lad.3p">от 30&nbsp;000&nbsp;₽</em><span data-i18n="lad.3t">Ответы клиентам 24/7, документы за&nbsp;минуты, вечерняя сводка владельцу. Подключаю к&nbsp;вашей CRM, таблицам и&nbsp;мессенджерам.</span></li>
+      <li><b data-i18n="lad.4">Поддержка</b><em data-i18n="lad.4p">по договорённости</em><span data-i18n="lad.4t">Обновляю базу знаний, проверяю качество ответов, раз в&nbsp;месяц присылаю отчёт в&nbsp;цифрах.</span></li>
+    </ol>
+    <p class="ladder__more" data-reveal><a class="link" href="vnedrenie.html" data-i18n="svc.aiA">Подробнее о внедрении</a></p>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="svc calcsec" id="calc" aria-labelledby="calc-title">
+    <p class="eyebrow" data-reveal><span class="eyebrow__n">02</span><span data-i18n="eb.calc">Калькулятор</span></p>
+    <h2 id="calc-title" class="svc__title" data-reveal data-i18n="calc.title">Сколько вы теряете сейчас</h2>
+    <p class="calc__lead" data-i18n="calc.lead">Подставьте свои цифры. Считаем только их, никаких «средних по&nbsp;рынку».</p>
+    <div class="seg" role="radiogroup" aria-label="Что считаем" data-i18n-aria="calc.aria">
+      <button type="button" role="radio" aria-checked="true" data-mode="leads" data-i18n="calc.m1">Пропущенные заявки</button>
+      <button type="button" role="radio" aria-checked="false" data-mode="routine" data-i18n="calc.m2">Рутина сотрудников</button>
+    </div>
+    <div class="calc">
+      <div>
+        <div id="fLeads">
+          <div class="field"><label for="leads"><span data-i18n="calc.leads">Заявок в день</span> <output id="leadsOut"></output></label><input type="range" id="leads" min="1" max="100" step="1" value="10"></div>
+          <div class="field"><label for="missed"><span data-i18n="calc.missed">Без ответа или с ответом через час и дольше</span> <output id="missedOut"></output></label><input type="range" id="missed" min="5" max="60" step="5" value="20"></div>
+          <div class="field"><label for="conv"><span data-i18n="calc.conv">Сколько заявок обычно становятся продажей</span> <output id="convOut"></output></label><input type="range" id="conv" min="5" max="80" step="5" value="30"></div>
+          <div class="field"><label for="check"><span data-i18n="calc.check">Средний чек</span> <output id="checkOut"></output></label><input type="range" id="check" min="1000" max="300000" step="1000" value="10000"></div>
+        </div>
+        <div id="fRoutine" hidden>
+          <div class="field"><label for="staff"><span data-i18n="calc.staff">Сотрудников на однотипной работе</span> <output id="staffOut"></output></label><input type="range" id="staff" min="1" max="30" step="1" value="3"></div>
+          <div class="field"><label for="hours"><span data-i18n="calc.hours">Часов в день у каждого на одно и то же</span> <output id="hoursOut"></output></label><input type="range" id="hours" min="0.5" max="6" step="0.5" value="2"></div>
+          <div class="field"><label for="rate"><span data-i18n="calc.rate">Час работы сотрудника обходится вам в</span> <output id="rateOut"></output></label><input type="range" id="rate" min="200" max="2000" step="50" value="400"></div>
+        </div>
+      </div>
+      <div class="res" aria-live="polite">
+        <div class="res__cap0" id="resCap0"></div>
+        <div class="res__big" id="loss">0</div>
+        <div class="res__cap" id="resCap"></div>
+        <div class="res__sub" id="resSub"></div>
+        <a class="btn res__btn" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="calc.cta">Разобрать мои цифры бесплатно</a>
+      </div>
+    </div>
+    <p class="calc__note" data-i18n="calc.note">Это оценка по вашим же цифрам, не обещание. Точную картину даёт разбор: смотрим реальные заявки и переписки за последние недели.</p>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="svc" id="quick" aria-labelledby="quick-title">
+    <p class="eyebrow" data-reveal><span class="eyebrow__n">03</span><span data-i18n="eb.quick">Быстрые решения</span></p>
+    <h2 id="quick-title" class="svc__title" data-reveal data-i18n="quick.title">Боты и&nbsp;сайты от&nbsp;3&nbsp;500&nbsp;₽</h2>
     <div class="svc__grid">
-      <article class="svc__card svc__card--wide" id="svc-ai" data-reveal>
-        <span class="svc__num" aria-hidden="true">01</span>
-        <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 16l-1.8-4.8L6 9.4l4.2-1.8z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></span>
-        <h3 data-i18n="svc.ai">Внедрение ИИ в бизнес</h3>
-        <p class="svc__text" data-i18n="svc.aiT">Нахожу, где бизнес теряет заявки, деньги и время, и закрываю это с помощью ИИ: ответы клиентам 24/7, документы за минуты, сводка владельцу. Сначала бесплатный разбор и пилот с замером «до» и «после».</p>
-        <p class="svc__price"><b data-i18n="svc.aiP">от 30 000 ₽</b><span data-i18n="svc.aiD">разбор бесплатно</span></p>
-        <a class="link" href="vnedrenie.html" data-i18n="svc.aiA">Подробнее о внедрении</a>
-      </article>
       <article class="svc__card" id="svc-bot" data-reveal>
-        <span class="svc__num" aria-hidden="true">02</span>
+        <span class="svc__num" aria-hidden="true">01</span>
         <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span>
         <h3 data-i18n="svc.bot">Бот для записи и заявок</h3>
         <button type="button" class="svc__ex" data-case="barbot" data-i18n="svc.botE">Пример: BarBot</button>
         <p class="svc__text" data-i18n="svc.botT">Клиенты сами записываются и оставляют заявки, вы получаете всё в Telegram и таблице.</p>
+        <p class="svc__inc" data-i18n="svc.botI">Входит: настройка под ваши услуги, таблица заявок, 14 дней поддержки.</p>
         <p class="svc__price"><b data-i18n="svc.botP">от 3 500 ₽</b><span data-i18n="svc.botD">1–3 дня</span></p>
         <a class="link" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="svc.botA">Обсудить в Telegram</a>
       </article>
       <article class="svc__card" id="svc-shop" data-reveal>
-        <span class="svc__num" aria-hidden="true">03</span>
+        <span class="svc__num" aria-hidden="true">02</span>
         <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h13l-1.4 7.2a2 2 0 0 1-2 1.6H9.4a2 2 0 0 1-2-1.6L5.6 4H3"/><circle cx="10" cy="20" r="1.2"/><circle cx="16" cy="20" r="1.2"/></svg></span>
         <h3 data-i18n="svc.shop">Магазин в Telegram</h3>
         <button type="button" class="svc__ex" data-case="yfb" data-i18n="svc.shopE">Пример: YFB Store</button>
         <p class="svc__text" data-i18n="svc.shopT">Каталог, корзина и доставка прямо в Telegram. Товары подтягиваются из вашего канала.</p>
+        <p class="svc__inc" data-i18n="svc.shopI">Входит: каталог из вашего канала, корзина, доставка СДЭК, 14 дней поддержки.</p>
         <p class="svc__price"><b data-i18n="svc.shopP">от 15 000 ₽</b><span data-i18n="svc.shopD">от 1 недели</span></p>
         <a class="link" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="svc.shopA">Обсудить в Telegram</a>
       </article>
       <article class="svc__card" id="svc-web" data-reveal>
-        <span class="svc__num" aria-hidden="true">04</span>
+        <span class="svc__num" aria-hidden="true">03</span>
         <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span>
         <h3 data-i18n="svc.web">Сайт или лендинг</h3>
         <button type="button" class="svc__ex" data-case="holo" data-i18n="svc.webE">Пример: выставка голограмм</button>
         <p class="svc__text" data-i18n="svc.webT">Страница с услугами, ценами и кнопкой связи. Сложнее, с калькулятором и двумя языками, от 10 000 ₽.</p>
+        <p class="svc__inc" data-i18n="svc.webI">Входит: структура и тексты, версия для телефона, кнопки связи.</p>
         <p class="svc__price"><b data-i18n="svc.webP">от 5 000 ₽</b><span data-i18n="svc.webD">3–5 дней</span></p>
         <a class="link" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="svc.webA">Обсудить в Telegram</a>
       </article>
       <article class="svc__card" id="svc-nfc" data-reveal>
-        <span class="svc__num" aria-hidden="true">05</span>
+        <span class="svc__num" aria-hidden="true">04</span>
         <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a5 5 0 0 1 0 7M9.5 6a9 9 0 0 1 0 12M13 3.5a13 13 0 0 1 0 17"/></svg></span>
         <h3 data-i18n="svc.nfc">NFC-метки для отзывов</h3>
         <p class="svc__text" data-i18n="svc.nfcT">Клиент прикладывает телефон к метке и сразу оставляет отзыв на Яндекс Картах.</p>
+        <p class="svc__inc" data-i18n="svc.nfcI">Входит: метка и ссылка прямо на ваши отзывы в Яндекс Картах.</p>
         <p class="svc__price"><b data-i18n="svc.nfcP">от 1 990 ₽</b><span data-i18n="svc.nfcD">разово</span></p>
         <a class="link" href="nfc.html" data-i18n="svc.nfcA">Подробнее о метках</a>
       </article>
@@ -173,7 +223,7 @@
 
   <!-- WORK -->
   <section class="work" id="work" aria-labelledby="work-title">
-    <p class="eyebrow" data-reveal><span class="eyebrow__n">02</span><span data-i18n="eb.work">Кейсы</span></p>
+    <p class="eyebrow" data-reveal><span class="eyebrow__n">04</span><span data-i18n="eb.work">Кейсы</span></p>
     <h2 id="work-title" class="work__title" data-reveal data-i18n="work.title">Работы</h2>
     <div class="work__body">
       <ul class="plist" id="plist" role="list"></ul>
@@ -182,26 +232,16 @@
   </section>
 
 
-  <!-- AI TEASER -->
-  <section class="aiteaser" aria-label="Для работодателей" data-i18n-aria="ait.aria">
-    <a class="aiteaser__card" href="ai.html" data-reveal>
-      <span class="aiteaser__eyebrow" data-i18n="ait.eyebrow">Для работодателей</span>
-      <b data-i18n="ait.title">Ищете AI / LLM-инженера?</b>
-      <span class="aiteaser__text" data-i18n="ait.text">Агенты, RAG, MCP-серверы, evaluation: 7 проектов с кодом и живыми демо.</span>
-      <span class="aiteaser__tags" aria-hidden="true"><span>Agents</span><span>RAG</span><span>MCP</span><span>Evals</span><span>Observability</span></span>
-      <i class="aiteaser__arrow" aria-hidden="true">→</i>
-    </a>
-  </section>
 
   <!-- CONTACT -->
   <section class="contact" id="contact" aria-labelledby="contact-title">
     <h2 id="contact-title" class="visually-hidden" data-i18n="contact.title">Контакты</h2>
-    <p class="eyebrow" data-reveal><span class="eyebrow__n">03</span><span data-i18n="eb.contact">Связь</span></p>
+    <p class="eyebrow" data-reveal><span class="eyebrow__n">05</span><span data-i18n="eb.contact">Связь</span></p>
     <p class="contact__lead" data-reveal data-i18n="contact.lead">Напишите, отвечу в течение дня</p>
     <a class="contact__tg" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-reveal>@n0vacode</a>
     <div class="contact__row" data-reveal>
       <button type="button" class="chip" data-copy="stepchikcrypto@gmail.com">stepchikcrypto@gmail.com</button>
-      <button type="button" class="chip" data-copy="+79105650340">+7 (910) 565-03-40</button>
+      <a class="chip" href="tel:+79105650340">+7 (910) 565-03-40</a>
       <a class="chip" href="https://t.me/red_vent" target="_blank" rel="noopener" data-i18n="contact.channel">Личный канал</a>
       <a class="chip" href="https://www.tiktok.com/@ts_deadd" target="_blank" rel="noopener">TikTok</a>
     </div>
@@ -210,73 +250,18 @@
 
 <footer class="foot">
   <span>© 2026 NOVACODE</span>
-  <span data-i18n="foot.biz">Степан Бедин · сооснователь студии Duallix</span>
+  <span data-i18n="foot.biz">Степан Бедин · самозанятый, Рязань</span>
+  <a href="ai.html" data-i18n="foot.ai">Для работодателей</a>
   <a href="privacy.html" data-i18n="foot.privacy">Политика конфиденциальности</a>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- language gate: shown only on first visit -->
-<div class="langgate" id="langGate" role="dialog" aria-modal="true" aria-labelledby="langGate-title" hidden>
-  <div class="langgate__card">
-    <div class="langgate__step" id="langStep">
-    <p class="langgate__title" id="langGate-title">Выберите язык<span>Choose your language</span></p>
-    <div class="langgate__opts">
-      <button type="button" class="langgate__opt" data-lang="ru">
-        <span class="flag" aria-hidden="true">
-          <svg viewBox="0 0 30 20" width="30" height="20">
-            <rect width="30" height="20" fill="#fff"/>
-            <rect y="6.67" width="30" height="6.67" fill="#0039A6"/>
-            <rect y="13.33" width="30" height="6.67" fill="#D52B1E"/>
-          </svg>
-        </span>
-        <span class="langgate__lbl">Русский</span>
-      </button>
-      <button type="button" class="langgate__opt" data-lang="en">
-        <span class="flag" aria-hidden="true">
-          <svg viewBox="0 0 30 20" width="30" height="20">
-            <clipPath id="uk-r"><rect width="30" height="20" rx="0"/></clipPath>
-            <g clip-path="url(#uk-r)">
-              <rect width="30" height="20" fill="#012169"/>
-              <path d="M0,0 30,20 M30,0 0,20" stroke="#fff" stroke-width="4"/>
-              <path d="M0,0 30,20 M30,0 0,20" stroke="#C8102E" stroke-width="2.4"/>
-              <path d="M15,0 V20 M0,10 H30" stroke="#fff" stroke-width="6.5"/>
-              <path d="M15,0 V20 M0,10 H30" stroke="#C8102E" stroke-width="3.9"/>
-            </g>
-          </svg>
-        </span>
-        <span class="langgate__lbl">English</span>
-      </button>
-    </div>
-    </div>
-    <div class="langgate__step" id="goalStep" hidden>
-      <p class="langgate__title" id="goalStep-title" data-i18n="g.title">Что вас интересует?</p>
-      <div class="langgate__opts">
-        <button type="button" class="langgate__opt" data-goal="ai">
-          <span class="langgate__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
-          <span class="langgate__lbl"><span data-i18n="g.ai">AI-агенты и LLM</span><small data-i18n="g.aiT">ищу AI / LLM-инженера</small></span>
-        </button>
-        <button type="button" class="langgate__opt" data-goal="bots">
-          <span class="langgate__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span>
-          <span class="langgate__lbl"><span data-i18n="g.bots">Telegram-боты и магазины</span><small data-i18n="g.botsT">запись, заявки, магазин в Telegram</small></span>
-        </button>
-        <button type="button" class="langgate__opt" data-goal="web">
-          <span class="langgate__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span>
-          <span class="langgate__lbl"><span data-i18n="g.web">Сайты и лендинги</span><small data-i18n="g.webT">лендинг, сайт компании или мероприятия</small></span>
-        </button>
-        <button type="button" class="langgate__opt" data-goal="nfc">
-          <span class="langgate__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 8.5a5 5 0 0 1 0 7M9.5 6a9 9 0 0 1 0 12M13 3.5a13 13 0 0 1 0 17"/></svg></span>
-          <span class="langgate__lbl"><span data-i18n="g.nfc">NFC-метки</span><small data-i18n="g.nfcT">отзывы на Яндекс Картах в одно касание</small></span>
-        </button>
-      </div>
-      <button type="button" class="langgate__skip" data-goal="skip" data-i18n="g.skip">Просто посмотреть сайт</button>
-    </div>
-    <button type="button" class="langgate__close" aria-label="Закрыть" data-i18n-aria="g.close">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-  </div>
+<div class="mcta" id="mcta">
+  <a class="btn" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="mcta.write">Написать</a>
+  <a class="btn btn--ghost" href="tel:+79105650340" data-i18n="hero.call">Позвонить</a>
 </div>
 
-<script src="script.js?v=20261024-1"></script>
+<script src="script.js?v=20261026-1"></script>
 </body>
 </html>

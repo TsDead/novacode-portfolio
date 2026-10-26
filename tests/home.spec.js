@@ -1,66 +1,32 @@
-// Главная и AI-страница: окно языка, переводы, услуги, кейсы, меню, копирование контактов, демо.
+// Главная и AI-страница: язык, переводы, внедрение ИИ, калькулятор, услуги, кейсы, меню, контакты, демо-чат.
 const { test, expect } = require('@playwright/test');
 const { presetLang } = require('./helpers');
 
 const CYRILLIC = /[А-Яа-яЁё]/;
 
-/** Открыть главную и закрыть приветственное окно (оно показывается при каждом входе). */
+/** Открыть главную (приветственного окна больше нет). */
 async function openHome(page, url = '/index.html') {
   await page.goto(url);
-  await page.locator('.langgate__close').click();
-  await expect(page.locator('#langGate')).toBeHidden();
 }
 
-test.describe('приветственное окно', () => {
-  test('первый визит: язык, потом вопрос «Что вас интересует?»', async ({ page }) => {
-    await page.goto('/index.html');
-    const gate = page.locator('#langGate');
-    await expect(page.locator('#langStep')).toBeVisible();
-    await expect(page.locator('#goalStep')).toBeHidden();
-    await expect(page.locator('body')).toHaveClass(/menu-open/);   // прокрутка заблокирована, пока окно открыто
-    await gate.locator('[data-lang="en"]').click();
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-    await expect(page.locator('#goalStep')).toBeVisible();
-    await expect(page.locator('#goalStep-title')).toHaveText('What are you interested in?');
-    expect(await page.evaluate(() => localStorage.getItem('lang'))).toBe('en');
-  });
-
-  test('повторный визит: язык не спрашивает, сразу вопрос', async ({ page }) => {
-    await presetLang(page, 'ru');
-    await page.goto('/index.html');
-    await expect(page.locator('#langStep')).toBeHidden();
-    await expect(page.locator('#goalStep')).toBeVisible();
-    await expect(page.locator('#goalStep-title')).toHaveText('Что вас интересует?');
-  });
-
-  test('ответы ведут в нужное место', async ({ page }) => {
-    await presetLang(page, 'ru');
-    for (const [goal, check] of [
-      ['bots', async () => { await expect(page.locator('#svc-bot')).toBeInViewport(); }],
-      ['web', async () => { await expect(page.locator('#svc-web')).toBeInViewport(); }],
-      ['ai', async () => { await expect(page).toHaveURL(/ai\.html$/); }],
-      ['nfc', async () => { await expect(page).toHaveURL(/nfc\.html$/); }],
-      ['skip', async () => { await expect(page.locator('#langGate')).toBeHidden(); }],
-    ]) {
+test.describe('язык без окна выбора', () => {
+  test('окна выбора нет, язык берётся из браузера', async ({ browser }) => {
+    for (const [locale, lang] of [['ru-RU', 'ru'], ['en-US', 'en']]) {
+      const ctx = await browser.newContext({ locale });
+      const page = await ctx.newPage();
       await page.goto('/index.html');
-      await page.locator(`[data-goal="${goal}"]`).click();
-      await check();
-      if (goal === 'bots' || goal === 'web') {
-        await expect(page.locator('#langGate')).toBeHidden();
-        await expect(page.locator('body')).not.toHaveClass(/menu-open/);
-      }
+      await expect(page.locator('#langGate')).toHaveCount(0);
+      await expect(page.locator('html')).toHaveAttribute('lang', lang);
+      await expect(page.locator('body')).not.toHaveClass(/menu-open/);
+      await ctx.close();
     }
   });
 
-  test('закрывается крестиком и клавишей Esc', async ({ page }) => {
+  test('выбранный язык запоминается', async ({ page }) => {
     await page.goto('/index.html');
-    await page.locator('.langgate__close').click();
-    await expect(page.locator('#langGate')).toBeHidden();
-    await expect(page.locator('body')).not.toHaveClass(/menu-open/);
+    await page.locator('.lang [data-lang="en"]').click();
     await page.reload();
-    await expect(page.locator('#langGate')).toBeVisible();
-    await page.keyboard.press('Escape');
-    await expect(page.locator('#langGate')).toBeHidden();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   });
 
   test('на AI-странице окна нет', async ({ page }) => {
@@ -96,14 +62,40 @@ for (const path of ['index.html', 'ai.html']) {
 test.describe('главная', () => {
   test.beforeEach(async ({ page }) => { await presetLang(page); await openHome(page); });
 
-  test('пять услуг с ценами и действиями, внедрение ИИ — первым', async ({ page }) => {
-    const cards = page.locator('.svc__card');
-    await expect(cards).toHaveCount(5);
-    await expect(cards.first()).toHaveAttribute('id', 'svc-ai');
+  test('первый экран: внедрение ИИ, кнопки разбора и звонка, отзывы на Авито', async ({ page }) => {
+    await expect(page.locator('h1')).toContainText('теряет заявки');
+    await expect(page.locator('.hero__actions a.btn').first()).toHaveAttribute('href', 'https://t.me/n0vacode');
+    await expect(page.locator('.hero__actions a[href="tel:+79105650340"]')).toHaveCount(1);
+    await expect(page.locator('.hero__facts')).toContainText('отзывов на Авито');
+  });
+
+  test('лестница внедрения: четыре шага, разбор бесплатный, ссылка на подробности', async ({ page }) => {
+    const steps = page.locator('.ladder li');
+    await expect(steps).toHaveCount(4);
+    await expect(steps.first()).toContainText('бесплатно');
+    await expect(steps.nth(2)).toContainText('30');
+    await expect(page.locator('#services a[href="vnedrenie.html"]')).toHaveCount(1);
+  });
+
+  test('калькулятор потерь пересчитывает сумму и переключает режим', async ({ page }) => {
+    const loss = page.locator('#loss');
+    await expect(loss).toHaveText('180 000 ₽');        // 10 заявок × 30 дней × 20% × 30% × 10 000 ₽
+    await page.locator('#check').fill('20000');
+    await expect(loss).toHaveText('360 000 ₽');
+    await page.locator('[data-mode="routine"]').click();
+    await expect(page.locator('#fRoutine')).toBeVisible();
+    await expect(loss).toHaveText('52 800 ₽');         // 3 сотрудника × 2 ч × 22 дня × 400 ₽
+    await expect(page.locator('#calc a.btn')).toHaveAttribute('href', 'https://t.me/n0vacode');
+  });
+
+  test('четыре быстрых решения с ценой, составом и действием', async ({ page }) => {
+    const cards = page.locator('#quick .svc__card');
+    await expect(cards).toHaveCount(4);
     for (const card of await cards.all()) {
       await expect(card.locator('h3')).not.toBeEmpty();
       await expect(card.locator('.svc__price b')).toHaveText(/\d.*₽/);
-      await expect(card.locator('a.link')).toHaveAttribute('href', /^(https:\/\/t\.me\/n0vacode|nfc\.html|vnedrenie\.html)$/);
+      await expect(card.locator('.svc__inc')).toContainText('Входит');
+      await expect(card.locator('a.link')).toHaveAttribute('href', /^(https:\/\/t\.me\/n0vacode|nfc\.html)$/);
     }
   });
 
@@ -120,6 +112,7 @@ test.describe('главная', () => {
     const names = await page.locator('.pitem__name').allTextContents();
     expect(names).toEqual(['YFB Store', 'BarBot', 'Кумиры Северной Пальмиры', 'Ремонт квартир', 'AI-генератор карточек', 'Duallix']);
     await expect(page.locator('.pfilter')).toHaveCount(0);
+    await expect(page.locator('#work .tags')).toHaveCount(0);   // стек технологий заказчику не показываем
     await page.locator('.pitem__btn', { hasText: 'Ремонт квартир' }).click();
     await expect(page.locator('.stage .stage__line')).toContainText('цену ремонта');
     const more = page.locator('.stage .more');
@@ -129,16 +122,17 @@ test.describe('главная', () => {
   });
 
   test('пункты меню ведут к своим разделам', async ({ page, isMobile }) => {
-    for (const [href, id] of [['#services', 'services'], ['#work', 'work'], ['#contact', 'contact']]) {
+    for (const [href, id] of [['#services', 'services'], ['#calc', 'calc'], ['#quick', 'quick'], ['#work', 'work'], ['#contact', 'contact']]) {
       if (isMobile) await page.locator('#burger').click();
       await page.locator(`.nav a[href="${href}"]`).click();
       await expect(page.locator('#' + id)).toBeInViewport();
     }
-    await expect(page.locator('.nav a[href="ai.html"]')).toHaveCount(1);
+    await expect(page.locator('.nav a[href="ai.html"]')).toHaveCount(0);
   });
 
-  test('карточка «Ищете AI / LLM-инженера?» ведёт на ai.html', async ({ page }) => {
-    await page.locator('.aiteaser__card').click();
+  test('ссылка «Для работодателей» в подвале ведёт на ai.html', async ({ page }) => {
+    await expect(page.locator('.aiteaser')).toHaveCount(0);
+    await page.locator('.foot a[href="ai.html"]').click();
     await expect(page).toHaveURL(/ai\.html$/);
     await expect(page.locator('h1')).toContainText('Степан');
   });
@@ -152,14 +146,18 @@ test.describe('главная', () => {
     expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('stepchikcrypto@gmail.com');
   });
 
-  test('демо магазина в Telegram само проигрывается и ставится на паузу', async ({ page }) => {
-    await page.locator('#tg').scrollIntoViewIfNeeded();                 // за кадром демо стоит на паузе
-    await expect(page.locator('#tgScreen .chat')).toBeVisible();
-    await expect(page.locator('#tgScreen .view.app').first()).toBeVisible({ timeout: 10_000 });
-    const toggle = page.locator('#demoToggle');
-    await expect(toggle).toHaveText('Пауза');
-    await toggle.click();
-    await expect(toggle).toHaveText('Продолжить');
+  test('ночной чат сам проигрывается и показывает заявку в CRM', async ({ page }) => {
+    await page.locator('#chat').scrollIntoViewIfNeeded();
+    await expect(page.locator('#chatLog .crm')).toHaveClass(/on/, { timeout: 10_000 });
+    await expect(page.locator('#chatNote')).toHaveText('Менеджер спит. Заявка не потерялась.');
+    await expect(page.locator('#chatReplay')).toBeEnabled();
+  });
+
+  test('на телефоне внизу закреплены кнопки «Написать» и «Позвонить»', async ({ page, isMobile }) => {
+    const bar = page.locator('#mcta');
+    if (!isMobile) { await expect(bar).toBeHidden(); return; }
+    await expect(bar).toBeVisible();
+    await expect(bar.locator('a[href="tel:+79105650340"]')).toBeVisible();
   });
 
   test('ссылки в подвале: политика конфиденциальности', async ({ page }) => {

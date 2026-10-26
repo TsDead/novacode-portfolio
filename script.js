@@ -19,11 +19,11 @@
     'ai.meta.desc': 'Stepan Bedin, AI / LLM engineer: autonomous agents, RAG over vector databases, MCP servers, evaluation and observability. Projects with code and live demos.',
     skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Site language',
     'nav.work': 'Work', 'nav.game': 'Game', 'nav.price': 'Prices', 'nav.nfc': 'NFC tags', 'nav.contact': 'Contact', 'nav.services': 'Services & prices', 'nav.ai': 'AI engineer', 'nav.projects': 'Projects', 'nav.biz': 'For business',
-    'h.role': 'Stepan Bedin · NOVACODE', 'h.name': 'Bots and websites for business', 'h.line': 'Telegram bots, shops inside Telegram, websites and NFC review tags. I build them myself, from 3,500 ₽, live in 1–3 days.', 'h.services': 'Services & prices', 'h.f1': 'Since 2024', 'h.f2': 'I build it myself, no middlemen', 'h.f3': '14 days of free support',
+    'h.role': 'AI for business · Ryazan', 'h.name': 'I find where your business loses leads and fix it with AI', 'h.line': 'I answer your customers 24/7, take routine off your staff and show the result in rubles. We start with a free audit.', 'h.services': 'Services & prices', 'h.f1': 'I come to your office', 'h.f2': 'Self-employed, official receipts', 'h.f3': 'Data stays in Russia',
     'eb.svc': 'Services & prices', 'eb.work': 'Cases', 'eb.contact': 'Contact', 'eb.ai': 'Projects',
     'svc.botE': 'Example: BarBot', 'svc.shopE': 'Example: YFB Store', 'svc.webE': 'Example: hologram exhibition',
     'ai.stack': 'What I work with', 'ai.stackNote': '7 projects with code on GitHub, 2 with a live demo',
-    'svc.title': 'What I build',
+    'svc.title': 'How I work with businesses',
     'svc.bot': 'Booking & request bot', 'svc.botT': 'Clients book and send requests themselves; you get everything in Telegram and a spreadsheet.', 'svc.botP': 'from 3,500 ₽', 'svc.botD': '1–3 days', 'svc.botA': 'Discuss on Telegram',
     'svc.shop': 'Shop inside Telegram', 'svc.shopT': 'Catalog, cart and delivery right in Telegram. Products are pulled from your channel.', 'svc.shopP': 'from 15,000 ₽', 'svc.shopD': 'from 1 week', 'svc.shopA': 'Discuss on Telegram',
     'svc.web': 'Website or landing page', 'svc.webT': 'A page with your services, prices and a contact button. More complex, with a calculator and two languages, from 10,000 ₽.', 'svc.webP': 'from 5,000 ₽', 'svc.webD': '3–5 days', 'svc.webA': 'Discuss on Telegram',
@@ -31,12 +31,12 @@
     'svc.nfc': 'NFC tags for reviews', 'svc.nfcT': 'A customer taps their phone on the tag and leaves a review on Yandex Maps right away.', 'svc.nfcP': 'from 1,990 ₽', 'svc.nfcD': 'one-time', 'svc.nfcA': 'More about the tags',
     'svc.more': 'Also: a custom bot with payments, spreadsheets and CRM, from 15,000 ₽. AI product-card generator for Wildberries and Ozon, 15,000 ₽.',
     'ait.aria': 'For employers', 'ait.eyebrow': 'For employers', 'ait.title': 'Looking for an AI / LLM engineer?', 'ait.text': 'Agents, RAG, MCP servers, evaluation: 7 projects with code and live demos.',
-    'ai.projects': 'See the projects', 'ai.title': 'AI projects', 'foot.biz': 'Stepan Bedin · co-founder of Duallix studio',
+    'ai.projects': 'See the projects', 'ai.title': 'AI projects', 'foot.biz': 'Stepan Bedin · self-employed, Ryazan',
     'g.title': 'What are you interested in?', 'g.ai': 'AI agents & LLM', 'g.aiT': 'hiring an AI / LLM engineer', 'g.bots': 'Telegram bots & shops', 'g.botsT': 'bookings, requests, a shop in Telegram', 'g.web': 'Websites & landing pages', 'g.webT': 'landing page, company or event site', 'g.nfc': 'NFC tags', 'g.nfcT': 'Yandex Maps reviews in one tap', 'g.skip': 'Just browse the site', 'g.close': 'Close', 'foot.privacy': 'Privacy policy',
     'hero.role': 'AI / LLM Engineer',
     'hero.name': 'Stepan Bedin',
     'hero.line': 'I build autonomous agents, RAG and MCP servers. Plus websites and bots, end-to-end.',
-    'hero.cta': 'Message me on Telegram', 'hero.work': 'See the work',
+    'hero.cta': 'Free audit', 'hero.work': 'See the work',
     'demo.aria': 'A customer orders a hoodie in the YFB Store shop inside Telegram', 'demo.bot': 'bot',
     'work.title': 'Work',
     'game.studio': 'Duallix studio’s own game',
@@ -49,7 +49,26 @@
     step2: 'Development', step2t: 'I show versions along the way',
     step3: 'Launch', step3t: 'plus 14 days of free support',
     'contact.title': 'Contact', 'contact.lead': 'Message me, I reply within a day', 'contact.channel': 'Personal channel',
-    foot: 'AI / LLM Engineer · co-founder of Duallix studio'
+    foot: 'AI / LLM Engineer · co-founder of Duallix studio',
+    'nav.impl': 'AI for business', 'nav.calc': 'Loss calculator', 'nav.quick': 'Bots & websites',
+    'hero.call': 'Call', 'h.f4': '25+ reviews on Avito', 'mcta.write': 'Message',
+    'chat.av': 'AI', 'chat.biz': 'Renovation company', 'chat.m1': 'Hi! How much is a 6 m² bathroom renovation?', 'chat.m2': 'Good evening! Turnkey or just tiling? Do you have a design, or do you need a measurement visit?',
+    'chat.m3': 'Turnkey, need a measurement', 'chat.m4': 'I can book a surveyor for tomorrow: 10:00 or 15:00?', 'chat.crm': 'New request in the CRM',
+    'chat.crmT': 'Turnkey bathroom renovation, 6 m², measurement tomorrow at 15:00', 'chat.crmS': 'the manager will see it in the morning',
+    'chat.aria': 'Example: a customer writes at night, the AI clarifies the details and creates a request in the CRM', 'chat.on': 'assistant online', 'chat.again': 'Replay',
+    'eb.impl': 'AI for business', 'lad.1': 'Audit', 'lad.1p': 'free', 'lad.1t': 'I come to your office for an hour and look at your requests and chats. You get a map of where and how much you lose.',
+    'lad.2': 'Pilot', 'lad.2p': 'free for the first 3 companies', 'lad.2t': 'I fix one leak in 2–4 weeks and measure before and after on your own requests.',
+    'lad.3': 'Implementation', 'lad.3p': 'from 30,000 ₽', 'lad.3t': '24/7 replies to customers, documents in minutes, an evening summary for the owner. Connected to your CRM, spreadsheets and messengers.',
+    'lad.4': 'Support', 'lad.4p': 'by agreement', 'lad.4t': 'I update the knowledge base, check answer quality and send a monthly report in numbers.',
+    'eb.calc': 'Calculator', 'calc.title': 'How much you lose now', 'calc.lead': 'Plug in your own numbers. No “market averages”.', 'calc.aria': 'What to calculate',
+    'calc.m1': 'Missed requests', 'calc.m2': 'Staff routine', 'calc.leads': 'Requests per day', 'calc.missed': 'Unanswered or answered after an hour or more',
+    'calc.conv': 'Share of requests that become sales', 'calc.check': 'Average order', 'calc.staff': 'Staff doing repetitive work',
+    'calc.hours': 'Hours a day each spends on the same tasks', 'calc.rate': 'One staff hour costs you', 'calc.cta': 'Review my numbers for free',
+    'calc.note': 'An estimate based on your numbers, not a promise. The audit gives the real picture: we look at actual requests and chats from recent weeks.',
+    'eb.quick': 'Quick solutions', 'quick.title': 'Bots and websites from 3,500 ₽',
+    'svc.botI': 'Includes: setup for your services, a requests spreadsheet, 14 days of support.', 'svc.shopI': 'Includes: catalog from your channel, cart, CDEK delivery, 14 days of support.',
+    'svc.webI': 'Includes: structure and copy, mobile version, contact buttons.', 'svc.nfcI': 'Includes: the tag and a link straight to your Yandex Maps reviews.',
+    'foot.ai': 'For employers'
   };
   const UI = {
     ru: { sent: 'Заявка отправлена. Отвечу в течение дня.', fail: 'Не отправилось. Напишите в Telegram: @n0vacode', fill: 'Заполните все три поля.', sending: 'Отправляю…', copied: 'Скопировано', play: 'Продолжить', pause: 'Пауза', next: 'Следующий шаг', again: 'Сначала', menuOpen: 'Закрыть меню', menuClosed: 'Открыть меню', more: 'Как это было', less: 'Свернуть', was: 'Было', did: 'Сделал', end: 'Итог', hintTouch: 'Посветите фонариком: ведите пальцем', formClose: 'Скрыть заявку' },
@@ -133,7 +152,9 @@
     { v: 15000, from: false, ru: ['AI-генератор карточек', 'сразу', 'Готовая программа, разовая оплата'], en: ['AI card generator', 'right away', 'Ready app, one-time payment'] }
   ];
 
-  let lang = store.get('lang') === 'en' ? 'en' : 'ru';
+  // язык: сохранённый выбор, иначе язык браузера (окно выбора языка убрано)
+  const savedLang = store.get('lang');
+  let lang = savedLang ? (savedLang === 'en' ? 'en' : 'ru') : (/^en/i.test(navigator.language || '') ? 'en' : 'ru');
   const RU = {};
   const nodes = { text: [...document.querySelectorAll('[data-i18n]')], aria: [...document.querySelectorAll('[data-i18n-aria]')] };
   nodes.text.forEach(el => { RU[el.dataset.i18n] = el.innerHTML; });
@@ -173,6 +194,8 @@
     game.hint();
     price.build();
     demo.relang();
+    chat.relang();
+    calc.render();
   }
   document.querySelectorAll('.lang button').forEach(btn => btn.addEventListener('click', () => {
     if (btn.dataset.lang === lang) return;
@@ -322,7 +345,7 @@
         <div class="stage__media">${media(p)}</div>
         <div class="stage__info">
           <p class="stage__line">${esc(s.line)}</p>
-          <ul class="tags">${p.tags.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+          ${PAGE === 'ai' ? `<ul class="tags">${p.tags.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
           <div class="stage__actions">
             <button type="button" class="more" aria-expanded="false" aria-controls="det-${p.id}"><i aria-hidden="true"></i><span>${u.more}</span></button>
             ${p.link ? `<a class="link" href="${p.link}" target="_blank" rel="noopener">${esc(s.open)}</a>` : ''}
@@ -729,60 +752,68 @@
   })();
 
 
+  /* ---------------- ночной чат на первом экране ---------------- */
+  const chat = (() => {
+    const log = document.getElementById('chatLog');
+    if (!log) return { relang() {} };
+    const items = [...log.children], replay = document.getElementById('chatReplay'), note = document.getElementById('chatNote');
+    const NOTE = { ru: ['Клиент пишет ночью…', 'Менеджер спит. Заявка не потерялась.'], en: ['A customer writes at night…', 'The manager is asleep. The request isn’t lost.'] };
+    let playing = false, done = false;
+    const wait = ms => new Promise(r => setTimeout(r, reduceMotion.matches ? 0 : ms));
+    async function play() {
+      if (playing) return; playing = true; replay.disabled = true; done = false;
+      items.forEach(i => i.classList.remove('on')); note.textContent = NOTE[lang][0];
+      for (const [i, el] of items.entries()) { await wait(i ? 900 : 300); el.classList.add('on'); }
+      done = true; note.textContent = NOTE[lang][1];
+      playing = false; replay.disabled = false;
+    }
+    replay.addEventListener('click', play);
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) { items.forEach(i => i.classList.add('on')); done = true; }
+    else new IntersectionObserver(([e], o) => { if (e.isIntersecting) { play(); o.disconnect(); } }, { threshold: .4 }).observe(log);
+    return { relang() { note.textContent = NOTE[lang][done ? 1 : 0]; } };
+  })();
+
+  /* ---------------- калькулятор потерь ---------------- */
+  const calc = (() => {
+    const $ = id => document.getElementById(id);
+    if (!$('loss')) return { render() {} };
+    let mode = 'leads';
+    const money = n => Math.round(n).toLocaleString(lang === 'en' ? 'en-US' : 'ru-RU') + ' ₽';
+    const plural = (n, a, b, c) => { const m = n % 10, h = n % 100; return m === 1 && h !== 11 ? a : m >= 2 && m <= 4 && (h < 10 || h >= 20) ? b : c; };
+    function render() {
+      const ru = lang === 'ru';
+      if (mode === 'leads') {
+        const leads = +$('leads').value, missed = +$('missed').value, conv = +$('conv').value, check = +$('check').value;
+        const lost = leads * 30 * missed / 100, sum = lost * conv / 100 * check, k = Math.round(lost);
+        $('leadsOut').textContent = leads; $('missedOut').textContent = missed + '%'; $('convOut').textContent = conv + '%'; $('checkOut').textContent = money(check);
+        $('resCap0').textContent = ru ? 'В месяц уходит примерно' : 'Each month you lose about';
+        $('loss').textContent = money(sum);
+        $('resCap').textContent = ru ? 'на заявках, до которых не дошли руки' : 'on requests nobody got to';
+        $('resSub').innerHTML = ru
+          ? `Это <b>${k}</b> ${plural(k, 'заявка', 'заявки', 'заявок')} в месяц и <b>${money(sum * 12)}</b> в год. Если ИИ отвечает за минуту, хотя бы половину из них можно вернуть.`
+          : `That’s <b>${k}</b> requests a month and <b>${money(sum * 12)}</b> a year. If AI replies within a minute, at least half can be won back.`;
+      } else {
+        const staff = +$('staff').value, hours = +$('hours').value, rate = +$('rate').value;
+        const hh = staff * hours * 22, sum = hh * rate, n = Math.round(hh);
+        $('staffOut').textContent = staff; $('hoursOut').textContent = ru ? String(hours).replace('.', ',') : hours; $('rateOut').textContent = money(rate);
+        $('resCap0').textContent = ru ? 'В месяц вы платите примерно' : 'Each month you pay about';
+        $('loss').textContent = money(sum);
+        $('resCap').textContent = ru ? 'за однотипную работу, которую может делать ИИ' : 'for repetitive work AI can do';
+        $('resSub').innerHTML = ru
+          ? `Это <b>${n}</b> ${plural(n, 'час', 'часа', 'часов')} в месяц. Если ИИ заберёт хотя бы половину, вернётся <b>${money(sum / 2)}</b> и <b>${Math.round(hh / 2)}</b>&nbsp;ч.`
+          : `That’s <b>${n}</b> hours a month. If AI takes even half, you get back <b>${money(sum / 2)}</b> and <b>${Math.round(hh / 2)}</b>&nbsp;h.`;
+      }
+    }
+    document.querySelectorAll('.calc input').forEach(i => i.addEventListener('input', render));
+    document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+      mode = b.dataset.mode;
+      document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
+      $('fLeads').hidden = mode !== 'leads'; $('fRoutine').hidden = mode !== 'routine';
+      render();
+    }));
+    return { render };
+  })();
+
   applyLang();
 
-  /* ---------------- welcome gate: язык (только первый визит), затем направление (каждый визит) ---------------- */
-  (function langGate() {
-    const gate = document.getElementById('langGate');
-    if (!gate) return;
-    const langStep = document.getElementById('langStep');
-    const goalStep = document.getElementById('goalStep');
-    const buttons = () => [...gate.querySelectorAll('.langgate__step:not([hidden]) button, .langgate__close')];
-
-    function close() {
-      gate.hidden = true;
-      document.removeEventListener('keydown', onKey);
-      document.body.classList.remove('menu-open');
-    }
-    function choose(code) {
-      lang = code === 'en' ? 'en' : 'ru';
-      store.set('lang', lang);
-      applyLang();
-      showGoal();
-    }
-    function showGoal() {
-      langStep.hidden = true;
-      goalStep.hidden = false;
-      gate.setAttribute('aria-labelledby', 'goalStep-title');
-      requestAnimationFrame(() => buttons()[0].focus());
-    }
-    function go(goal) {
-      close();
-      if (goal === 'nfc') { location.href = 'nfc.html'; return; }
-      if (goal === 'ai') { location.href = 'ai.html'; return; }
-      if (goal === 'skip') return;
-      const target = document.getElementById(goal === 'bots' ? 'svc-bot' : 'svc-web');
-      target.scrollIntoView({ block: 'center', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-      target.classList.add('is-picked'); setTimeout(() => target.classList.remove('is-picked'), 2200);
-    }
-    function onKey(e) {
-      if (e.key === 'Escape') { close(); return; }
-      if (e.key !== 'Tab') return;                  // держим фокус внутри окна
-      const opts = buttons(), first = opts[0], last = opts[opts.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-
-    gate.addEventListener('click', e => {
-      if (e.target.closest('.langgate__close')) { close(); return; }
-      const l = e.target.closest('[data-lang]'); if (l) { choose(l.dataset.lang); return; }
-      const g = e.target.closest('[data-goal]'); if (g) go(g.dataset.goal);
-    });
-    document.addEventListener('keydown', onKey);      // Esc работает, даже если фокус ещё не в окне
-
-    gate.hidden = false;
-    document.body.classList.add('menu-open');       // блокируем скролл (класс уже есть в CSS)
-    if (store.get('lang')) showGoal();              // язык уже выбран — сразу вопрос о направлении
-    else requestAnimationFrame(() => buttons()[0].focus());
-  })();
 })();
