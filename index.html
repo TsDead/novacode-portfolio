@@ -49,7 +49,7 @@
 <link rel="preload" href="fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/onest-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20261027-1">
+<link rel="stylesheet" href="style.css?v=20261027-2">
 </head>
 <body>
 <div class="glow" aria-hidden="true"></div>
@@ -64,6 +64,7 @@
         <li><a href="#calc" data-i18n="nav.calc">Калькулятор потерь</a></li>
         <li><a href="#quick" data-i18n="nav.quick">Боты и сайты</a></li>
         <li><a href="#work" data-i18n="nav.work">Работы</a></li>
+        <li><a href="#reviews" data-i18n="nav.rev">Отзывы</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Контакты</a></li>
       </ul>
       <a class="nav__tg" href="https://t.me/n0vacode" target="_blank" rel="noopener">@n0vacode</a>
@@ -90,8 +91,11 @@
         <a class="btn" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-i18n="hero.cta">Бесплатный разбор</a>
         <a class="btn btn--ghost" href="tel:+79105650340" data-i18n="hero.call">Позвонить</a>
       </div>
+      <a class="revbadge" href="#reviews">
+        <span class="revbadge__stars" aria-hidden="true">★★★★★</span>
+        <span><b data-i18n="rb.n">25+ отзывов на Авито</b><small data-i18n="rb.t">читать отзывы</small></span>
+      </a>
       <ul class="hero__facts">
-        <li data-i18n="h.f4"><a class="hero__rev" href="https://www.avito.ru/brands/bef6b6dd2afa4adc1995c39daeae428e" target="_blank" rel="noopener">25+ отзывов на Авито</a></li>
         <li data-i18n="h.f1">Приеду к вам в офис</li>
         <li data-i18n="h.f2">Самозанятый, выдаю чек</li>
         <li data-i18n="h.f3">Данные остаются в России</li>
@@ -233,10 +237,35 @@
 
 
 
+  <!-- REVIEWS -->
+  <section class="svc revs" id="reviews" aria-labelledby="rev-title">
+    <p class="eyebrow" data-reveal><span class="eyebrow__n">05</span><span data-i18n="eb.rev">Отзывы</span></p>
+    <h2 id="rev-title" class="svc__title" data-reveal data-i18n="rev.title">Что пишут клиенты</h2>
+    <div class="revs__grid">
+      <figure class="rev" data-reveal>
+        <div class="rev__head"><span class="rev__ava" aria-hidden="true">В</span><div><b data-i18n="rev.1n">Владислав</b><small data-i18n="rev.1d">16 апреля</small></div><span class="rev__stars" aria-label="5 из 5" data-i18n-aria="rev.five">★★★★★</span></div>
+        <blockquote data-i18n="rev.1t">Степан превосходный специалист! Общался на&nbsp;доступном языке. Рассказал причину проблемы, как её избежать в&nbsp;будущем, и&nbsp;всё исправил моментально. Рекомендую обратиться к&nbsp;нему, если вы хотите получить качественный результат!</blockquote>
+      </figure>
+      <figure class="rev" data-reveal>
+        <div class="rev__head"><span class="rev__ava" aria-hidden="true">М</span><div><b data-i18n="rev.2n">Марина</b><small data-i18n="rev.2d">9 апреля</small></div><span class="rev__stars" aria-label="5 из 5" data-i18n-aria="rev.five">★★★★★</span></div>
+        <blockquote data-i18n="rev.2t">Отличный специалист! Очень приятный и&nbsp;вежливый молодой человек! Помог и&nbsp;решил мою проблему.</blockquote>
+      </figure>
+      <figure class="rev" data-reveal>
+        <div class="rev__head"><span class="rev__ava" aria-hidden="true">Т</span><div><b data-i18n="rev.3n">Тимур</b><small data-i18n="rev.3d">2 июня</small></div><span class="rev__stars" aria-label="5 из 5" data-i18n-aria="rev.five">★★★★★</span></div>
+        <blockquote data-i18n="rev.3t">Всё отлично.</blockquote>
+      </figure>
+      <figure class="rev" data-reveal>
+        <div class="rev__head"><span class="rev__ava" aria-hidden="true">М</span><div><b data-i18n="rev.4n">Масхуд</b><small data-i18n="rev.4d">10 апреля</small></div><span class="rev__stars" aria-label="5 из 5" data-i18n-aria="rev.five">★★★★★</span></div>
+        <blockquote data-i18n="rev.4t">Советую всем.</blockquote>
+      </figure>
+    </div>
+    <p class="revs__note" data-reveal><span data-i18n="rev.note">Отзывы оставлены на&nbsp;Авито по&nbsp;разным моим услугам. Тексты&nbsp;— без изменений, все можно проверить в&nbsp;профиле.</span> <a class="link" href="https://www.avito.ru/brands/bef6b6dd2afa4adc1995c39daeae428e" target="_blank" rel="noopener" data-i18n="rev.all">Все отзывы на&nbsp;Авито</a></p>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact" id="contact" aria-labelledby="contact-title">
     <h2 id="contact-title" class="visually-hidden" data-i18n="contact.title">Контакты</h2>
-    <p class="eyebrow" data-reveal><span class="eyebrow__n">05</span><span data-i18n="eb.contact">Связь</span></p>
+    <p class="eyebrow" data-reveal><span class="eyebrow__n">06</span><span data-i18n="eb.contact">Связь</span></p>
     <p class="contact__lead" data-reveal data-i18n="contact.lead">Напишите, отвечу в течение дня</p>
     <a class="contact__tg" href="https://t.me/n0vacode" target="_blank" rel="noopener" data-reveal>@n0vacode</a>
     <div class="contact__row" data-reveal>
@@ -262,6 +291,6 @@
   <a class="btn btn--ghost" href="tel:+79105650340" data-i18n="hero.call">Позвонить</a>
 </div>
 
-<script src="script.js?v=20261027-1"></script>
+<script src="script.js?v=20261027-2"></script>
 </body>
 </html>

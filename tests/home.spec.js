@@ -66,8 +66,9 @@ test.describe('главная', () => {
     await expect(page.locator('h1')).toContainText('теряет заявки');
     await expect(page.locator('.hero__actions a.btn').first()).toHaveAttribute('href', 'https://t.me/n0vacode');
     await expect(page.locator('.hero__actions a[href="tel:+79105650340"]')).toHaveCount(1);
-    await expect(page.locator('.hero__facts')).toContainText('отзывов на Авито');
-    await expect(page.locator('.hero__facts a.hero__rev')).toHaveAttribute('href', 'https://www.avito.ru/brands/bef6b6dd2afa4adc1995c39daeae428e');
+    await expect(page.locator('.revbadge')).toContainText('отзывов на Авито');
+    await page.locator('.revbadge').click();
+    await expect(page.locator('#reviews')).toBeInViewport();
   });
 
   test('лестница внедрения: четыре шага, разбор бесплатный, ссылка на подробности', async ({ page }) => {
@@ -123,12 +124,17 @@ test.describe('главная', () => {
   });
 
   test('пункты меню ведут к своим разделам', async ({ page, isMobile }) => {
-    for (const [href, id] of [['#services', 'services'], ['#calc', 'calc'], ['#quick', 'quick'], ['#work', 'work'], ['#contact', 'contact']]) {
+    for (const [href, id] of [['#services', 'services'], ['#calc', 'calc'], ['#quick', 'quick'], ['#work', 'work'], ['#reviews', 'reviews'], ['#contact', 'contact']]) {
       if (isMobile) await page.locator('#burger').click();
       await page.locator(`.nav a[href="${href}"]`).click();
       await expect(page.locator('#' + id)).toBeInViewport();
     }
     await expect(page.locator('.nav a[href="ai.html"]')).toHaveCount(0);
+  });
+
+  test('блок отзывов: четыре отзыва и ссылка на профиль Авито', async ({ page }) => {
+    await expect(page.locator('#reviews .rev')).toHaveCount(4);
+    await expect(page.locator('#reviews a[href="https://www.avito.ru/brands/bef6b6dd2afa4adc1995c39daeae428e"]')).toHaveCount(1);
   });
 
   test('ссылка «Для работодателей» в подвале ведёт на ai.html', async ({ page }) => {
